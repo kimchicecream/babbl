@@ -10,11 +10,7 @@ class User(db.Model, UserMixin):
 
     if environment == "production":
         __table_args__ = {'schema': SCHEMA}
-    #this was given
-    # id = db.Column(db.Integer, primary_key=True)
-    # username = db.Column(db.String(40), nullable=False, unique=True)
-    # email = db.Column(db.String(255), nullable=False, unique=True)
-    # hashed_password = db.Column(db.String(255), nullable=False)
+
     id = Column(Integer, primary_key=True)
     firstName = Column(String(50), nullable=False)
     lastName = Column(String(50), nullable=False)
@@ -36,17 +32,16 @@ class User(db.Model, UserMixin):
         back_populates = "users"
     )
 
-
     @property
     def password(self):
-        return self.hashed_password
+        return self.hashedPassword
 
     @password.setter
     def password(self, password):
-        self.hashed_password = generate_password_hash(password)
+        self.hashedPassword = generate_password_hash(password)
 
     def check_password(self, password):
-        return check_password_hash(self.password, password)
+        return check_password_hash(self.hashedPassword, password)
 
     def to_dict(self):
         return {
@@ -54,15 +49,3 @@ class User(db.Model, UserMixin):
             'username': self.username,
             'email': self.email
         }
-
-
-# class Lesson(db.Model):
-#     __tablename__ = "lessons"
-#     id = db.Column(db.Integer, primary_key=True)
-#     # other columns
-
-#     students = db.relationship(
-#         "Student",
-#         secondary=student_lessons,
-#         back_populates="lessons"
-#     )
