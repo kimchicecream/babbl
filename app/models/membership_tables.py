@@ -17,10 +17,9 @@
 from .db import db, add_prefix_for_prod
 from sqlalchemy import Column, Integer, String,  ForeignKey, Boolean
 
-
-
 server_membership= db.Table(
     "server_memberships",
+    db.Model.metadata,
     Column(
         "user_id",
         Integer,
@@ -37,6 +36,7 @@ server_membership= db.Table(
 
 channel_membership= db.Table(
     "channel_memberships",
+    db.Model.metadata,
     Column(
         "user_id",
         Integer,
