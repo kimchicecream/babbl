@@ -10,7 +10,9 @@ from .api.auth_routes import auth_routes
 from .seeds import seed_commands
 from .config import Config
 
+
 app = Flask(__name__, static_folder='../react-vite/dist', static_url_path='/')
+
 
 # Setup login manager
 login = LoginManager(app)
@@ -29,7 +31,7 @@ app.config.from_object(Config)
 app.register_blueprint(user_routes, url_prefix='/api/users')
 app.register_blueprint(auth_routes, url_prefix='/api/auth')
 db.init_app(app)
-Migrate(app, db)
+migrate = Migrate(app, db)
 
 # Application Security
 CORS(app)
