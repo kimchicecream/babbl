@@ -1,3 +1,12 @@
 .profile-dropdown {
   position: absolute;
 }
+
+.navigation-bar {
+  background-color: rgb(26, 17, 30);
+  height: 80px;
+}
+
+.navigation-bar a {
+  all: unset;
+}

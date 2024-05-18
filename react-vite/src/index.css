@@ -1,1 +1,5 @@
 /* TODO: Add sitewide styles */
+* {
+    margin: 0;
+    border: 0;
+}
