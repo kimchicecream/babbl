@@ -4,7 +4,7 @@ import "./Navigation.css";
 
 function Navigation() {
   return (
-    <div className='navigation-bar'>
+    <div className='navigation-container'>
       <NavLink to="/">Home</NavLink>
       <ProfileButton />
     </div>
