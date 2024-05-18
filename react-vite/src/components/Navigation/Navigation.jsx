@@ -5,8 +5,12 @@ import "./Navigation.css";
 function Navigation() {
   return (
     <div className='navigation-container'>
-      <NavLink to="/">Home</NavLink>
-      <ProfileButton />
+      <div className='logo-container'>
+        <img src='../../public/babbl-logo.png' />
+      </div>
+      <div className='login-signup-container'>
+        <ProfileButton />
+      </div>
     </div>
   );
 }
