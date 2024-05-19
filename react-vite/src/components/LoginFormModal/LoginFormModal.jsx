@@ -30,10 +30,10 @@ function LoginFormModal() {
 
   return (
     <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
-      <h1 style={{margin: "10px 0 20px 0"}}>Log In</h1>
+      <h1 style={{margin: "10px 0 20px 0"}}>Welcome!</h1>
       <form className="form" onSubmit={handleSubmit}>
         <label>
-          Email
+          Username
           <input
             type="text"
             value={email}
