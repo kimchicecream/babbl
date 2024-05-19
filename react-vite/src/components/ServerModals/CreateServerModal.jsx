@@ -31,37 +31,37 @@ function CreateServerModal() {
     <>
       <h1>Create Server</h1>
       <form onSubmit={handleSubmit}>
-        <div>
-          <label>Name</label>
+        <label>
+          Name
           <input
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
             required
           />
-          {errors.name && <p>{errors.name}</p>}
-        </div>
+        </label>
+        {errors.name && <p>{errors.name}</p>}
 
-        <div>
-          <label>Description</label>
+        <label>
+          Description
           <textarea
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             required
           />
-          {errors.description && <p>{errors.description}</p>}
-        </div>
+        </label>
+        {errors.description && <p>{errors.description}</p>}
 
-        <div>
-          <label>Image URL</label>
+        <label>
+          Image URL
           <input
             type="text"
             value={imageUrl}
             onChange={(e) => setImageUrl(e.target.value)}
             required
           />
-          {errors.imageUrl && <p>{errors.imageUrl}</p>}
-        </div>
+        </label>
+        {errors.imageUrl && <p>{errors.imageUrl}</p>}
 
         <button type="submit">Create</button>
       </form>
