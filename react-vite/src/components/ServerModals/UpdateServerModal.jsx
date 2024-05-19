@@ -11,10 +11,14 @@ function UpdateServerModal() {
   const [description, setDescription] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   const [errors, setErrors] = useState({});
+  const sessionUser = useSelector((state) => state.session.user);
   const { closeModal } = useModal();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    //DESTRUCTURE USER DATA TO COMPLETE SERVER OBJECT
+    //validates user and sign in and token and all good thins
 
     const serverObj = { name, description, imageUrl };
 
