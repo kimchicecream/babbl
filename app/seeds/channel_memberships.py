@@ -29,11 +29,13 @@ data = [
     {"user_id": 3, "channel_id": 7},
 ]
 
-
 def seed_channel_memberships():
-    for datum in data:
-        db.session.execute(channel_membership.insert().values(**datum))
-
+    if environment == 'production':
+        for datum in data:
+            db.session.execute(SCHEMA.channel_membership.insert().values(**datum))
+    else:
+        for datum in data:
+            db.session.execute(channel_membership.insert().values(**datum))
 
 def undo_channel_memberships():
     if environment == "production":
