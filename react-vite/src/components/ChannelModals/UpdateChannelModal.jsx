@@ -29,7 +29,7 @@ function UpdateChannelModal({ channelId }) {
 
     const channelObj = { name };
 
-    const serverResponse = await dispatch(thunkUpdateChannel(channelObj));
+    const serverResponse = await dispatch(thunkUpdateChnnel(channelObj));
 
     if (serverResponse.errors) {
       setErrors(serverResponse.errors);
