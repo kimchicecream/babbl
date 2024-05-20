@@ -17,3 +17,20 @@ def get_all_servers():
 
 @server_routes.route('/create', methods=["POST"])
 def create_new_server():
+    form = CreateServerForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        new_server = {
+            "name": form.data["name"],
+            "description": form.data["description"],
+            "imageUrl": form.data["imageUrl"],
+            "creatorId": form.data["creatorId"]
+        }
+
+        madeServer= Server(
+            **new_server
+        )
+        db.session.add(madeServer)
+        db.session.commit()
+        return madeServer.to_dict()
+    return form.errors, 401
