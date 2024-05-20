@@ -1,27 +1,35 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
+import { selectUnknownFields } from "express-validator/src/field-selection";
 // Import thunk/action creator
-// import { thunkCreateChannel } from "../../redux/channel";
-// import "./CreateChannelModal.css";
+// import { thunkUpdateChannel } from "../../redux/channel";
+// import "./UpdateChannelModal.css";
 
-function CreateChannelModal() {
+function UpdateChannelModal({ channelId }) {
   const dispatch = useDispatch();
   const [name, setName] = useState("");
   const [errors, setErrors] = useState({});
   const sessionUser = useSelector((state) => state.session.user);
-
+  const channel = useSelector((state) => {
+    state.channel[channelId];
+  });
   const { closeModal } = useModal();
+
+  useEffect(() => {
+    setName(channel.name);
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     //DESTRUCTURE USER DATA TO COMPLETE OBJECT??
-    //validates user and sign in and token and all good thins
+    //validates user and sign in and token and all good stuff,
+    //DEFINITELY get another set of eyes on this hahaha
 
-    const newChannelObj = { name };
+    const channelObj = { name };
 
-    const serverResponse = await dispatch(thunkCreateChannel(newChannelObj));
+    const serverResponse = await dispatch(thunkUpdateChannel(channelObj));
 
     if (serverResponse.errors) {
       setErrors(serverResponse.errors);
@@ -32,7 +40,7 @@ function CreateChannelModal() {
 
   return (
     <>
-      <h1>Create Channel</h1>
+      <h1>Update your Channel</h1>
       <form onSubmit={handleSubmit}>
         <label>
           Name
@@ -45,10 +53,10 @@ function CreateChannelModal() {
         </label>
         {errors.name && <p>{errors.name}</p>}
 
-        <button type="submit">Create</button>
+        <button type="submit">Update</button>
       </form>
     </>
   );
 }
 
-export default CreateChannelModal;
+export default UpdateChannelModal;
