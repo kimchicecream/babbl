@@ -26,7 +26,7 @@ data = [
 def seed_server_memberships():
     if environment == 'production':
         for datum in data:
-            db.session.execute(SCHEMA.server_membership.insert().values(**datum))
+            db.session.execute(server_membership.insert().values(**datum))
     else:
         for datum in data:
             db.session.execute(server_membership.insert().values(**datum))
