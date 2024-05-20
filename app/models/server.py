@@ -24,3 +24,11 @@ class Server(db.Model):
         secondary=server_membership,
         back_populates="servers"
     )
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'creatorId': self.creatorId,
+            'description': self.description,
+            'imageUrl': self.imageUrl
+        }
