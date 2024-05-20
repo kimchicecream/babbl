@@ -23,11 +23,13 @@ data = [
     {"user_id": 3, "server_id": 5},
 ]
 
-
 def seed_server_memberships():
-    for datum in data:
-        db.session.execute(server_membership.insert().values(**datum))
-
+    if environment == 'production':
+        for datum in data:
+            db.session.execute(SCHEMA.server_membership.insert().values(**datum))
+    else:
+        for datum in data:
+            db.session.execute(server_membership.insert().values(**datum))
 
 def undo_server_memberships():
     if environment == "production":

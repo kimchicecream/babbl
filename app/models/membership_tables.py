@@ -1,19 +1,3 @@
-# student_lessons = db.Table(
-#     "student_lessons",
-#     db.Column(
-#         "student_id",
-#         db.Integer,
-#         db.ForeignKey("students.id"),
-#         primary_key=True
-#     ),
-#     db.Column(
-#         "lesson_id",
-#         db.Integer,
-#         db.ForeignKey("lessons.id"),
-#         primary_key=True
-#     )
-# )
-
 from .db import db, add_prefix_for_prod
 from sqlalchemy import Column, Integer, String,  ForeignKey, Boolean
 
