@@ -32,7 +32,7 @@ data = [
 def seed_channel_memberships():
     if environment == 'production':
         for datum in data:
-            db.session.execute(SCHEMA.channel_membership.insert().values(**datum))
+            db.session.execute(channel_membership.insert().values(**datum))
     else:
         for datum in data:
             db.session.execute(channel_membership.insert().values(**datum))
