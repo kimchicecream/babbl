@@ -52,7 +52,7 @@ def seed_channels():
     db.session.add_all(channels)
     db.session.commit()
 
-def undo_servers():
+def undo_channels():
     if environment == "production":
         db.session.execute(f"TRUNCATE table {SCHEMA}.channels RESTART IDENTITY CASCADE;")
     else:
