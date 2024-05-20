@@ -1,7 +1,11 @@
 from .db import db, add_prefix_for_prod
 from sqlalchemy import Column, Integer, String,  ForeignKey, Boolean
+from app.models import environment, SCHEMA
 
-server_membership= db.Table(
+if environment == "production":
+    db.Model.metadata.schema = SCHEMA
+
+server_membership = db.Table(
     "server_memberships",
     db.Model.metadata,
     Column(
@@ -18,7 +22,7 @@ server_membership= db.Table(
     )
 )
 
-channel_membership= db.Table(
+channel_membership = db.Table(
     "channel_memberships",
     db.Model.metadata,
     Column(
