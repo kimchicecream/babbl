@@ -30,6 +30,7 @@ def seed_server_memberships():
     else:
         for datum in data:
             db.session.execute(server_membership.insert().values(**datum))
+    db.session.commit()
 
 def undo_server_memberships():
     if environment == "production":

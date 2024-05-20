@@ -36,6 +36,7 @@ def seed_channel_memberships():
     else:
         for datum in data:
             db.session.execute(channel_membership.insert().values(**datum))
+    db.session.commit()
 
 def undo_channel_memberships():
     if environment == "production":
