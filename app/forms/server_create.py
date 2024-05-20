@@ -17,4 +17,4 @@ class CreateServerForm(FlaskForm):
     imageUrl = StringField('imageUrl', validators=[Length(max=1023)])
 
 
-ex
+
