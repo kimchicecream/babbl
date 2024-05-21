@@ -14,10 +14,10 @@ class Channel(db.Model):
     id = Column(Integer, primary_key=True)
     name = Column(String(40), nullable=False)
     serverId = Column(
-        Integer, ForeignKey(add_prefix_for_prod("servers.id")), nullable=False
+        Integer, ForeignKey(add_prefix_for_prod("servers.id"), ondelete="CASCADE"), nullable=False
     )
     creatorId = Column(
-        Integer, ForeignKey(add_prefix_for_prod("users.id")), nullable=False
+        Integer, ForeignKey(add_prefix_for_prod("users.id"), ondelete="CASCADE"), nullable=False
     )
     created_at = Column(DateTime, default=datetime.now)
     updated_at = Column(DateTime, default=datetime.now, onupdate=datetime.now)

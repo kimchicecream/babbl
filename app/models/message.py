@@ -12,10 +12,10 @@ class Message(db.Model):
 
     id = Column(Integer, primary_key=True)
     userId = Column(
-        Integer, ForeignKey(add_prefix_for_prod("users.id")), nullable=False
+        Integer, ForeignKey(add_prefix_for_prod("users.id"), ondelete="CASCADE"), nullable=False
     )
     channelId = Column(
-        Integer, ForeignKey(add_prefix_for_prod("channels.id")), nullable=False
+        Integer, ForeignKey(add_prefix_for_prod("channels.id"), ondelete="CASCADE"), nullable=False
     )
     message = Column(String(4028), nullable=False)
     imageUrl = Column(String(1023))

@@ -12,10 +12,10 @@ class Reaction(db.Model):
 
     id = Column(Integer, primary_key=True)
     messageId = Column(
-        Integer, ForeignKey(add_prefix_for_prod("messages.id")), nullable=False
+        Integer, ForeignKey(add_prefix_for_prod("messages.id"), ondelete="CASCADE"), nullable=False
     )
     userId = Column(
-        Integer, ForeignKey(add_prefix_for_prod("users.id")), nullable=False
+        Integer, ForeignKey(add_prefix_for_prod("users.id"), ondelete="CASCADE"), nullable=False
     )
     emojiId = Column(Integer, nullable=False)
     created_at = Column(DateTime, default=datetime.now)
