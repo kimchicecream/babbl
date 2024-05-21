@@ -1,19 +1,16 @@
 """create tables
 
-Revision ID: 218fc5b5e634
+Revision ID: 27f22f6a5b4e
 Revises: 
-Create Date: 2024-05-21 10:25:57.123251
+Create Date: 2024-05-21 12:48:28.684607
 
 """
 from alembic import op
 import sqlalchemy as sa
 
-import os
-environment = os.getenv("FLASK_ENV")
-SCHEMA = os.environ.get("SCHEMA")
 
 # revision identifiers, used by Alembic.
-revision = '218fc5b5e634'
+revision = '27f22f6a5b4e'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -43,7 +40,7 @@ def upgrade():
     sa.Column('imageUrl', sa.String(length=1023), nullable=True),
     sa.Column('created_at', sa.DateTime(), nullable=True),
     sa.Column('updated_at', sa.DateTime(), nullable=True),
-    sa.ForeignKeyConstraint(['creatorId'], ['users.id'], ),
+    sa.ForeignKeyConstraint(['creatorId'], ['users.id'], ondelete='CASCADE'),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('channels',
@@ -53,8 +50,8 @@ def upgrade():
     sa.Column('creatorId', sa.Integer(), nullable=False),
     sa.Column('created_at', sa.DateTime(), nullable=True),
     sa.Column('updated_at', sa.DateTime(), nullable=True),
-    sa.ForeignKeyConstraint(['creatorId'], ['users.id'], ),
-    sa.ForeignKeyConstraint(['serverId'], ['servers.id'], ),
+    sa.ForeignKeyConstraint(['creatorId'], ['users.id'], ondelete='CASCADE'),
+    sa.ForeignKeyConstraint(['serverId'], ['servers.id'], ondelete='CASCADE'),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('server_memberships',
@@ -84,8 +81,8 @@ def upgrade():
     sa.Column('isEdited', sa.Boolean(), nullable=True),
     sa.Column('created_at', sa.DateTime(), nullable=True),
     sa.Column('updated_at', sa.DateTime(), nullable=True),
-    sa.ForeignKeyConstraint(['channelId'], ['channels.id'], ),
-    sa.ForeignKeyConstraint(['userId'], ['users.id'], ),
+    sa.ForeignKeyConstraint(['channelId'], ['channels.id'], ondelete='CASCADE'),
+    sa.ForeignKeyConstraint(['userId'], ['users.id'], ondelete='CASCADE'),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('reactions',
@@ -95,18 +92,10 @@ def upgrade():
     sa.Column('emojiId', sa.Integer(), nullable=False),
     sa.Column('created_at', sa.DateTime(), nullable=True),
     sa.Column('updated_at', sa.DateTime(), nullable=True),
-    sa.ForeignKeyConstraint(['messageId'], ['messages.id'], ),
-    sa.ForeignKeyConstraint(['userId'], ['users.id'], ),
+    sa.ForeignKeyConstraint(['messageId'], ['messages.id'], ondelete='CASCADE'),
+    sa.ForeignKeyConstraint(['userId'], ['users.id'], ondelete='CASCADE'),
     sa.PrimaryKeyConstraint('id')
     )
-    if environment == "production":
-        op.execute(f"ALTER TABLE users SET SCHEMA {SCHEMA};")
-        op.execute(f"ALTER TABLE servers SET SCHEMA {SCHEMA};")
-        op.execute(f"ALTER TABLE channels SET SCHEMA {SCHEMA};")
-        op.execute(f"ALTER TABLE messages SET SCHEMA {SCHEMA};")
-        op.execute(f"ALTER TABLE reactions SET SCHEMA {SCHEMA};")
-        op.execute(f"ALTER TABLE channel_memberships SET SCHEMA {SCHEMA};")
-        op.execute(f"ALTER TABLE server_memberships SET SCHEMA {SCHEMA};")
     # ### end Alembic commands ###
 
 
