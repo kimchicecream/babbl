@@ -1,6 +1,7 @@
 from sqlalchemy.orm import relationship, backref
 from .db import db, environment, SCHEMA, add_prefix_for_prod
-from sqlalchemy import Column, Integer, String,  ForeignKey, Boolean
+from sqlalchemy import Column, Integer, String,  ForeignKey, Boolean, DateTime
+from datetime import datetime
 
 
 class Message(db.Model):
@@ -9,13 +10,14 @@ class Message(db.Model):
     if environment == "production":
         __table_args__ = {'schema': SCHEMA}
 
-
     id = Column(Integer, primary_key=True)
     userId = Column(Integer, ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
     channelId = Column(Integer, ForeignKey(add_prefix_for_prod('channels.id')), nullable=False)
     message = Column(String(4028), nullable=False)
     imageUrl = Column(String(1023))
     isEdited = Column(Boolean, default=False)
+    created_at = Column(DateTime, default=datetime.now)
+    updated_at = Column(DateTime, default=datetime.now, onupdate=datetime.now)
 
     user = relationship('User', backref=backref('messages', lazy=True))
     channel = relationship('Channel', backref=backref('messages', lazy=True))

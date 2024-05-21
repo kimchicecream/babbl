@@ -1,7 +1,8 @@
 from sqlalchemy.orm import relationship, backref
 from .db import db, environment, SCHEMA, add_prefix_for_prod
-from sqlalchemy import Column, Integer, String,  ForeignKey
+from sqlalchemy import Column, Integer, String,  ForeignKey, DateTime
 from .membership_tables import channel_membership
+from datetime import datetime
 
 class Channel(db.Model):
     __tablename__ = 'channels'
@@ -13,7 +14,9 @@ class Channel(db.Model):
     name = Column(String(40), nullable=False)
     serverId = Column(Integer, ForeignKey(add_prefix_for_prod('servers.id')), nullable=False)
     creatorId = Column(Integer, ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
-
+    created_at = Column(DateTime, default=datetime.now)
+    updated_at = Column(DateTime, default=datetime.now, onupdate=datetime.now)
+    
     users = db.relationship(
         "User",
         secondary = channel_membership,
