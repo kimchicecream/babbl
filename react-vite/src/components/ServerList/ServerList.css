@@ -1,0 +1,13 @@
+.server-list-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.server-list-container #join-create-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.server-list-container .logo-button {
+    border-radius: 50%;
+}

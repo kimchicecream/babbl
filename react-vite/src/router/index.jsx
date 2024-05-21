@@ -1,25 +1,22 @@
 import { createBrowserRouter } from 'react-router-dom';
-import LoginFormPage from '../components/LoginFormPage';
-import SignupFormPage from '../components/SignupFormPage';
 import Layout from './Layout';
 import LandingPage from '../components/LandingPage/LandingPage';
+import MainPage from '../components/MainPage/MainPage'
+
 
 export const router = createBrowserRouter([
   {
+    path: "/",
     element: <Layout />,
     children: [
       {
-        path: "/",
+        index: true,
         element: <LandingPage />,
-      },
-      {
-        path: "login",
-        element: <LoginFormPage />,
-      },
-      {
-        path: "signup",
-        element: <SignupFormPage />,
-      },
+      }
     ],
   },
+  {
+    path:"/babbl",
+    element: <MainPage />
+  }
 ]);

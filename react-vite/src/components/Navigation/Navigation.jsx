@@ -1,4 +1,6 @@
-import ProfileButton from "./ProfileButton";
+import OpenModalButton from "../OpenModalButton";
+import LoginFormModal from "../LoginFormModal";
+import SignupFormModal from "../SignupFormModal";
 import "./Navigation.css";
 
 function Navigation() {
@@ -7,8 +9,17 @@ function Navigation() {
       <div className='logo-container'>
         <img src='../../public/babbl-logo.png' />
       </div>
-      <div className='login-signup-container'>
-        <ProfileButton />
+      <div className='signup-login-container'>
+        <OpenModalButton
+          buttonText="Log In"
+          modalComponent={<LoginFormModal />}
+          className='login-button'
+        />
+        <OpenModalButton
+          buttonText="Sign Up"
+          modalComponent={<SignupFormModal />}
+          className='signup-button'
+        />
       </div>
     </div>
   );

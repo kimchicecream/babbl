@@ -14,14 +14,14 @@ export default function MessageFeed() {
                     {/* get message component + map */}
                     <Message />
                 </div>
-                {isMember ? (
+                {/* {isMember ? (
                     <div className="input-field">
                         <button className="attach-button">
-                            {/* <img ref={/* attach image icon *\/}></img> */}
+                            {/* <img ref={/* attach image icon *\/}></img>
                         </button>
                         <input></input>
                         <button className="reaction-button">
-                            {/* <img ref={/* hash icon *\/}></img> */}
+                            {/* <img ref={/* hash icon *\/}></img>
                         </button>
                     </div>
                 ) : (
@@ -30,13 +30,13 @@ export default function MessageFeed() {
                             <p>Join to send Message!</p>
                         </button>
                     </div>
-                )}
+                )} */}
             </div>
             <button
                 className="show-member-list"
-                onClick={() => (showUserList = !showUserList)}
+                // onClick={() => (showUserList = !showUserList)}
             ></button>
-            {showUserList ? <UserList /> : ""}
+            {/* {showUserList ? <UserList /> : ""} */}
         </>
     );
 }

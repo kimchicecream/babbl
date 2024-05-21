@@ -11,7 +11,7 @@ function CreateServerModal() {
   const [description, setDescription] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   const [errors, setErrors] = useState({});
-  const sessionUser = useSelector((state) => state.session.user);
+  // const sessionUser = useSelector((state) => state.session.user);
 
   const { closeModal } = useModal();
 
