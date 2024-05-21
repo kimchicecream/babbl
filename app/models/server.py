@@ -14,7 +14,7 @@ class Server(db.Model):
     id = Column(Integer, primary_key=True)
     name = Column(String(40), nullable=False)
     creatorId = Column(
-        Integer, ForeignKey(add_prefix_for_prod("users.id")), nullable=False
+        Integer, ForeignKey(add_prefix_for_prod("users.id"), ondelete="CASCADE"), nullable=False
     )
     description = Column(String(2000))
     imageUrl = Column(String(1023))
