@@ -15,8 +15,6 @@ export default function MessageFeed() {
         <div className="message-feed">
           {/* get message component + map */}
           <Message />
-
-          <h1>YO THE FUCK FOR REAL</h1>
         </div>
         {/* {isMember ? (
                     <div className="input-field">
