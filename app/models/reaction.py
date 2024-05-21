@@ -1,4 +1,4 @@
-from sqlalchemy.orm import relationship, backref
+from sqlalchemy.orm import relationship
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 from sqlalchemy import Column, Integer, ForeignKey, DateTime
 from datetime import datetime
@@ -21,8 +21,8 @@ class Reaction(db.Model):
     created_at = Column(DateTime, default=datetime.now)
     updated_at = Column(DateTime, default=datetime.now, onupdate=datetime.now)
 
-    message = relationship("Message", backref=backref("reactions", lazy=True))
-    user = relationship("User", backref=backref("reactions", lazy=True))
+    message = relationship("Message", back_populates="reactions")
+    user = relationship("User", back_populates="reactions")
 
     def to_dict(self):
         return {
