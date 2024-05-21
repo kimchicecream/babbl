@@ -44,6 +44,11 @@ def edit_message_by_id(messageId):
     if form.validate_on_submit:
         return "time to party"
 
-# @message_routes.route('/<int:messageId>/delete')
-# def delete_message_by_id(messageId):
-#     message = Message.query.
+
+
+@message_routes.route('/<int:messageId>/delete')
+def delete_message_by_id(messageId):
+    message = Message.query.get(messageId)
+    db.session.delete(message)
+    db.session.commit()
+    return "Success!"
