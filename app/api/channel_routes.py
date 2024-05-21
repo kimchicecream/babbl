@@ -5,13 +5,14 @@ from flask_login import current_user, login_user, logout_user, login_required
 
 channel_routes = Blueprint('channels', __name__)
 
-channel_routes.route('/', methods=['GET'])
+@channel_routes.route('/all')
 def all_channel():
   channles = Channel.query.all()
+  print(channles)
   channle_list=[]
   for channel in channles:
     channle_list.append(channel.to_dict())
-    return channle_list
+  return channle_list
 
 @channel_routes.route('/create', methods=["GET","POST"])
 def create_new_channel():

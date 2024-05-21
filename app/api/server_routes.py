@@ -1,6 +1,5 @@
 from flask import Blueprint, request
-from app.models import User, db, Server
-#we need to create and import forms for each modal that uses one
+from app.models import db, Server
 from app.forms.server_create import CreateServerForm
 from flask_login import current_user, login_user, logout_user, login_required
 
