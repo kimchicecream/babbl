@@ -5,8 +5,7 @@ from .servers import seed_servers, undo_servers
 from .messages import seed_messages, undo_messages
 from .server_memberships import seed_server_memberships, undo_server_memberships
 from .channel_memberships import seed_channel_memberships, undo_channel_memberships
-
-from app.models.db import db, environment, SCHEMA
+from app.models.db import environment
 
 # Creates a seed group to hold our commands
 # So we can type `flask seed --help`
