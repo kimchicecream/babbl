@@ -1,6 +1,11 @@
 from .db import db, add_prefix_for_prod
 from sqlalchemy import Column, Integer, ForeignKey, DateTime
 from datetime import datetime
+from app.models import environment, SCHEMA
+
+if environment == "production":
+    db.Model.metadata.schema = SCHEMA
+    
 
 server_membership = db.Table(
     "server_memberships",
