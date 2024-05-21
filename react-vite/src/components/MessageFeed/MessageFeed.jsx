@@ -1,5 +1,6 @@
 import "./MessageFeed.css";
 import Message from "../Message";
+import Chat from '../testchatsocket/testchatsocket';
 
 export default function MessageFeed() {
     // write code here
@@ -13,6 +14,7 @@ export default function MessageFeed() {
                 <div className="message-feed">
                     {/* get message component + map */}
                     <Message />
+                    <Chat />
                 </div>
                 {/* {isMember ? (
                     <div className="input-field">
