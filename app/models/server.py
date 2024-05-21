@@ -1,4 +1,4 @@
-from sqlalchemy.orm import relationship, backref
+from sqlalchemy.orm import relationship
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 from sqlalchemy import Column, Integer, String, ForeignKey, DateTime
 from .membership_tables import server_membership
@@ -21,10 +21,14 @@ class Server(db.Model):
     created_at = Column(DateTime, default=datetime.now)
     updated_at = Column(DateTime, default=datetime.now, onupdate=datetime.now)
 
-    creator = relationship("User", backref=backref("created_servers", lazy=True))
+    creator = relationship("User", back_populates='servers')
 
-    users = db.relationship(
-        "User", secondary=server_membership, back_populates="servers"
+    users = relationship(
+        "User", secondary=server_membership, back_populates="server_memberships"
+    )
+    
+    channels = relationship(
+        "Channel", back_populates="server", cascade="all, delete-orphan"
     )
 
     def to_dict(self):

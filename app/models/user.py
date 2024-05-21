@@ -21,12 +21,16 @@ class User(db.Model, UserMixin):
     imageUrl = Column(String(1023))
     created_at = Column(DateTime, default=datetime.now)
     updated_at = Column(DateTime, default=datetime.now, onupdate=datetime.now)
+    
+    servers = db.relationship("Server", back_populates="creator", cascade="all, delete-orphan")
+    messages = db.relationship("Message", back_populates="user", cascade="all, delete-orphan")
+    reactions = db.relationship("Reaction", back_populates="user", cascade="all, delete-orphan")
 
-    servers = db.relationship(
+    server_memberships = db.relationship(
         "Server", secondary=server_membership, back_populates="users"
     )
 
-    channels = db.relationship(
+    channel_memberships = db.relationship(
         "Channel", secondary=channel_membership, back_populates="users"
     )
 

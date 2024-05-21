@@ -1,8 +1,8 @@
-"""initial table creation
+"""create tables
 
-Revision ID: f3b189beab7e
-Revises:
-Create Date: 2024-05-17 14:03:36.611331
+Revision ID: 218fc5b5e634
+Revises: 
+Create Date: 2024-05-21 10:25:57.123251
 
 """
 from alembic import op
@@ -13,7 +13,7 @@ environment = os.getenv("FLASK_ENV")
 SCHEMA = os.environ.get("SCHEMA")
 
 # revision identifiers, used by Alembic.
-revision = 'f3b189beab7e'
+revision = '218fc5b5e634'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -29,6 +29,8 @@ def upgrade():
     sa.Column('username', sa.String(length=40), nullable=False),
     sa.Column('hashedPassword', sa.String(length=255), nullable=False),
     sa.Column('imageUrl', sa.String(length=1023), nullable=True),
+    sa.Column('created_at', sa.DateTime(), nullable=True),
+    sa.Column('updated_at', sa.DateTime(), nullable=True),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('email'),
     sa.UniqueConstraint('username')
@@ -39,6 +41,8 @@ def upgrade():
     sa.Column('creatorId', sa.Integer(), nullable=False),
     sa.Column('description', sa.String(length=2000), nullable=True),
     sa.Column('imageUrl', sa.String(length=1023), nullable=True),
+    sa.Column('created_at', sa.DateTime(), nullable=True),
+    sa.Column('updated_at', sa.DateTime(), nullable=True),
     sa.ForeignKeyConstraint(['creatorId'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
@@ -47,6 +51,8 @@ def upgrade():
     sa.Column('name', sa.String(length=40), nullable=False),
     sa.Column('serverId', sa.Integer(), nullable=False),
     sa.Column('creatorId', sa.Integer(), nullable=False),
+    sa.Column('created_at', sa.DateTime(), nullable=True),
+    sa.Column('updated_at', sa.DateTime(), nullable=True),
     sa.ForeignKeyConstraint(['creatorId'], ['users.id'], ),
     sa.ForeignKeyConstraint(['serverId'], ['servers.id'], ),
     sa.PrimaryKeyConstraint('id')
@@ -54,6 +60,8 @@ def upgrade():
     op.create_table('server_memberships',
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.Column('server_id', sa.Integer(), nullable=False),
+    sa.Column('created_at', sa.DateTime(), nullable=True),
+    sa.Column('updated_at', sa.DateTime(), nullable=True),
     sa.ForeignKeyConstraint(['server_id'], ['servers.id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('user_id', 'server_id')
@@ -61,6 +69,8 @@ def upgrade():
     op.create_table('channel_memberships',
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.Column('channel_id', sa.Integer(), nullable=False),
+    sa.Column('created_at', sa.DateTime(), nullable=True),
+    sa.Column('updated_at', sa.DateTime(), nullable=True),
     sa.ForeignKeyConstraint(['channel_id'], ['channels.id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('user_id', 'channel_id')
@@ -69,8 +79,11 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('userId', sa.Integer(), nullable=False),
     sa.Column('channelId', sa.Integer(), nullable=False),
+    sa.Column('message', sa.String(length=4028), nullable=False),
     sa.Column('imageUrl', sa.String(length=1023), nullable=True),
     sa.Column('isEdited', sa.Boolean(), nullable=True),
+    sa.Column('created_at', sa.DateTime(), nullable=True),
+    sa.Column('updated_at', sa.DateTime(), nullable=True),
     sa.ForeignKeyConstraint(['channelId'], ['channels.id'], ),
     sa.ForeignKeyConstraint(['userId'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
@@ -80,6 +93,8 @@ def upgrade():
     sa.Column('messageId', sa.Integer(), nullable=False),
     sa.Column('userId', sa.Integer(), nullable=False),
     sa.Column('emojiId', sa.Integer(), nullable=False),
+    sa.Column('created_at', sa.DateTime(), nullable=True),
+    sa.Column('updated_at', sa.DateTime(), nullable=True),
     sa.ForeignKeyConstraint(['messageId'], ['messages.id'], ),
     sa.ForeignKeyConstraint(['userId'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')

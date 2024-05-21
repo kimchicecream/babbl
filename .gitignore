@@ -5,3 +5,4 @@ build
 *.db
 rm-info
 .venv
+**/__pycache__/
