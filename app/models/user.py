@@ -42,4 +42,10 @@ class User(db.Model, UserMixin):
         return check_password_hash(self.hashedPassword, password)
 
     def to_dict(self):
-        return {"id": self.id, "username": self.username, "email": self.email}
+        return {
+            "id": self.id,
+            "username": self.username,
+            "email": self.email,
+            "created_at": self.created_at,
+            "updated_at": self.updated_at,
+        }
