@@ -1,15 +1,16 @@
-from .db import db, environment, SCHEMA, add_prefix_for_prod
+from .db import db, environment, SCHEMA
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
-from sqlalchemy import Column, Integer, String, Enum, DECIMAL, Boolean, ForeignKey
+from sqlalchemy import Column, Integer, String, DateTime
 from .membership_tables import server_membership, channel_membership
+from datetime import datetime
 
 
 class User(db.Model, UserMixin):
-    __tablename__ = 'users'
+    __tablename__ = "users"
 
     if environment == "production":
-        __table_args__ = {'schema': SCHEMA}
+        __table_args__ = {"schema": SCHEMA}
 
     id = Column(Integer, primary_key=True)
     firstName = Column(String(50), nullable=False)
@@ -18,18 +19,15 @@ class User(db.Model, UserMixin):
     username = Column(String(40), unique=True, nullable=False)
     hashedPassword = Column(String(255), nullable=False)
     imageUrl = Column(String(1023))
-
+    created_at = Column(DateTime, default=datetime.now)
+    updated_at = Column(DateTime, default=datetime.now, onupdate=datetime.now)
 
     servers = db.relationship(
-        "Server",
-        secondary=server_membership,
-        back_populates="users"
+        "Server", secondary=server_membership, back_populates="users"
     )
 
     channels = db.relationship(
-        "Channel",
-        secondary = channel_membership,
-        back_populates = "users"
+        "Channel", secondary=channel_membership, back_populates="users"
     )
 
     @property
@@ -45,7 +43,9 @@ class User(db.Model, UserMixin):
 
     def to_dict(self):
         return {
-            'id': self.id,
-            'username': self.username,
-            'email': self.email
+            "id": self.id,
+            "username": self.username,
+            "email": self.email,
+            "created_at": self.created_at,
+            "updated_at": self.updated_at,
         }
