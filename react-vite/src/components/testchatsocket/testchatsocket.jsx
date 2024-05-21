@@ -27,8 +27,11 @@ const Chat = () => {
   };
 
   const sendChat = (e) => {
+    console.log("TESTING SEND CHAT");
+    console.log(chatInput);
     e.preventDefault();
     socket.emit("chat", { user: user.username, msg: chatInput });
+    console.log("this happens after the socket emits");
     setChatInput("");
   };
 
@@ -39,6 +42,7 @@ const Chat = () => {
           {messages.map((message, ind) => (
             <div key={ind}>{`${message.user}: ${message.msg}`}</div>
           ))}
+          <h1>ABOVE THIS WE GON SEE MESSAGES</h1>
         </div>
         <form onSubmit={sendChat}>
           <input value={chatInput} onChange={updateChatInput} />
