@@ -35,18 +35,16 @@ def create_new_server():
         return madeServer.to_dict()
     return form.errors, 401
 
-@server_routes.route('/:serverId/delete', methods=['GET'])
+@server_routes.route('/<int:serverId>/delete', methods=['GET'])
 def delete_server(serverId):
-
     server_to_delete=Server.query.get(serverId)
     db.session.delete(server_to_delete)
     db.session.commit()
-
     return "success!"
     # return "cannot delete the server, please come back "
     # if it has errors, we will need to debug it
 
-@server_routes.route('/:serverId/edit', methods=["POST"])
+@server_routes.route('/<int:serverId>/edit', methods=["POST"])
 def update_server(serverId):
     form = CreateServerForm()
     form['csrf_token'].data = request.cookies['csrf_token']

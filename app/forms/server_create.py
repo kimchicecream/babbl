@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, IntegerField
+from wtforms import StringField, IntegerField, SubmitField
 from wtforms.validators import DataRequired, ValidationError, Length
 
 
@@ -15,6 +15,4 @@ class CreateServerForm(FlaskForm):
     creatorId= IntegerField('creatorId', validators=[DataRequired()])
     description = StringField('description', validators=[DataRequired(), Length(max=2000)])
     imageUrl = StringField('imageUrl', validators=[Length(max=1023)])
-
-
-
+    submit= SubmitField("Submit")
