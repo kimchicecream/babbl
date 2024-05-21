@@ -1,7 +1,7 @@
 from flask import Blueprint, request
-from app.models import Channel, db
+from app.models import Channel, db, Server
 from app.forms.channel_create import ChannelForm
-from flask_login import current_user, login_user, logout_user, login_required
+from flask_login import current_user, login_required
 
 channel_routes = Blueprint('channels', __name__)
 
@@ -14,15 +14,25 @@ def all_channel():
     channle_list.append(channel.to_dict())
   return channle_list
 
-@channel_routes.route('/create', methods=["GET","POST"])
+@channel_routes.route('/create_channel', methods=["GET","POST"])
+@login_required
 def create_new_channel():
+
+    # creator_id = current_user.get_id()
+    # print(creator_id)
+    # print(server_id)
+    # curr_user_servers = Server.query.filter_by(creatorId=creator_id)
+
+    # if not curr_user_servers:
+    #     return {"error": "No server found for this user."}, 400
+
     form = ChannelForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         new_channel = {
             "name": form.data["name"],
-            "serverId": form.data["serverId"],
-            "creatorId": form.data["creatorId"],
+            "serverId": form.data["serverId"], #how to get the server id?
+            "creatorId": form.data["creatorId"]
         }
 
         madeChannel= Channel(**new_channel)
@@ -32,6 +42,7 @@ def create_new_channel():
     return form.errors
 
 @channel_routes.route('/<int:channelId>/delete', methods=['GET'])
+@login_required
 def delete_channel(channelId):
     channel_to_delete=Channel.query.get(channelId)
     db.session.delete(channel_to_delete)
@@ -40,6 +51,7 @@ def delete_channel(channelId):
 
 
 @channel_routes.route('/<int:channelId>/edit', methods=["POST"])
+@login_required
 def update_channel(channelId):
     form = ChannelForm()
     form['csrf_token'].data = request.cookies['csrf_token']

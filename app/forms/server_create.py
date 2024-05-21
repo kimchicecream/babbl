@@ -12,7 +12,7 @@ from app.models import Server
 
 class CreateServerForm(FlaskForm):
     name=StringField('name', validators=[DataRequired(),  Length(max=40)])
-    creatorId= IntegerField('creatorId', validators=[DataRequired()])
     description = StringField('description', validators=[DataRequired(), Length(max=2000)])
     imageUrl = StringField('imageUrl', validators=[Length(max=1023)])
+    creatorId= IntegerField('creatorId', validators=[DataRequired()])
     submit= SubmitField("Submit")
