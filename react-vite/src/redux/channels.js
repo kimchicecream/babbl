@@ -15,6 +15,7 @@ const channelsReducer = (state = {}, action) => {
   switch (action.type) {
     case GET_CHANNELS_BY_SERVER: {
       newState = { ...state };
+      newState.channels = action.payload.channels;
       return newState;
     }
     default:
