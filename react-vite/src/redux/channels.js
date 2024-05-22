@@ -28,8 +28,8 @@ const channelsReducer = (state = {}, action) => {
   let newState;
   switch (action.type) {
     case GET_CHANNELS_BY_SERVER: {
-      newState = { ...state };
-      newState.channels = action.payload.channels;
+      newState = { ...state, ...action.payload.channels };
+      // newState.channels = action.payload.channels;
       return newState;
     }
     case CREATE_CHANNEL: {
