@@ -1,10 +1,10 @@
 from flask import Blueprint, request
-from app.models import User, db, Server
-#we need to create and import forms for each modal that uses one
+from app.models import db, Server
 from app.forms.server_create import CreateServerForm
-from flask_login import current_user, login_user, logout_user, login_required
+from flask_login import current_user, login_required
 
 server_routes = Blueprint('servers', __name__)
+
 
 @server_routes.route('/all')
 def get_all_servers():
@@ -16,7 +16,10 @@ def get_all_servers():
 
 
 @server_routes.route('/create', methods=["POST"])
+@login_required
 def create_new_server():
+    # creator_id = current_user.get_id()
+    # print(creator_id)
     form = CreateServerForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
@@ -35,18 +38,18 @@ def create_new_server():
         return madeServer.to_dict()
     return form.errors, 401
 
-@server_routes.route('/<int:serverId>/delete', methods=['DELETE'])
+@server_routes.route('/<int:serverId>/delete', methods=['GET'])
+@login_required
 def delete_server(serverId):
-
     server_to_delete=Server.query.get(serverId)
     db.session.delete(server_to_delete)
     db.session.commit()
-
     return "success!"
     # return "cannot delete the server, please come back "
     # if it has errors, we will need to debug it
 
-@server_routes.route('/:serverId/edit', methods=["POST"])
+@server_routes.route('/<int:serverId>/edit', methods=["POST"])
+@login_required
 def update_server(serverId):
     form = CreateServerForm()
     form['csrf_token'].data = request.cookies['csrf_token']

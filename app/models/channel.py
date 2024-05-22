@@ -34,12 +34,15 @@ class Channel(db.Model):
 
     server = relationship("Server", back_populates="channels")
 
+    server = relationship('Server', backref=backref('channels', lazy=True))
+    creator = relationship('User', backref=backref('created_channels', lazy=True))
+
     def to_dict(self):
         return {
-            "id": self.id,
-            "name": self.name,
-            "serverId": self.serverId,
-            "creatorId": self.creatorId,
-            "created_at": self.created_at,
-            "updated_at": self.updated_at,
+            'id': self.id,
+            'name': self.name,
+            'serverId': self.serverId,
+            'creatorId': self.creatorId,
+            'created_at': self.created_at,
+            'updated_at': self.updated_at,
         }
