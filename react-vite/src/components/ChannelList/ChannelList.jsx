@@ -1,4 +1,3 @@
-// import channelsReducer from "../../redux/channels";
 import { getChannelsByServerThunk } from "../../redux/channels";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
@@ -7,7 +6,7 @@ import "./ChannelList.css";
 export default function ChannelList({ server }) {
     // write code here
     const dispatch = useDispatch();
-    const channels = useSelector((state) => state.channels?.allServers || []);
+    const channels = useSelector((state) => state.channels?.serverChannels || []);
 
     useEffect(() => {
         dispatch(getChannelsByServerThunk(server.id));

@@ -20,16 +20,16 @@ export const createChannelThunk = (channelObj) => async (dispatch) => {
 };
 
 export const getChannelsByServerThunk = (serverId) => async (dispatch) => {
-  const serversChannels = await fetch(`api/channels/:${serverId}/all`);
-  dispatch(getChannelsByServer(serversChannels));
+  const serversChannels = await fetch(`api/channels/${serverId}/all`);
+  const data = await serversChannels.json()
+  dispatch(getChannelsByServer(data));
 };
 
 const channelsReducer = (state = {}, action) => {
   let newState;
   switch (action.type) {
     case GET_CHANNELS_BY_SERVER: {
-      newState = { ...state, channels: action.payload };
-      // newState.channels = action.payload.channels;
+      newState = { ...state, serverChannels: action.payload };
       return newState;
     }
     case CREATE_CHANNEL: {
