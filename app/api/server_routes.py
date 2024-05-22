@@ -5,7 +5,6 @@ from flask_login import current_user, login_required
 
 server_routes = Blueprint('servers', __name__)
 
-
 @server_routes.route('/all')
 def get_all_servers():
     servers = Server.query.all()
@@ -15,8 +14,17 @@ def get_all_servers():
     return answer_list
 
 
+@server_routes.route('/<int:userId>')
+# @login_required
+def get_servers_by_userId(userId):
+    servers = Server.query.filter_by(creatorId = userId).all()
+    answer_list = []
+    for server in servers:
+        answer_list.append(server.to_dict())
+    return answer_list
+
 @server_routes.route('/create', methods=["POST"])
-@login_required
+# @login_required
 def create_new_server():
     # creator_id = current_user.get_id()
     # print(creator_id)
@@ -39,7 +47,7 @@ def create_new_server():
     return form.errors, 401
 
 @server_routes.route('/<int:serverId>/delete', methods=['GET'])
-@login_required
+# @login_required
 def delete_server(serverId):
     server_to_delete=Server.query.get(serverId)
     db.session.delete(server_to_delete)
@@ -49,7 +57,7 @@ def delete_server(serverId):
     # if it has errors, we will need to debug it
 
 @server_routes.route('/<int:serverId>/edit', methods=["POST"])
-@login_required
+# @login_required
 def update_server(serverId):
     form = CreateServerForm()
     form['csrf_token'].data = request.cookies['csrf_token']
@@ -62,4 +70,4 @@ def update_server(serverId):
         return server_to_update.to_dict()
 
     if form.errors:
-        print(form.errors)
+        return form.errors, 401 #double check status number

@@ -4,6 +4,8 @@ from sqlalchemy import Column, Integer, String, ForeignKey, Boolean, DateTime
 from datetime import datetime
 
 
+
+
 class Message(db.Model):
     __tablename__ = "messages"
 
@@ -25,7 +27,7 @@ class Message(db.Model):
 
     user = relationship("User", back_populates="messages")
     channel = relationship("Channel", back_populates="messages")
-    
+
     reactions = relationship("Reaction", back_populates="message", cascade='all, delete-orphan')
 
     def to_dict(self):

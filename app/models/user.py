@@ -21,7 +21,7 @@ class User(db.Model, UserMixin):
     imageUrl = Column(String(1023))
     created_at = Column(DateTime, default=datetime.now)
     updated_at = Column(DateTime, default=datetime.now, onupdate=datetime.now)
-    
+
     servers = db.relationship("Server", back_populates="creator", cascade="all, delete-orphan")
     messages = db.relationship("Message", back_populates="user", cascade="all, delete-orphan")
     reactions = db.relationship("Reaction", back_populates="user", cascade="all, delete-orphan")
@@ -50,6 +50,13 @@ class User(db.Model, UserMixin):
             "id": self.id,
             "username": self.username,
             "email": self.email,
+            "imageUrl":self.imageUrl,
             "created_at": self.created_at,
             "updated_at": self.updated_at,
+        }
+    def for_messages(self):
+        return{
+            "username": self.username,
+            "imageUrl": self.imageUrl
+
         }
