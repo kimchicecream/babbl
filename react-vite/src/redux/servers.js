@@ -12,15 +12,10 @@ const loadServersByUser = (servers) => ({
 });
 
 export const loadAllServersThunk = () => async (dispatch) => {
-  console.log(
-    "%c this is in the load all server thunk log>",
-    "color:red; font-size: 26px",
-    "this is in the load all server thunk"
-  );
-  const allServers = await fetch("api/servers/all");
-  const data = await allServers.json();
-  console.log("ALL SERVERS: ", data);
-  dispatch(loadAllServers(data));
+    const allServers = await fetch("api/servers/all");
+    const data = await allServers.json()
+    console.log("ALL SERVERS: ", data)
+    dispatch(loadAllServers(data));
 };
 
 export const loadServersByUserThunk = (userId) => async (dispatch) => {
