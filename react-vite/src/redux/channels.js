@@ -11,7 +11,7 @@ const getChannelsByServer = (channels) => ({
   payload: channels,
 });
 
-const createChannelThunk = (channelObj) => async (dispatch) => {
+export const createChannelThunk = (channelObj) => async (dispatch) => {
   const newChannel = await fetch("/api/channels/", {
     method: "POST",
     body: channelObj,
