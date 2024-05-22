@@ -6,8 +6,10 @@ import {
 } from "redux";
 import thunk from "redux-thunk";
 import sessionReducer from "./session";
+import serversReducer from "./servers";
 
 const rootReducer = combineReducers({
+  servers: serversReducer,
   session: sessionReducer,
 });
 
