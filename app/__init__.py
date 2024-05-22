@@ -17,7 +17,6 @@ from .socketIO import socketio
 
 app = Flask(__name__, static_folder='../react-vite/dist', static_url_path='/')
 
-
 # Setup login manager
 login = LoginManager(app)
 login.login_view = 'auth.unauthorized'
@@ -40,9 +39,9 @@ migrate = Migrate(app, db)
 
 socketio.init_app(app)
 
-if __name__ == 'app':
+if __name__ == '__main__':
     print("this app for sure runnign socket io homie like for real")
-    socketio.run(app)
+    socketio.run(app, debug=True)
 
 
 
