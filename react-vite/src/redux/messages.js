@@ -33,16 +33,18 @@ export const getMessagesByChannelThunk = (channelId) => async (dispatch) => {
   dispatch(getMessagesByChannel(messages));
 };
 
-const messagesReducer = (state = {}, action) => {
+
+initialState ={
+  channelMessages:[]
+}
+
+const messagesReducer = (state = initialState, action) => {
   let newState;
   switch (action.type) {
     case GET_MESSAGES_BY_CHANNEL: {
-      newState = { ...state, ...action.payload.messages };
-      // newState.messages = action.payload.messages;
-
+      newState = { ...state, channelMessages: action.payload };
       return newState;
     }
-
     default:
       return state;
   }
