@@ -3,15 +3,16 @@ import CreateServerModal from "../ServerModals/CreateServerModal";
 import OpenModalButton from "../OpenModalButton";
 import ServerIndexModal from "../ServerModals/ServerIndexModal";
 import { useSelector, useDispatch } from "react-redux";
-import { loadAllServersThunk } from "../../redux/servers";
+import { loadAllServersThunk, loadServersByUserThunk } from "../../redux/servers";
 import React, { useEffect } from "react";
 
-export default function ServerList() {
+export default function ServerList({ onSelectServer }) {
     const dispatch = useDispatch();
     const servers = useSelector((state) => state.servers?.allServers || []);
 
     useEffect(() => {
         dispatch(loadAllServersThunk());
+        // dispatch(loadServersByUser());
     }, [dispatch]);
 
     return (
@@ -20,7 +21,7 @@ export default function ServerList() {
             <div className="divider"></div>
             <div className="servers">
                 {servers.map((server) => (
-                    <div key={server.id} className="server-item">
+                    <div key={server.id} className="server-item" onClick={() => onSelectServer(server)}>
                         <img src={server.imageUrl} alt={`${server.name}`}/>
                     </div>
                 ))}

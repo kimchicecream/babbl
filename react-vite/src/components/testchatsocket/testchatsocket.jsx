@@ -19,7 +19,6 @@ const Chat = () => {
     }
 
     socket = io(socket_url);
-    console.log("%c socket log>", "color:blue; font-size: 26px", socket);
 
     socket.on("chat", (chat) => {
       setMessages((messages) => [...messages, chat]);
@@ -35,11 +34,8 @@ const Chat = () => {
   };
 
   const sendChat = (e) => {
-    console.log("TESTING SEND CHAT");
-    console.log(chatInput);
     e.preventDefault();
     socket.emit("chat", { user: user.username, msg: chatInput });
-    console.log("this happens after the socket emits");
     setChatInput("");
   };
 
