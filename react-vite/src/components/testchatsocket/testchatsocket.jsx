@@ -12,7 +12,7 @@ const Chat = () => {
   useEffect(() => {
     // open socket connection
     // create websockets
-    socket_url = "http://127.0.0.1:8000";
+    let socket_url = "http://127.0.0.1:8000";
 
     if (import.meta.env.MODE === "production") {
       socket_url = "https://babbl.onrender.com";
