@@ -39,7 +39,7 @@ const Chat = ({ initMessages, channelId }) => {
         // return () => {
         //   socket.disconnect();
         // };
-    }, []);
+    });
 
     useEffect(() => {
         console.log("MESSAGES: ", messages);
