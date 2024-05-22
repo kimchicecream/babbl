@@ -21,9 +21,10 @@ export default function MessageFeed({ channel }) {
                 <Chat initMessages={messages} channelId={channel.id} />
                 <div className="channel-header-container">
                     {/* <img ref={/* hash icon *\/}></img> */}
-                    <span className="channel-name"></span>
+                    <span className="channel-name">{channel.name}</span>
                 </div>
                 <div className="message-feed">
+                    { console.log("msg length: ", messages.length) }
                     {messages.map((message) => (
                       <Message key={message.id} message={message} />
                     ))}

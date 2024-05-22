@@ -2,18 +2,21 @@ import "./Message.css";
 
 export default function Message({ message }) {
     // write code here
+    console.log("message: ", message);
     return (
         <div className="message-container">
             <div className="profile-pic-container">
-                <img ref={ message.user.imageUrl } alt={ "profile pic" }></img>
+                {message?.user?.imageUrl && (
+                    <img ref={message.user.imageUrl} alt={"profile pic"}></img>
+                )}
             </div>
             <div className="username-message-container">
                 <div className="username-time-container">
-                    <span className="username">{message.user.username}</span>
-                    {/* <span className="time"></span> */}
+                    <span className="username">{message.username}</span>
+                    <span className="time"></span>
                 </div>
                 <div className="message-text">
-                    <p>{message.content}</p>
+                    <p>{message.message}</p>
                 </div>
             </div>
             <div className="message-mamangement-container">
