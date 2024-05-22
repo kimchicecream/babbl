@@ -12,10 +12,10 @@ const Chat = () => {
   useEffect(() => {
     // open socket connection
     // create websockets
+    url = "http://127.0.0.1:8000";
+
     if (import.meta.env.MODE === "production") {
       url = "https://babbl.onrender.com";
-    } else {
-      url = "http://127.0.0.1:8000";
     }
 
     socket = io(url);
