@@ -6,8 +6,13 @@ import {
 } from "redux";
 import thunk from "redux-thunk";
 import sessionReducer from "./session";
-
+import serversReducer from "./servers";
+import channelsReducer from "./channels";
+import messagesReducer from "./messages";
 const rootReducer = combineReducers({
+  messages: messagesReducer,
+  servers: serversReducer,
+  channels: channelsReducer,
   session: sessionReducer,
 });
 

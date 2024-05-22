@@ -3,7 +3,7 @@
 }
 
 .navigation-container {
-  background-color: rgb(45, 45, 45);
+  background-color: rgb(12, 12, 12);
 
   position: fixed;
   width: 100%;
@@ -19,9 +19,33 @@
   height: 50px;
 }
 
-.login-signup-container {
+/* ------- LOGIN & SIGN UP BUTTONS ------- */
+.signup-login-container {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 2px solid red;
+  gap: 10px;
+}
+
+.signup-login-container .login-button, .signup-button {
+  all: unset;
+}
+
+.signup-login-container .login-button {
+  color: white;
+  padding: 10px 20px;
+  border-radius: 10px;
+}
+
+.signup-login-container .login-button:hover {
+  background-color: rgb(164, 164, 164);
+}
+
+.signup-login-container .signup-button {
+  color: white;
+  padding: 10px 20px;
+  border-radius: 10px;
+  background-color: #946eff;
+}
+
+.signup-login-container .signup-button:hover {
+  background-color: #6d38ff;
 }

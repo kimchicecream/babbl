@@ -6,7 +6,6 @@ from flask_login import current_user, login_user, logout_user, login_required
 
 auth_routes = Blueprint('auth', __name__)
 
-
 @auth_routes.route('/')
 def authenticate():
     """
@@ -19,6 +18,8 @@ def authenticate():
 
 @auth_routes.route('/login', methods=['POST'])
 def login():
+    print('login function is getting called in auth_routes.py !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+    print(request.json)
     """
     Logs a user in
     """
@@ -28,9 +29,15 @@ def login():
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         # Add the user to the session, we are logged in!
-        user = User.query.filter(User.username == form.data['username']).first()
-        login_user(user)
-        return user.to_dict()
+        print("this is a test ahhhhh!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+        user = User.query.filter(User.email == form.data['email']).first()
+        print(user, "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+        if user:
+            print(f'User found: {user}')
+            login_user(user)
+            print(f'!!!!!!!user {user.email} logged in successfully')
+            return user.to_dict()
+    print('????????????????????????????? form validations failed')
     return form.errors, 401
 
 

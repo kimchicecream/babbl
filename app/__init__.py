@@ -11,10 +11,12 @@ from .api.server_routes import server_routes
 from .api.channel_routes import channel_routes
 from .seeds import seed_commands
 from .config import Config
+from .socketIO import socketio
+
+
 
 
 app = Flask(__name__, static_folder='../react-vite/dist', static_url_path='/')
-
 
 # Setup login manager
 login = LoginManager(app)
@@ -37,6 +39,14 @@ app.register_blueprint(channel_routes,url_prefix='/api/channels')
 db.init_app(app)
 migrate = Migrate(app, db)
 
+socketio.init_app(app)
+
+if __name__ == '__main__':
+    print("this app for sure runnign socket io homie like for real")
+    socketio.run(app, debug=True)
+
+
+
 # Application Security
 CORS(app)
 
@@ -46,13 +56,16 @@ CORS(app)
 # Therefore, we need to make sure that in production any
 # request made over http is redirected to https.
 # Well.........
+
+
+
 @app.before_request
 def https_redirect():
     if os.environ.get('FLASK_ENV') == 'production':
         if request.headers.get('X-Forwarded-Proto') == 'http':
-            url = request.url.replace('http://', 'https://', 1)
+            url1 = request.url.replace('http://', 'https://', 1)
             code = 301
-            return redirect(url, code=code)
+            return redirect(url1, code=code)
 
 
 @app.after_request
