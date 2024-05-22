@@ -29,7 +29,7 @@ def get_all_messages_by_channel(channelsId):
         message_dict = message.to_dict()
         message_dict['user'] = message.user.for_messages()
         print(message_dict)
-        message_dict['reactions'] = [reaction.to_dict() for reaction in message.reactions]
+        message_dict['reactions'] = [reaction.for_message() for reaction in message.reactions]
         result.append(message_dict)
     return result
 
