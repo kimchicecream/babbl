@@ -1,6 +1,6 @@
 import "./ServerList.css"
 import CreateServerModal from '../ServerModals/CreateServerModal';
-import OpenModalButton from '../OpenModalButton/OpenModalButton';
+import OpenModalButton from '../OpenModalButton';
 import ServerIndexModal from '../ServerModals/ServerIndexModal';
 
 export default function ServerList() {
@@ -15,7 +15,7 @@ export default function ServerList() {
             <div id="join-create-container">
                 <button className="join-button">Join</button>
                 <OpenModalButton
-                    buttonText="All servers"
+                    buttonText="Explore"
                     modalComponent={<ServerIndexModal />}
                     className='create-button'
                 />
