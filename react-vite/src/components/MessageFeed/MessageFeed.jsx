@@ -1,5 +1,4 @@
 import "./MessageFeed.css";
-import Message from "../Message";
 import Chat from "../testchatsocket/testchatsocket";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
