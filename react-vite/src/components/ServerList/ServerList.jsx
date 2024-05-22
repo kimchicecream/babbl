@@ -1,14 +1,14 @@
-import "./ServerList.css"
-import CreateServerModal from '../ServerModals/CreateServerModal';
-import OpenModalButton from '../OpenModalButton';
-import ServerIndexModal from '../ServerModals/ServerIndexModal';
+import "./ServerList.css";
+import CreateServerModal from "../ServerModals/CreateServerModal";
+import OpenModalButton from "../OpenModalButton";
+import ServerIndexModal from "../ServerModals/ServerIndexModal";
 import { useSelector, useDispatch } from "react-redux";
-import { loadAllServersThunk } from '../../../redux/servers';
-import React, { useEffect } from 'react';
+import { loadAllServersThunk } from "../../redux/servers";
+import React, { useEffect } from "react";
 
 export default function ServerList() {
     const dispatch = useDispatch();
-    const servers = useSelector(state => state.servers?.servers || []);
+    const servers = useSelector((state) => state.servers?.allServers || []);
 
     useEffect(() => {
         dispatch(loadAllServersThunk());
@@ -20,21 +20,23 @@ export default function ServerList() {
             <div className="divider"></div>
             <div className="servers">
                 {servers.map((server) => (
-                    <div key={server.id}
-                ))
+                    <div key={server.id} className="server-item">
+                        <img src={server.imageUrl} alt={`${server.name}`}/>
+                    </div>
+                ))}
             </div>
             <div id="join-create-container">
                 <OpenModalButton
                     buttonText="Explore"
                     modalComponent={<ServerIndexModal />}
-                    className='create-button'
+                    className="create-button"
                 />
                 <OpenModalButton
                     buttonText="Create server"
                     modalComponent={<CreateServerModal />}
-                    className='create-button'
+                    className="create-button"
                 />
             </div>
         </div>
-    )
+    );
 }

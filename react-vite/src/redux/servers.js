@@ -2,41 +2,51 @@ const LOAD_ALL_SERVERS = "servers/getAllServers";
 const LOAD_SERVERS_BY_USER = "servers/getServersByUser";
 
 const loadAllServers = (servers) => ({
-  type: LOAD_ALL_SERVERS,
-  payload: servers,
+    type: LOAD_ALL_SERVERS,
+    payload: servers,
 });
 
 const loadServersByUser = (servers) => ({
-  type: LOAD_SERVERS_BY_USER,
-  payload: servers,
+    type: LOAD_SERVERS_BY_USER,
+    payload: servers,
 });
 
 export const loadAllServersThunk = () => async (dispatch) => {
-  const allServers = await fetch("api/servers/all");
-  dispatch(loadAllServers(allServers));
+    console.log(
+        "%c this is in the load all server thunk log>",
+        "color:red; font-size: 26px",
+        "this is in the load all server thunk"
+    );
+    const allServers = await fetch("api/servers/all");
+    const data = await allServers.json()
+    console.log("ALL SERVERS: ", data)
+    dispatch(loadAllServers(data));
 };
 
 export const loadServersByUserThunk = (userId) => async (dispatch) => {
-  const usersServers = await fetch(`api/servers/:${userId}`);
-  dispatch(loadServersByUser(usersServers));
+    const usersServers = await fetch(`api/servers/:${userId}`);
+    dispatch(loadServersByUser(usersServers));
 };
 
-const serversReducer = (state = {}, action) => {
-  let newState;
-  switch (action.type) {
-    case LOAD_ALL_SERVERS: {
-      newState = { ...state };
-      newState.servers = action.payload.servers;
-      return newState;
-    }
-    case LOAD_SERVERS_BY_USER: {
-      newState = { ...state };
-      newState.myServers = action.payload.servers;
-    }
+const initialState = {
+    allServers: [],
+    myServers: [],
+};
 
-    default:
-      return state;
-  }
+const serversReducer = (state = initialState, action) => {
+    let newState;
+    switch (action.type) {
+        case LOAD_ALL_SERVERS: {
+            newState = { ...state, allServers: action.payload };
+            return newState;
+        }
+        case LOAD_SERVERS_BY_USER: {
+            newState = { ...state, myServers: action.payload };
+            return newState;
+        }
+        default:
+            return state;
+    }
 };
 
 export default serversReducer;
