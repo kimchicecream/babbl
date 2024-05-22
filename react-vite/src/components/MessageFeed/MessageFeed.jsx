@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { getMessagesByChannelThunk } from "../../redux/messages";
 
 export default function MessageFeed({ channel }) {
-    // write code here
     const dispatch = useDispatch();
     const messages = useSelector(
         (state) => state.messages?.channelMessages || []
@@ -25,8 +24,9 @@ export default function MessageFeed({ channel }) {
                     <span className="channel-name"></span>
                 </div>
                 <div className="message-feed">
-                    {/* get message component + map */}
-                    <Message />
+                    {messages.map((message) => (
+                      <Message key={message.id} message={message} />
+                    ))}
                 </div>
                 {/* {isMember ? (
                     <div className="input-field">

@@ -9,11 +9,11 @@ export default function Message({ message }) {
             </div>
             <div className="username-message-container">
                 <div className="username-time-container">
-                    <span className="username"></span>
-                    <span className="time"></span>
+                    <span className="username">{message.user.username}</span>
+                    {/* <span className="time"></span> */}
                 </div>
                 <div className="message-text">
-                    <p>{/* get message contents from redux store */}</p>
+                    <p>{message.content}</p>
                 </div>
             </div>
             <div className="message-mamangement-container">
