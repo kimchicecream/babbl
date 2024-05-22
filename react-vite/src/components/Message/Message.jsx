@@ -1,11 +1,11 @@
 import "./Message.css";
 
-export default function Message() {
+export default function Message({ message }) {
     // write code here
     return (
         <div className="message-container">
             <div className="profile-pic-container">
-                {/* <img ref={/* get imageUrl of profile *\/}></img> */}
+                <img ref={ message.user.imageUrl } alt={ "profile pic" }></img>
             </div>
             <div className="username-message-container">
                 <div className="username-time-container">

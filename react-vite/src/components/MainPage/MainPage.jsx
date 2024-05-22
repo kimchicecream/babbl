@@ -7,7 +7,7 @@ import React, { useEffect, useState } from "react";
 
 function MainPage() {
     const [selectedServer, setSelectedServer] = useState({});
-    console.log("SELECTED SERVER: ", selectedServer)
+    const [selectedChannel, setSelectedChannel] = useState(null)
     // useEffect to keep the page from scrolling
 
     useEffect(() => {
@@ -24,11 +24,11 @@ function MainPage() {
                 <ServerList onSelectServer={setSelectedServer} />
             </div>
             <div className="channel-column">
-                <ChannelList server={selectedServer} />
+                <ChannelList server={selectedServer} onSelectChannel={setSelectedChannel} />
                 <ProfileManagement />
             </div>
             <div className="message-feed-column">
-                <MessageFeed />
+                <MessageFeed channel={selectedChannel} />
             </div>
         </div>
     );
