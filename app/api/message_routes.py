@@ -8,28 +8,30 @@ from flask_login import current_user, login_user, logout_user, login_required
 message_routes = Blueprint('messages',__name__)
 
 @message_routes.route('/<int:channelsId>')
+@login_required
 def get_all_messages_by_channel(channelsId):
+
     messages = Message.query.filter_by(channelId=channelsId).all()
     return [message.to_dict() for message in messages]
 
 
-
-
-# @message_routes.route('/<int:channelId>')
-# def create_message(channelId):
-#     form = CreateMessageForm()
-#     form['csrf_token'].data = request.cookies['csrf_token']
-#     if form.validate_on_submit:
-#         new_message = Message(
-#             "userId": form.date["userId"]
-#             "channelId": channelId
-#             "message":form.date["message"]
-#         )
-#         if form.data["imageUrl"]:
-#             new_message["imageUrl"] = form.data["imageUrl"]
-#         db.session.add(new_message)
-#         db.session.commit()
-#         return new_message.to_dict()
+@message_routes.route('/<int:channelId>/new', methods=["POST", "GET"])
+@login_required
+def create_message(channelId):
+    form = CreateMessageForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit:
+        new_message = {
+            "userId": form.data["userId"],
+            "channelId":channelId,
+            "message":form.data["message"]}
+        if form.data["imageUrl"]:
+            new_message["imageUrl"] = form.data["imageUrl"]
+        made_message = Message(**new_message)
+        db.session.add(made_message)
+        db.session.commit()
+        return new_message
+    return form.errors, 401
 
 
 
