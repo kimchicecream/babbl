@@ -6,6 +6,11 @@
     box-sizing: border-box;
 }
 
+html, body {
+    background-color: black;
+    color: white;
+}
+
 @font-face {
     font-family: 'Gilroy';
     src: url('../public/fonts/Gilroy-Regular.ttf') format('truetype');
