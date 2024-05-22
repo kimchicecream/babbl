@@ -2,15 +2,26 @@ import "./ServerList.css"
 import CreateServerModal from '../ServerModals/CreateServerModal';
 import OpenModalButton from '../OpenModalButton';
 import ServerIndexModal from '../ServerModals/ServerIndexModal';
+import { useSelector, useDispatch } from "react-redux";
+import { loadAllServersThunk } from '../../../redux/servers';
+import React, { useEffect } from 'react';
 
 export default function ServerList() {
-    // Write Code Here
+    const dispatch = useDispatch();
+    const servers = useSelector(state => state.servers?.servers || []);
+
+    useEffect(() => {
+        dispatch(loadAllServersThunk());
+    }, [dispatch]);
+
     return (
         <div className="server-list-container">
             <button className="logo-button">Logo</button>
             <div className="divider"></div>
             <div className="servers">
-                {/* get servers + map into html */}
+                {servers.map((server) => (
+                    <div key={server.id}
+                ))
             </div>
             <div id="join-create-container">
                 <OpenModalButton
