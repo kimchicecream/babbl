@@ -1,6 +1,13 @@
 .server-list-container {
     display: flex;
     flex-direction: column;
+    height: 100%;
+    /* border: 2px solid red; */
+    padding: 10px 0;
+}
+
+.server-list-container .logo-button {
+    border-radius: 50%;
 }
 
 .server-list-container #join-create-container {
@@ -8,6 +15,8 @@
     flex-direction: column;
 }
 
-.server-list-container .logo-button {
-    border-radius: 50%;
+.server-list-container .servers {
+    height: 100%;
+
+    /* border: 2px solid red; */
 }

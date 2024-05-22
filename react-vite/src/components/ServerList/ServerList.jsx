@@ -13,7 +13,6 @@ export default function ServerList() {
                 {/* get servers + map into html */}
             </div>
             <div id="join-create-container">
-                <button className="join-button">Join</button>
                 <OpenModalButton
                     buttonText="Explore"
                     modalComponent={<ServerIndexModal />}
