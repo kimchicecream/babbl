@@ -12,7 +12,7 @@ const getChannelsByServer = (channels) => ({
 });
 
 export const createChannelThunk = (channelObj) => async (dispatch) => {
-  const newChannel = await fetch("/api/channels/", {
+  const newChannel = await fetch("/api/channels/new", {
     method: "POST",
     body: channelObj,
   });
@@ -34,7 +34,7 @@ const channelsReducer = (state = {}, action) => {
     }
     case CREATE_CHANNEL: {
       newState = { ...state };
-      newState.channels.channelId = action.payload.channel;
+      newState.channelId = action.payload.channel;
       return newState;
     }
     default:

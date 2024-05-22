@@ -6,7 +6,7 @@ from flask_login import current_user, login_required
 channel_routes = Blueprint('channels', __name__)
 
 @channel_routes.route('/<int:serversId>/all')
-@login_required
+
 def all_channel(serversId):
   channels = Channel.query.filter_by(serverId=serversId).all()
   print(channels)
@@ -15,12 +15,12 @@ def all_channel(serversId):
     channel_list.append(channel.to_dict())
   return channel_list
 
-@channel_routes.route('/create_channel', methods=["GET","POST"])
-@login_required
+@channel_routes.route('/new', methods=["GET","POST"])
+
 def create_new_channel():
 
     # creator_id = current_user.get_id()
-    # print(creator_id)
+    # print(creator_id)v``
     # print(server_id)
     # curr_user_servers = Server.query.filter_by(creatorId=creator_id)
 
