@@ -6,7 +6,7 @@ const getMessagesByChannel = (messages) => ({
 });
 
 export const getMessagesByChannelThunk = (channelId) => async (dispatch) => {
-  const messages = await fetch(`/api/messages${channelId}`);
+  const messages = await fetch(`/api/messages/${channelId}`);
   dispatch(getMessagesByChannel(messages));
 };
 
