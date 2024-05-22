@@ -18,7 +18,9 @@ socketio = SocketIO(cors_allowed_origins=origins)
 def handle_chat(data):
     db.session.add(
         Message(
-            {"userId": data.user.id, "channelId": data.channelId, "message": data.msg}
+            userId = data["user"]["id"],
+            channelId = data["channelId"],
+            message = data["msg"]
         )
     )
     db.session.commit()

@@ -45,7 +45,6 @@ const messagesReducer = (state = initialState, action) => {
       newState = { ...state, channelMessages: action.payload };
       return newState;
     }
-
     default:
       return state;
   }
