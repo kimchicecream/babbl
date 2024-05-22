@@ -21,12 +21,14 @@ def get_all_messages_by_channel(channelsId):
     #     reaction_list.append[reactions]
 
     # return [message.to_dict() for message in messages]
-    messages = Message.query.options(joinedload(Message.reactions).joinedload(Reaction.userId)).filter_by(channelId=channelsId).all()
-
+    messages = Message.query.options(joinedload(Message.reactions), joinedload(Message.user)).filter_by(channelId=channelsId).all()
 
     result = []
     for message in messages:
+
         message_dict = message.to_dict()
+        message_dict['user'] = message.user.to_dict()
+        print(message_dict)
         message_dict['reactions'] = [reaction.to_dict() for reaction in message.reactions]
         result.append(message_dict)
     return result
