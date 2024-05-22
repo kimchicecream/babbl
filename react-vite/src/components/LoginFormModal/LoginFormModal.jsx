@@ -26,6 +26,7 @@ function LoginFormModal() {
     } else {
       closeModal();
     }
+    console.log('logged in from the bottom of the handlesubmit')
   };
 
   return (
@@ -33,7 +34,7 @@ function LoginFormModal() {
       <h1 style={{margin: "10px 0 20px 0"}}>Welcome!</h1>
       <form className="form" onSubmit={handleSubmit}>
         <label>
-          Username
+          Email
           <input
             type="text"
             value={email}

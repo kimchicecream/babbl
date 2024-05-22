@@ -1,0 +1,34 @@
+.main-page-container {
+  display: flex;
+  /* border: 2px solid red; */
+  width: 100%;
+  height: 100vh;
+  box-sizing: border-box;
+  background-color: rgb(33, 33, 33);
+}
+
+.main-page-container .server-column {
+  display: flex;
+  flex-direction: column;
+  width: 100px;
+
+  border: 2px solid rgb(0, 34, 255);
+}
+
+.main-page-container .channel-column {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+
+  border: 2px solid rgb(30, 255, 0);
+}
+
+.main-page-container .message-feed-column {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+
+  border: 2px solid rgb(255, 0, 230);
+}

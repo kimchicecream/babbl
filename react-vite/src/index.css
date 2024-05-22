@@ -1,6 +1,19 @@
 /* TODO: Add sitewide styles */
 * {
+    font-family: 'Gilroy';
     margin: 0;
     border: 0;
     box-sizing: border-box;
+}
+
+@font-face {
+    font-family: 'Gilroy';
+    src: url('../public/fonts/Gilroy-Regular.ttf') format('truetype');
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: 'Gilroy';
+    src: url('../public/fonts/Gilroy-Bold.ttf') format('truetype');
+    font-weight: bold;
 }

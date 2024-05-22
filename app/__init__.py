@@ -40,6 +40,9 @@ migrate = Migrate(app, db)
 
 socketio.init_app(app)
 
+if __name__ == 'app':
+    print("this app for sure runnign socket io homie like for real")
+    socketio.run(app)
 
 
 
@@ -104,7 +107,3 @@ def react_root(path):
 @app.errorhandler(404)
 def not_found(e):
     return app.send_static_file('index.html')
-
-
-if __name__ == '__main__':
-    socketio.run(app)
