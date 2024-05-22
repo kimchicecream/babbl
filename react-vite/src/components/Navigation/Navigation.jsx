@@ -1,18 +1,30 @@
 import OpenModalButton from "../OpenModalButton";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
+import ProfileButton from './ProfileButton';
+import { useLocation } from "react-router-dom";
 import "./Navigation.css";
 import { useSelector } from "react-redux";
 
 function Navigation() {
-  const user = useSelector((state) => state.session.user);
+  const sessionUser = useSelector((state) => state.session.user);
+  const location = useLocation();
+
+  if (location.pathname !== '/') {
+    return null
+  }
+
   return (
-    !user && (
       <div className="navigation-container">
         <div className="logo-container">
-          <img src="../../public/babbl-logo.png" />
+          <img src="../../../public/babbl-logo.png" />
         </div>
-        <div className="signup-login-container">
+        {sessionUser ? (
+          <div className="logged-in">
+            <ProfileButton user={sessionUser} />
+          </div>
+        ) : (
+          <div className="signup-login-container">
           <OpenModalButton
             buttonText="Log In"
             modalComponent={<LoginFormModal />}
@@ -24,8 +36,9 @@ function Navigation() {
             className="signup-button"
           />
         </div>
+
+        )}
       </div>
-    )
   );
 }
 

@@ -3,7 +3,8 @@
 }
 
 .navigation-container {
-  background-color: rgb(12, 12, 12);
+  background-color: rgba(0, 0, 0, 0.324);
+  backdrop-filter: blur(30px);
 
   position: fixed;
   width: 100%;
@@ -12,11 +13,15 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  border-bottom: 1.5px solid rgba(128, 128, 128, 0.388);
   padding: 0 100px;
+  z-index: 666;
 }
 
 .logo-container img {
-  height: 50px;
+  height: 80px;
+  background-color: transparent;
 }
 
 /* ------- LOGIN & SIGN UP BUTTONS ------- */
@@ -48,4 +53,9 @@
 
 .signup-login-container .signup-button:hover {
   background-color: #6d38ff;
+}
+
+.profile-dropdown {
+  display: block;
+  border: 2px solid red;
 }
