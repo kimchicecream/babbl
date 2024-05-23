@@ -79,7 +79,8 @@ const channelsReducer = (state = {}, action) => {
   let newState;
   switch (action.type) {
     case GET_CHANNELS_BY_SERVER: {
-      newState = { ...state, ...action.payload };
+        console.log("ajhsdgbjhasgdjasgdjhas~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+      newState = { ...action.payload };
       return newState;
     }
     case CREATE_CHANNEL: {

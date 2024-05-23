@@ -32,7 +32,7 @@ const loadServersByUser = (servers) => ({
 export const editServerThunk = (serverObj) => async (dispatch) => {
   const response = await fetch(`api/servers/${serverObj.id}`);
   if (response.ok) {
-    data = response.json();
+    const data = response.json();
     dispatch(editServer(data));
   } else {
     const error = await response.json();
@@ -57,7 +57,7 @@ export const createServerThunk = (serverObj) => async (dispatch) => {
     body: serverObj,
   });
   if (response.ok) {
-    data = await response.json();
+    const data = await response.json();
     dispatch(createServer(data));
     return data;
   } else {
@@ -67,7 +67,6 @@ export const createServerThunk = (serverObj) => async (dispatch) => {
 };
 
 export const loadAllServersThunk = () => async (dispatch) => {
-
   const allServers = await fetch("api/servers/all");
   const data = await allServers.json();
   console.log("ALL SERVERS: ", data);

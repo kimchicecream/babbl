@@ -120,7 +120,7 @@ const messagesReducer = (state = {}, action) => {
     let newState;
     switch (action.type) {
         case GET_MESSAGES_BY_CHANNEL: {
-            newState = { ...state, ...action.payload };
+            newState = { ...action.payload };
             return newState;
         }
         case CREATE_REACTION: {
