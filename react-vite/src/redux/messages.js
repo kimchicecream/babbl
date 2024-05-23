@@ -1,15 +1,33 @@
 const GET_MESSAGES_BY_CHANNEL = "messages/getMessagesByChannel";
 const CREATE_NEW_MESSAGE = "messages/createNewMessage";
+const EDIT_MESSAGE = "messages/editMessage";
+const DELETE_MESSAGE = "messages/deleteMessage";
 
 const getMessagesByChannel = (messages) => ({
   type: GET_MESSAGES_BY_CHANNEL,
   payload: messages,
 });
 
+const deleteMessage = (message) => ({
+  type: DELETE_MESSAGE,
+  payload: message,
+});
+
 const createNewMessage = (message) => ({
   type: CREATE_NEW_MESSAGE,
   payload: message,
 });
+
+export const deleteMessageThunk = (messageId) => async (dispatch) => {
+  const response = await fetch(`api/messages/${messageId}/delete`);
+  if (response.ok) {
+    data = await response.json();
+    dispatch(deleteMessage(messageId));
+  } else {
+    const error = await response.json();
+    return error;
+  }
+};
 
 export const createNewMessageThunk =
   (messageObj, channelId) => async (dispatch) => {
@@ -34,8 +52,10 @@ export const getMessagesByChannelThunk = (channelId) => async (dispatch) => {
   dispatch(getMessagesByChannel(data));
 };
 
+
 const initialState = {
     channelMessages: [],
+
 };
 
 const messagesReducer = (state = initialState, action) => {
@@ -43,6 +63,10 @@ const messagesReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_MESSAGES_BY_CHANNEL: {
       newState = { ...state, channelMessages: action.payload };
+      return newState;
+    }
+    case EDIT_MESSAGE: {
+      newState = { ...state };
       return newState;
     }
     default:
