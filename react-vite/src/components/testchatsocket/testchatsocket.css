@@ -78,3 +78,7 @@
 .chat-socket-container .username {
   border: 2px solid red;
 }
+
+.message-container:hover .reactions {
+    height: 20px;
+}
