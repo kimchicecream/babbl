@@ -29,17 +29,17 @@ const reduceReactions = (reactions) => {
 // TODO: refactor into a list in a diff file maybe
 const renderEmoji = (id) => {
     return [
-        <span>&#128512;</span>,
-        <span>&#128513;</span>,
-        <span>&#128514;</span>,
-        <span>&#128515;</span>,
-        <span>&#128516;</span>,
-        <span>&#128517;</span>,
-        <span>&#128518;</span>,
-        <span>&#128519;</span>,
-        <span>&#128520;</span>,
-        <span>&#128521;</span>,
-        <span>&#128522;</span>,
+        <span key={0}>&#128512;</span>,
+        <span key={1}>&#128513;</span>,
+        <span key={2}>&#128514;</span>,
+        <span key={3}>&#128515;</span>,
+        <span key={4}>&#128516;</span>,
+        <span key={5}>&#128517;</span>,
+        <span key={6}>&#128518;</span>,
+        <span key={7}>&#128519;</span>,
+        <span key={8}>&#128520;</span>,
+        <span key={9}>&#128521;</span>,
+        <span key={10}>&#128522;</span>,
     ][id];
 };
 
@@ -72,6 +72,7 @@ const Chat = ({ initMessages, channelId }) => {
                             id: user.id,
                             imageUrl: user.imageUrl,
                         },
+                        reactions: [],
                     },
                 ]);
             }
@@ -110,6 +111,7 @@ const Chat = ({ initMessages, channelId }) => {
             },
             msg: chatInput,
             channelId,
+            reactions: [],
         });
         setChatInput("");
     };
@@ -157,8 +159,7 @@ const Chat = ({ initMessages, channelId }) => {
                                         onClick={() =>
                                             setShowMenu(!showReactionsMenu)
                                         }
-                                    >
-                                    </button>
+                                    ></button>
                                     <button className="edit"></button>
                                     <button className="delete"></button>
                                 </div>
