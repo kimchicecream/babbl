@@ -19,6 +19,7 @@ const Chat = ({ initMessages, channelId }) => {
 
         socket = io(socket_url);
 
+        // this happens when sending a message
         socket.on("chat", (message) => {
             if (message.channelId === channelId) {
                 setMessages((prevMessages) => [
@@ -27,7 +28,7 @@ const Chat = ({ initMessages, channelId }) => {
                         channelId,
                         message: message["msg"],
                         user: {
-                            name: user.username,
+                            username: user.username,
                             id: user.id,
                             imageUrl: user.imageUrl,
                         },
@@ -41,12 +42,9 @@ const Chat = ({ initMessages, channelId }) => {
             socket.disconnect();
         };
     }, [channelId, user]);
-    useEffect(() => {
-        console.log("MESSAGES: ", messages);
-    }, [messages]);
 
     useEffect(() => {
-        console.log("init changed: ", messages);
+        // loads messages from props if props change
         setMessages(initMessages);
     }, [initMessages]);
 
@@ -65,7 +63,7 @@ const Chat = ({ initMessages, channelId }) => {
     const sendChat = (e) => {
         e.preventDefault();
         socket.emit("chat", {
-            user: { name: user.username, id: user.id, imageUrl: user.imageUrl },
+            user: { username: user.username, id: user.id, imageUrl: user.imageUrl },
             msg: chatInput,
             channelId,
         });
@@ -93,7 +91,7 @@ const Chat = ({ initMessages, channelId }) => {
                                 <div className="username-message-container">
                                     <div className="username-time-container">
                                         <span className="username">
-                                            {/* {message.username} */}username
+                                            {message.user.username}
                                         </span>
                                         <span className="time"></span>
                                     </div>

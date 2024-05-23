@@ -53,6 +53,11 @@
   border-radius: 50%;
 }
 
+.profile-pic-container img {
+    height: 100%;
+    border-radius: 50%;
+}
+
 .message-text {
   word-wrap: break-word;
   word-break: break-word;
