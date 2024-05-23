@@ -100,7 +100,6 @@ export const createNewMessageThunk =
             return newMessage;
         } else {
             const error = await response.json();
-            console.log(error);
             return error;
         }
     };
@@ -120,7 +119,7 @@ const messagesReducer = (state = {}, action) => {
     let newState;
     switch (action.type) {
         case GET_MESSAGES_BY_CHANNEL: {
-            newState = { ...state, ...action.payload };
+            newState = { ...action.payload };
             return newState;
         }
         case CREATE_REACTION: {
