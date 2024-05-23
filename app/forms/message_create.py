@@ -5,9 +5,6 @@ from wtforms.validators import DataRequired, ValidationError, Length
 
 from app.models import Message
 
-# def server_is_unique():
-
-
 
 
 class CreateMessageForm(FlaskForm):
