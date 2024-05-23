@@ -8,7 +8,7 @@ channel_routes = Blueprint('channels', __name__)
 #add login_required
 
 @channel_routes.route('/<int:serversId>/all')
-# @login_required
+@login_required
 def all_channel(serversId):
   channels = Channel.query.filter_by(serverId=serversId).all()
   print(channels)
@@ -18,16 +18,13 @@ def all_channel(serversId):
   return channel_list
 
 @channel_routes.route('/new', methods=["GET","POST"])
-# @login_required
+@login_required
 def create_new_channel():
 
-    # creator_id = current_user.get_id()
-    # print(creator_id)v``
-    # print(server_id)
-    # curr_user_servers = Server.query.filter_by(creatorId=creator_id)
-
-    # if not curr_user_servers:
-    #     return {"error": "No server found for this user."}, 400
+    # auth REQUIRED, CURRENT USER  SERVER OWNER
+    server = Server.query.get(form.data["serverId"])
+    if server.creatorId != current_user.id:
+        return {'errors': {'message': 'Unauthorized'}}, 401
 
     form = ChannelForm()
     form['csrf_token'].data = request.cookies['csrf_token']
@@ -47,6 +44,7 @@ def create_new_channel():
 @channel_routes.route('/<int:channelId>/delete', methods=['GET'])
 # @login_required
 def delete_channel(channelId):
+        # auth REQUIRED, CURRENT USER  SERVER OWNER
     channel_to_delete=Channel.query.get(channelId)
     db.session.delete(channel_to_delete)
     db.session.commit()
@@ -56,6 +54,7 @@ def delete_channel(channelId):
 @channel_routes.route('/<int:channelId>/edit', methods=["POST"])
 # @login_required
 def update_channel(channelId):
+        # auth REQUIRED, CURRENT USER  SERVER OWNER
     form = ChannelForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
