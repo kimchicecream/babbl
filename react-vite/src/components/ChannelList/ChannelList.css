@@ -1,3 +1,10 @@
-.channels span {
-    /* border: 2px solid red; */
+.channel-item {
+    padding: 4px;
+    border-radius: 10px;
+    transition: background-color 0.1s ease;
+}
+
+.channel-item:hover {
+    cursor: pointer;
+    background-color: rgb(77, 77, 77);
 }
