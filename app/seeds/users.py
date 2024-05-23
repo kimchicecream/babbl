@@ -6,14 +6,20 @@ from sqlalchemy.sql import text
 def seed_users():
     demo = User(
         username='Demo', email='demo@aa.io', password='password', firstName='Bruce', lastName='Wayne', imageUrl='google.com')
-    marnie = User(
-        username='marnie', email='marnie@aa.io', password='password', firstName='Tina', lastName='G', imageUrl='google.com')
+    tina = User(
+        username='Tina', email='tina@aa.io', password='password', firstName='Tina', lastName='G', imageUrl='google.com')
     bobbie = User(
-        username='bobbie', email='bobbie@aa.io', password='password', firstName='Chris', lastName='P', imageUrl='google.com')
+        username='Bobby', email='bobby@aa.io', password='password', firstName='Bobby', lastName='S', imageUrl='google.com')
+    chris = User(
+        username='Chris', email='chris@aa.io', password='password', firstName='Chris', lastName='P', imageUrl='https://scontent-lax3-1.xx.fbcdn.net/v/t1.18169-9/29133197_1569947729793609_6420848725298898388_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=5f2048&_nc_ohc=8I6j9FKTzOgQ7kNvgEyThH-&_nc_ht=scontent-lax3-1.xx&oh=00_AYBwDhjAXxESJOtcB70ONkMtc47nm4fUYnbbK4Pz5dCkSg&oe=66765878')
+    alex = User(
+        username='Alex', email='lex@aa.io', password='password', firstName='Alex', lastName='G', imageUrl='google.com')
 
     db.session.add(demo)
-    db.session.add(marnie)
+    db.session.add(chris)
     db.session.add(bobbie)
+    db.session.add(tina)
+    db.session.add(alex)
     db.session.commit()
 
 

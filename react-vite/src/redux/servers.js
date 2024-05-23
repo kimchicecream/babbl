@@ -67,10 +67,12 @@ export const createServerThunk = (serverObj) => async (dispatch) => {
 };
 
 export const loadAllServersThunk = () => async (dispatch) => {
+
   const allServers = await fetch("api/servers/all");
   const data = await allServers.json();
   console.log("ALL SERVERS: ", data);
   dispatch(loadAllServers(data));
+
 };
 
 export const loadServersByUserThunk = (userId) => async (dispatch) => {

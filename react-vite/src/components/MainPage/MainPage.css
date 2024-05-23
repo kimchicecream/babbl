@@ -12,15 +12,16 @@
   flex-direction: column;
   width: 100px;
 
-  border: 2px solid rgb(0, 34, 255);
+  /* border: 2px solid rgb(0, 34, 255); */
 }
 
 .main-page-container .channel-column {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   width: 300px;
 
-  border: 2px solid rgb(30, 255, 0);
+  /* border: 2px solid rgb(30, 255, 0); */
 }
 
 .main-page-container .message-feed-column {
@@ -30,5 +31,5 @@
   flex-direction: column;
   width: 100%;
 
-  border: 2px solid rgb(255, 0, 230);
+  /* border: 2px solid rgb(255, 0, 230); */
 }

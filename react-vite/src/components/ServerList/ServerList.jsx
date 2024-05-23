@@ -17,7 +17,9 @@ export default function ServerList({ onSelectServer }) {
 
     return (
         <div className="server-list-container">
-            <button className="logo-button">Logo</button>
+            <button className="logo-button">
+                <img src="../../../public/babbl-logo.png" />
+            </button>
             <div className="divider"></div>
             <div className="servers">
                 {servers.map((server) => (
@@ -28,7 +30,7 @@ export default function ServerList({ onSelectServer }) {
             </div>
             <div id="join-create-container">
                 <OpenModalButton
-                    buttonText="Explore"
+                    buttonText={<img src='./something.png'/>}
                     modalComponent={<ServerIndexModal />}
                     className="create-button"
                 />

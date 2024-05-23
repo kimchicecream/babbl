@@ -1,13 +1,40 @@
 .server-list-container {
     display: flex;
     flex-direction: column;
+    align-items: center;
     height: 100%;
-    /* border: 2px solid red; */
     padding: 10px 0;
+    background-color: rgb(21, 21, 21);
+}
+
+.server-list-container .divider {
+    height: 2px;
+    width: 40px;
+    background-color: rgba(128, 128, 128, 0.495);
+    margin: 10px 0;
 }
 
 .server-list-container .logo-button {
+    all: unset;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 55px;
+    width: 55px;
+    background-color: rgb(77, 77, 77);
     border-radius: 50%;
+    transition: border-radius 0.1s ease;
+}
+
+.server-list-container .logo-button:hover {
+    border-radius: 35%;
+    background-color: rgb(140, 79, 255);
+}
+
+.server-list-container .logo-button img {
+    height: 55px;
+    width: 55px;
 }
 
 .server-list-container #join-create-container {
@@ -16,13 +43,21 @@
 }
 
 .server-list-container .servers {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
     height: 100%;
-
-    /* border: 2px solid red; */
 }
 
 .servers img {
-    height: 40px;
-    /* width: 40px;
-    object-fit: cover; */
+    height: 55px;
+    width: 55px;
+    object-fit: cover;
+    border-radius: 50%;
+    transition: border-radius 0.2s ease;
+}
+
+.servers img:hover {
+    border-radius: 35%;
+    cursor: pointer;
 }

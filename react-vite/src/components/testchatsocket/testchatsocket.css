@@ -1,3 +1,84 @@
+.chat-socket-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  /* border: 2px solid rgb(0, 255, 242); */
+}
+
 .socket-messages-scroll {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: flex-end; */
+  height: 100%;
+  overflow-y: auto;
+  scroll-behavior: auto;
+
+  /* border: 2px solid yellow; */
+}
+
+.messages-wrapper {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: flex-end;
+  /* min-height: 100%; */
+  /* gap: 40px; */
+}
+
+.chat-socket-container .input-field {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 60px;
+  /* width: 100%; */
+
+  border: 2px solid rgb(255, 0, 0);
+}
+
+/* INDIVIDUAL MESSAGES */
+.message-container {
+  display: flex;
+
+  margin-bottom: 20px;
+  padding-left: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+
+  border: 2px solid blue;
+}
+
+.profile-pic-container {
   border: 2px solid red;
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+}
+
+.profile-pic-container img {
+    height: 100%;
+    border-radius: 50%;
+}
+
+.message-text {
+  word-wrap: break-word;
+  word-break: break-word;
+  width: 1000px;
+
+  border: 2px solid rgb(255, 242, 0);
+}
+
+/* .message-text p {
+  width: 100%;
+} */
+
+.username-message-container {
+  padding-left: 10px;
+}
+
+.chat-socket-container .username {
+  border: 2px solid red;
+}
+
+.message-container:hover .reactions {
+    height: 20px;
 }
