@@ -36,5 +36,7 @@ class Reaction(db.Model):
 
     def for_message(self):
         return{
-            "emojiId":self.emojiId
+            "emojiId":self.emojiId,
+            "id":self.id,
+            "messageId": self.messageId
         }
