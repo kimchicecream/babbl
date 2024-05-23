@@ -1,16 +1,27 @@
 import { getChannelsByServerThunk } from "../../redux/channels";
 import { useSelector, useDispatch } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import "./ChannelList.css";
 
 export default function ChannelList({ server, onSelectChannel }) {
     // write code here
     const dispatch = useDispatch();
     const channels = useSelector((state) => state.channels?.serverChannels || []);
+    const [selectedChannel, setSelectedChannel] = useState(null);
 
     useEffect(() => {
         dispatch(getChannelsByServerThunk(server.id));
     }, [dispatch, server]);
+
+    const formatChannelName = (name) => {
+        const formattedName = name.toLowerCase().replace(/\s+/g, '-');
+        return formattedName.length > 20 ? `${formattedName.substring(0, 20)}...` : formattedName;
+    };
+
+    const handleChannelClick = (channel) => {
+        setSelectedChannel(channel.id);
+        onSelectChannel(channel);
+    };
 
     return (
         <div className="channel-list-container">
@@ -22,9 +33,13 @@ export default function ChannelList({ server, onSelectChannel }) {
             </div>
             <div className="channels">
                 {channels.map((channel) => (
-                    <div key={channel.id} className="channel-item" onClick={() => onSelectChannel(channel)}>
+                    <div
+                        key={channel.id}
+                        className={`channel-item ${selectedChannel === channel.id ? 'selected' : ''}`}
+                        onClick={() => handleChannelClick(channel)}
+                    >
                         <span>
-                            <span id='hash'>#</span> {channel.name}
+                            <span id='hash'>#</span> {formatChannelName(channel.name)}
                         </span>
                     </div>
                 ))}

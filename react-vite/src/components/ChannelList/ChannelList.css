@@ -8,6 +8,7 @@
 }
 
 .channel-list-container .server-name {
+    font-size: 15px;
     font-weight: bold;
     padding-left: 10px;
 }
@@ -15,14 +16,14 @@
 .channels {
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 2px;
     margin-top: 5px;
     padding: 0px 10px;
 }
 
 .channel-list-container .channel-item {
     padding: 4px 0px 4px 10px;
-    border-radius: 10px;
+    border-radius: 3px;
     transition: background-color 0.1s ease;
     font-size: 16px;
     color: rgb(103, 103, 103);
@@ -30,6 +31,24 @@
 
 .channel-list-container .channel-item:hover {
     cursor: pointer;
-    background-color: rgb(77, 77, 77);
+    background-color: rgba(159, 117, 244, 0.206);
     color: white;
+}
+
+.channel-list-container .channel-item.selected {
+    cursor: pointer;
+    background-color: rgba(188, 154, 254, 0.542);
+    color: white;
+}
+
+.channel-list-container .channel-item span {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    /* justify-content: center; */
+}
+
+.channel-list-container .channel-item #hash {
+    font-size: 22px;
+    font-weight: bold;
 }
