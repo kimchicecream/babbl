@@ -106,9 +106,14 @@ export const createNewMessageThunk =
   };
 
 export const getMessagesByChannelThunk = (channelId) => async (dispatch) => {
-  const messages = await fetch(`/api/messages/${channelId}`);
-  const data = await messages.json();
-  dispatch(getMessagesByChannel(data));
+  const response = await fetch(`/api/messages/${channelId}`);
+  if (response.ok) {
+    data = await response.json();
+    dispatch(getMessagesByChannel(data));
+  } else {
+    const error = await response.json();
+    return error;
+  }
 };
 
 const initialState = {

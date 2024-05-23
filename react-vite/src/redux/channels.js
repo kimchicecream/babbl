@@ -61,8 +61,6 @@ export const createChannelThunk = (channelObj) => async (dispatch) => {
     const error = await response.json();
     return error;
   }
-
-  dispatch(createChannel(newChannel));
 };
 
 export const getChannelsByServerThunk = (serverId) => async (dispatch) => {
@@ -74,8 +72,6 @@ export const getChannelsByServerThunk = (serverId) => async (dispatch) => {
     const error = await response.json();
     return error;
   }
-
-  dispatch(getChannelsByServer(data));
 };
 
 const channelsReducer = (state = {}, action) => {
