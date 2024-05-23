@@ -18,6 +18,7 @@
 .main-page-container .channel-column {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   width: 300px;
 
   /* border: 2px solid rgb(30, 255, 0); */
