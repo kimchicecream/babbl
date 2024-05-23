@@ -1,4 +1,32 @@
 .message-feed-container {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+
+  /* border: 2px solid red */
+}
+
+.message-feed {
+  border: 2px solid red;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  overflow: hidden;
+}
+
+.message-feed-container .channel-header-container {
+  display: flex;
+  align-items: center;
+  height: 46px;
+  padding: 10px 0px;
+
+  border-bottom: 2px solid rgb(86, 86, 86);
+}
+
+.message-feed-container .channel-header-container span {
+  font-size: 30px;
+  padding-left: 10px;
 }

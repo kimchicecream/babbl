@@ -14,10 +14,14 @@ class Message(db.Model):
 
     id = Column(Integer, primary_key=True)
     userId = Column(
-        Integer, ForeignKey(add_prefix_for_prod("users.id"), ondelete="CASCADE"), nullable=False
+        Integer,
+        ForeignKey(add_prefix_for_prod("users.id"), ondelete="CASCADE"),
+        nullable=False,
     )
     channelId = Column(
-        Integer, ForeignKey(add_prefix_for_prod("channels.id"), ondelete="CASCADE"), nullable=False
+        Integer,
+        ForeignKey(add_prefix_for_prod("channels.id"), ondelete="CASCADE"),
+        nullable=False,
     )
     message = Column(String(4028), nullable=False)
     imageUrl = Column(String(1023))
@@ -28,7 +32,9 @@ class Message(db.Model):
     user = relationship("User", back_populates="messages")
     channel = relationship("Channel", back_populates="messages")
 
-    reactions = relationship("Reaction", back_populates="message", cascade='all, delete-orphan')
+    reactions = relationship(
+        "Reaction", back_populates="message", cascade="all, delete-orphan"
+    )
 
     def to_dict(self):
         return {

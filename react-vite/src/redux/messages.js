@@ -30,13 +30,13 @@ export const createNewMessageThunk =
 
 export const getMessagesByChannelThunk = (channelId) => async (dispatch) => {
   const messages = await fetch(`/api/messages/${channelId}`);
-  dispatch(getMessagesByChannel(messages));
+  const data = await messages.json();
+  dispatch(getMessagesByChannel(data));
 };
 
-
-initialState ={
-  channelMessages:[]
-}
+const initialState = {
+    channelMessages: [],
+};
 
 const messagesReducer = (state = initialState, action) => {
   let newState;
