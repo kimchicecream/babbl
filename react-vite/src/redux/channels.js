@@ -67,7 +67,6 @@ export const getChannelsByServerThunk = (serverId) => async (dispatch) => {
   const response = await fetch(`api/channels/${serverId}/all`);
   if (response.ok) {
     const data = await response.json();
-    console.log("DATA: ", data);
     dispatch(getChannelsByServer(data));
   } else {
     const error = await response.json();
@@ -79,7 +78,6 @@ const channelsReducer = (state = {}, action) => {
   let newState;
   switch (action.type) {
     case GET_CHANNELS_BY_SERVER: {
-        console.log("ajhsdgbjhasgdjasgdjhas~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
       newState = { ...action.payload };
       return newState;
     }

@@ -100,7 +100,6 @@ export const createNewMessageThunk =
             return newMessage;
         } else {
             const error = await response.json();
-            console.log(error);
             return error;
         }
     };

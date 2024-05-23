@@ -141,7 +141,6 @@ const Chat = ({ initMessages, channelId }) => {
                                     </div>
                                     {Object.keys(message.reactions).length > 0 && (
                                         <div className="reactions">
-                                            {console.log("REACTIONS: ", message.reactions)};
                                             {reduceReactions(message.reactions)}
                                         </div>
                                     )}

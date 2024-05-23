@@ -1,6 +1,5 @@
 #reactions-list {
     color: none;
-    /* TODO: change position from absolute */
     position: absolute;
     top: 50%;
     left: 50%;
@@ -8,12 +7,18 @@
     grid-template-columns: repeat(8, 1fr);
     background-color: rgb(77, 77, 77);
     border-radius: 10px;
-
+    height: 250px;
+    overflow: hidden;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgb(150, 150, 150) transparent
 }
+
 #reactions-list button {
     all: unset;
     padding: 4px;
     border-radius: 8px;
+    font-size: 30px;
 }
 
 #reactions-list button:hover {
