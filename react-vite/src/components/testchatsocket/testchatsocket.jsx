@@ -129,11 +129,11 @@ const Chat = ({ initMessages, channelId }) => {
                                     <div className="message-text">
                                         <p>{message.message}</p>
                                     </div>
-                                    {message.reactions.length > 0 && (
+                                    {/* {message.reactions.length > 0 && (
                                         <div className="reactions">
                                             {reduceReactions(message.reactions)}
                                         </div>
-                                    )}
+                                    )} */}
                                 </div>
                                 <div className="message-management-container">
                                     <button
