@@ -4,6 +4,27 @@ import { io } from "socket.io-client";
 import "./testchatsocket.css";
 let socket;
 
+const reduceReactions = (reactions) => {
+    const counts = reactions.reduce((counts, reaction) => {
+        counts[reaction.emojiId.toString()] =
+            (counts[reaction.emojiId.toString()] || 0) + 1;
+        return counts;
+    }, {});
+
+    console.log("COUNTS", counts);
+    const buttons = [];
+    for (const [key, value] of Object.entries(counts)) {
+        buttons.push(
+            <button className="reaction-button">
+                {/* TODO: change this to render emoji with emoji id "key" */}
+                id {key}: {value}
+            </button>
+        );
+    }
+
+    return buttons;
+};
+
 const Chat = ({ initMessages, channelId }) => {
     const [chatInput, setChatInput] = useState("");
     const [messages, setMessages] = useState(initMessages);
@@ -65,7 +86,7 @@ const Chat = ({ initMessages, channelId }) => {
         socket.emit("chat", {
             user: {
                 username: user.username,
-                id: user.id,    // maybe this is not needed
+                id: user.id, // maybe this is not needed
                 imageUrl: user.imageUrl,
             },
             msg: chatInput,
@@ -84,6 +105,7 @@ const Chat = ({ initMessages, channelId }) => {
                     <div className="messages-wrapper">
                         {messages.map((message, ind) => (
                             <div className="message-container" key={ind}>
+                                {console.log(message)}
                                 <div className="profile-pic-container">
                                     {message?.user?.imageUrl && (
                                         <img
@@ -104,7 +126,10 @@ const Chat = ({ initMessages, channelId }) => {
                                     </div>
                                 </div>
                                 <div className="message-mamangement-container">
-                                    <button className="reactions"></button>
+                                    <div className="reactions">
+                                        {message.reactions.length > 0 &&
+                                            reduceReactions(message.reactions)}
+                                    </div>
                                     <button className="edit"></button>
                                     <button className="delete"></button>
                                 </div>
