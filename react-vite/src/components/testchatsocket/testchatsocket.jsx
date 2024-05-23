@@ -80,7 +80,7 @@ const Chat = ({ initMessages, channelId }) => {
                           <div className="profile-pic-container">
                               {message?.user?.imageUrl && (
                                   <img
-                                      ref={message.user.imageUrl}
+                                      src={message.user.imageUrl}
                                       alt={"profile pic"}
                                   ></img>
                               )}
