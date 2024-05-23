@@ -74,7 +74,8 @@ export const loadAllServersThunk = () => async (dispatch) => {
 
 export const loadServersByUserThunk = (userId) => async (dispatch) => {
     const usersServers = await fetch(`api/servers/:${userId}`);
-    dispatch(loadServersByUser(usersServers));
+    const data = await usersServers.json()
+    dispatch(loadServersByUser(data));
 };
 
 const initialState = {

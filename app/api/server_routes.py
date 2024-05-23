@@ -2,6 +2,7 @@ from flask import Blueprint, request
 from app.models import db, Server
 from app.forms.server_create import CreateServerForm
 from flask_login import current_user, login_required
+from sqlalchemy.orm import joinedload
 
 server_routes = Blueprint('servers', __name__)
 
@@ -17,7 +18,7 @@ def get_all_servers():
 @server_routes.route('/<int:userId>')
 # @login_required
 def get_servers_by_userId(userId):
-    servers = Server.query.filter_by(creatorId = userId).all()
+    servers = Server.query.options(joinedload(Server.users)).all()
     answer_list = []
     for server in servers:
         answer_list.append(server.to_dict())
