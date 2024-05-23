@@ -5,6 +5,14 @@ import { ReactionsList } from "./reactionsList";
 import "./testchatsocket.css";
 let socket;
 
+const mapMessages = (messages) => {
+    const returnArr = [];
+    for (const value of Object.values(messages)) {
+        returnArr.push(value)
+    }
+    return returnArr;
+}
+
 const reduceReactions = (reactions) => {
     const counts = reactions.reduce((counts, reaction) => {
         counts[reaction.emojiId.toString()] =
@@ -45,7 +53,7 @@ const renderEmoji = (id) => {
 
 const Chat = ({ initMessages, channelId }) => {
     const [chatInput, setChatInput] = useState("");
-    const [messages, setMessages] = useState(initMessages);
+    const [messages, setMessages] = useState(mapMessages(initMessages));
     const [showReactionsMenu, setShowMenu] = useState(false);
     const user = useSelector((state) => state.session.user);
     const messagesEndRef = useRef(null);
@@ -85,7 +93,7 @@ const Chat = ({ initMessages, channelId }) => {
 
     useEffect(() => {
         // loads messages from props if props change
-        setMessages(initMessages);
+        setMessages(mapMessages(initMessages));
     }, [initMessages]);
 
     useEffect(() => {

@@ -26,7 +26,7 @@ const getChannelsByServer = (channels) => ({
 export const deleteChannelThunk = (channelId) => async (dispatch) => {
   const response = await fetch(`/api/channels/${channelId}/delete`);
   if (response.ok) {
-    data = response.json();
+    const data = response.json();
     dispatch(deleteChannel(channelId));
     return data;
   } else {
@@ -41,7 +41,7 @@ export const editChannelThunk = (channelObj) => async (dispatch) => {
     body: channelObj,
   });
   if (response.ok) {
-    data = response.json();
+    const data = await response.json();
     dispatch(editChannel(data));
   } else {
     const error = await response.json();
@@ -55,7 +55,7 @@ export const createChannelThunk = (channelObj) => async (dispatch) => {
     body: channelObj,
   });
   if (response.ok) {
-    data = response.json();
+    const data = await response.json();
     dispatch(createChannel(data));
   } else {
     const error = await response.json();
@@ -66,7 +66,8 @@ export const createChannelThunk = (channelObj) => async (dispatch) => {
 export const getChannelsByServerThunk = (serverId) => async (dispatch) => {
   const response = await fetch(`api/channels/${serverId}/all`);
   if (response.ok) {
-    data = response.json();
+    const data = await response.json();
+    console.log("DATA: ", data);
     dispatch(getChannelsByServer(data));
   } else {
     const error = await response.json();

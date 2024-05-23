@@ -7,7 +7,7 @@ import { getMessagesByChannelThunk } from "../../redux/messages";
 export default function MessageFeed({ channel }) {
     const dispatch = useDispatch();
     const messages = useSelector(
-        (state) => state.messages?.channelMessages || []
+        (state) => state.messages || {}
     );
 
     useEffect(() => {
@@ -17,7 +17,6 @@ export default function MessageFeed({ channel }) {
     return (
         <>
             <div className="message-feed-container">
-
                 <div className="channel-header-container">
                     <span className="channel-name">
                         # {channel.name}
