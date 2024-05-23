@@ -19,7 +19,7 @@ const Chat = ({ initMessages, channelId }) => {
 
         socket = io(socket_url);
 
-        // this happens when sending a message
+        // does this happen on sending or receiving a message?
         socket.on("chat", (message) => {
             if (message.channelId === channelId) {
                 setMessages((prevMessages) => [
@@ -63,7 +63,11 @@ const Chat = ({ initMessages, channelId }) => {
     const sendChat = (e) => {
         e.preventDefault();
         socket.emit("chat", {
-            user: { username: user.username, id: user.id, imageUrl: user.imageUrl },
+            user: {
+                username: user.username,
+                id: user.id,    // maybe this is not needed
+                imageUrl: user.imageUrl,
+            },
             msg: chatInput,
             channelId,
         });
@@ -85,7 +89,7 @@ const Chat = ({ initMessages, channelId }) => {
                                         <img
                                             src={message.user.imageUrl}
                                             alt={"profile pic"}
-                                        ></img>
+                                        />
                                     )}
                                 </div>
                                 <div className="username-message-container">
