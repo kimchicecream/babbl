@@ -33,3 +33,8 @@ class Reaction(db.Model):
             "created_at": self.created_at,
             "updated_at": self.updated_at,
         }
+
+    def for_message(self):
+        return{
+            "emojiId":self.emojiId
+        }

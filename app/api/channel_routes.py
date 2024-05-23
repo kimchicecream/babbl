@@ -5,8 +5,10 @@ from flask_login import current_user, login_required
 
 channel_routes = Blueprint('channels', __name__)
 
-@channel_routes.route('/<int:serversId>/all')
+#add login_required
 
+@channel_routes.route('/<int:serversId>/all')
+# @login_required
 def all_channel(serversId):
   channels = Channel.query.filter_by(serverId=serversId).all()
   print(channels)
@@ -16,7 +18,7 @@ def all_channel(serversId):
   return channel_list
 
 @channel_routes.route('/new', methods=["GET","POST"])
-
+# @login_required
 def create_new_channel():
 
     # creator_id = current_user.get_id()
@@ -40,10 +42,10 @@ def create_new_channel():
         db.session.add(madeChannel)
         db.session.commit()
         return madeChannel.to_dict()
-    return form.errors
+    return form.errors, 401
 
 @channel_routes.route('/<int:channelId>/delete', methods=['GET'])
-@login_required
+# @login_required
 def delete_channel(channelId):
     channel_to_delete=Channel.query.get(channelId)
     db.session.delete(channel_to_delete)
@@ -52,7 +54,7 @@ def delete_channel(channelId):
 
 
 @channel_routes.route('/<int:channelId>/edit', methods=["POST"])
-@login_required
+# @login_required
 def update_channel(channelId):
     form = ChannelForm()
     form['csrf_token'].data = request.cookies['csrf_token']
@@ -65,4 +67,4 @@ def update_channel(channelId):
         return channel_to_update.to_dict()
 
     if form.errors:
-        print(form.errors)
+        return form.errors, 401 #double check status number

@@ -4,6 +4,8 @@ from sqlalchemy import Column, Integer, String, ForeignKey, Boolean, DateTime
 from datetime import datetime
 
 
+
+
 class Message(db.Model):
     __tablename__ = "messages"
 
