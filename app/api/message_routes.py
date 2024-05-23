@@ -45,6 +45,7 @@ def get_all_messages_by_channel(channelsId):
 @message_routes.route('/<int:reactionId>/delete')
 # @login_required
 def delete_reaction(reactionId):
+     # auth REQUIRED, CURRENT USER
     reaction_to_delete = Reaction.query.get(reactionId);
     returnObj = reaction_to_delete.for_message()
     db.session.delete(reaction_to_delete)
@@ -56,6 +57,7 @@ def delete_reaction(reactionId):
 @message_routes.route('/<int:messageId>/reactions', methods = ["POST"])
 # @login_required
 def create_reaction(messageId):
+     # auth REQUIRED, CURRENT USER PART OF CHANNEL
     form = ReactionForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit:
@@ -79,6 +81,7 @@ def create_reaction(messageId):
 @message_routes.route('/<int:channelId>/new', methods=["POST", "GET"])
 # @login_required
 def create_message(channelId):
+     # auth REQUIRED, CURRENT USER MEMBER OF CHANNEL
     form = CreateMessageForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit:
@@ -99,7 +102,7 @@ def create_message(channelId):
 @message_routes.route('/<int:messageId>/edit')
 # @login_required
 def edit_message_by_id(messageId):
-
+     # auth REQUIRED, CURRENT USER
     form = CreateMessageForm()
     form['csrf_token'].data = request.cookies['csrf_token']
 
