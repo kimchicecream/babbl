@@ -50,24 +50,35 @@ export const editChannelThunk = (channelObj) => async (dispatch) => {
 };
 
 export const createChannelThunk = (channelObj) => async (dispatch) => {
-  const newChannel = await fetch("/api/channels/new", {
+  const response = await fetch("/api/channels/new", {
     method: "POST",
     body: channelObj,
   });
-  dispatch(createChannel(newChannel));
+  if (response.ok) {
+    data = response.json();
+    dispatch(createChannel(data));
+  } else {
+    const error = await response.json();
+    return error;
+  }
 };
 
 export const getChannelsByServerThunk = (serverId) => async (dispatch) => {
-  const serversChannels = await fetch(`api/channels/${serverId}/all`);
-  const data = await serversChannels.json()
-  dispatch(getChannelsByServer(data));
+  const response = await fetch(`api/channels/${serverId}/all`);
+  if (response.ok) {
+    data = response.json();
+    dispatch(getChannelsByServer(data));
+  } else {
+    const error = await response.json();
+    return error;
+  }
 };
 
 const channelsReducer = (state = {}, action) => {
   let newState;
   switch (action.type) {
     case GET_CHANNELS_BY_SERVER: {
-      newState = { ...state, serverChannels: action.payload };
+      newState = { ...state, ...action.payload };
       return newState;
     }
     case CREATE_CHANNEL: {
