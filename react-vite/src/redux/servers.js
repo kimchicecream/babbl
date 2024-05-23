@@ -9,7 +9,10 @@ const deleteServer = (serverId) => ({
   payload: serverId,
 });
 
-// const editServer = (server)
+const editServer = (server) => ({
+  type: EDIT_SERVER,
+  payload: server,
+});
 
 const loadAllServers = (servers) => ({
   type: LOAD_ALL_SERVERS,
@@ -25,6 +28,17 @@ const loadServersByUser = (servers) => ({
   type: LOAD_SERVERS_BY_USER,
   payload: servers,
 });
+
+export const editServerThunk = (serverObj) => async (dispatch) => {
+  const response = await fetch(`api/servers/${serverObj.id}`);
+  if (response.ok) {
+    data = response.json();
+    dispatch(editServer(data));
+  } else {
+    const error = await response.json();
+    return error;
+  }
+};
 
 export const deleteServerThunk = (serverId) => async (dispatch) => {
   const response = await fetch(`api/servers/${serverId}/delete`);
@@ -89,6 +103,11 @@ const serversReducer = (state = initialState, action) => {
       newState = { ...state };
       delete newState.allServers[action.payload];
       delete newState.myServers[action.payload];
+    }
+    case EDIT_SERVER: {
+      newState = { ...state };
+      newState.allServers[action.payload.id] = action.payload;
+      newState.myServers[action.payload.id] = action.payload;
     }
 
     default:
