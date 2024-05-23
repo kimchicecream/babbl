@@ -4,6 +4,7 @@ from app.models import User, db, Message, Reaction
 #  EXAMPLE from app.forms.server_create mport CreateServerForm
 from app.forms.message_create import CreateMessageForm
 from flask_login import current_user, login_user, logout_user, login_required
+from app.forms.reaction import ReactionForm
 
 from sqlalchemy.orm import joinedload
 
@@ -28,10 +29,51 @@ def get_all_messages_by_channel(channelsId):
 
         message_dict = message.to_dict()
         message_dict['user'] = message.user.for_messages()
-        print(message_dict)
-        message_dict['reactions'] = [reaction.for_message() for reaction in message.reactions]
+        # print(message_dict)
+
+        reactions_list = [reaction.for_message() for reaction in message.reactions]
+        reactions_dict= {}
+        for reaction in reactions_list:
+
+            reactions_dict[reaction['id']]=reaction
+
+
+        message_dict['reactions'] =reactions_dict
         result.append(message_dict)
     return result
+
+@message_routes.route('/<int:reactionId>/delete')
+# @login_required
+def delete_reaction(reactionId):
+    reaction_to_delete = Reaction.query.get(reactionId);
+    returnObj = reaction_to_delete.for_message()
+    db.session.delete(reaction_to_delete)
+    db.session.commit()
+    return returnObj
+
+
+
+@message_routes.route('/<int:messageId>/reactions', methods = ["POST"])
+# @login_required
+def create_reaction(messageId):
+    form = ReactionForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit:
+        newReaction = {
+            "userId":form.data["userId"],
+            "messageId": form.data["messageId"],
+            "emojiId": form.data["emojiId"]
+        }
+        made_reaction = Reaction ( **newReaction)
+        db.session.add(made_reaction)
+        db.session.commit()
+        return made_reaction.for_message()
+    else:
+        return form.errors, 401
+
+
+
+
 
 
 @message_routes.route('/<int:channelId>/new', methods=["POST", "GET"])
@@ -49,7 +91,7 @@ def create_message(channelId):
         made_message = Message(**new_message)
         db.session.add(made_message)
         db.session.commit()
-        return new_message
+        return made_message
     return form.errors, 401
 
 
