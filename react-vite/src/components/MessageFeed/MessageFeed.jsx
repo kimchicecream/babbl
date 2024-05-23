@@ -17,16 +17,11 @@ export default function MessageFeed({ channel }) {
     return (
         <>
             <div className="message-feed-container">
-                
+
                 <div className="channel-header-container">
-                    {/* <img ref={/* hash icon *\/}></img> */}
-                    <span className="channel-name">{channel.name}</span>
+                    <span className="channel-name"># {channel.name}</span>
                 </div>
                 <div className="message-feed">
-                    {/* { console.log("msgs ", messages) } */}
-                    {/* {messages.map((message) => (
-                        <Message key={message.id} message={message} />
-                    ))} */}
                     <Chat initMessages={messages} channelId={channel.id} />
                 </div>
                 {/* {isMember ? (
@@ -47,10 +42,10 @@ export default function MessageFeed({ channel }) {
                     </div>
                 )} */}
             </div>
-            <button
+            {/* <button
                 className="show-member-list"
                 // onClick={() => (showUserList = !showUserList)}
-            ></button>
+            ></button> */}
             {/* {showUserList ? <UserList /> : ""} */}
         </>
     );

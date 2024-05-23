@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import { io } from "socket.io-client";
 import "./testchatsocket.css";
@@ -8,12 +8,11 @@ const Chat = ({ initMessages, channelId }) => {
     const [chatInput, setChatInput] = useState("");
     const [messages, setMessages] = useState(initMessages);
     const user = useSelector((state) => state.session.user);
+    const messagesEndRef = useRef(null);
+    const messagesContainerRef = useRef(null);
 
     useEffect(() => {
-        // open socket connection
-        // create websockets
         let socket_url = "http://127.0.0.1:8000";
-
         if (import.meta.env.MODE === "production") {
             socket_url = "https://babbl.onrender.com";
         }
@@ -21,26 +20,23 @@ const Chat = ({ initMessages, channelId }) => {
         socket = io(socket_url);
 
         socket.on("chat", (message) => {
-            console.log("message contents: ", messages);
-            setMessages([...messages, {
+          if (message.channelId === channelId) {
+            setMessages((prevMessages) => [
+              ...prevMessages,
+              {
                 channelId,
                 message: message["msg"],
                 user: { name: user.username, id: user.id, imageUrl: user.imageUrl }
-            }]);
-            // setMessages([...messages, message])
+              }
+            ])
+          }
         });
 
-        // socket.on("chat", (chat) => {
-        //     setMessages((messages) => [...messages, chat]);
-        // });
-
-        // console.log(messages);
-        // when component unmounts, disconnect
-        // return () => {
-        //   socket.disconnect();
-        // };
-    });
-
+        return () => {
+          socket.emit('leave', { channelId });
+          socket.disconnect();
+        };
+    }, [channelId, user]);
     useEffect(() => {
         console.log("MESSAGES: ", messages);
     }, [messages])
@@ -49,6 +45,13 @@ const Chat = ({ initMessages, channelId }) => {
         console.log("init changed: ", messages);
         setMessages(initMessages);
     }, [initMessages]);
+
+    useEffect(() => {
+      // Scroll to the bottom when messages change
+      if (messagesContainerRef.current) {
+          messagesContainerRef.current.scrollTop = messagesContainerRef.current.scrollHeight;
+      }
+  }, [messages]);
 
     const updateChatInput = (e) => {
         setChatInput(e.target.value);
@@ -66,42 +69,50 @@ const Chat = ({ initMessages, channelId }) => {
 
     return (
         user && (
-            <div>
-                <div className="socket-messages-scroll">
-                    {messages.map((message, ind) => (
-                        <div className="message-container" key={ind}>
-                            <div className="profile-pic-container">
-                                {message?.user?.imageUrl && (
-                                    <img
-                                        ref={message.user.imageUrl}
-                                        alt={"profile pic"}
-                                    ></img>
-                                )}
-                            </div>
-                            <div className="username-message-container">
-                                <div className="username-time-container">
-                                    <span className="username">
-                                        {message.username}
-                                    </span>
-                                    <span className="time"></span>
-                                </div>
-                                <div className="message-text">
-                                    <p>{message.message}</p>
-                                </div>
-                            </div>
-                            <div className="message-mamangement-container">
-                                <button className="reactions"></button>
-                                <button className="edit"></button>
-                                <button className="delete"></button>
-                            </div>
-                        </div>
-                    ))}
-                    <h1>ABOVE THIS WE GON SEE MESSAGES</h1>
+            <div className='chat-socket-container'>
+
+
+
+              <div className="socket-messages-scroll" ref={messagesContainerRef}>
+                <div className="messages-wrapper">
+                  {messages.map((message, ind) => (
+                      <div className="message-container" key={ind}>
+                          <div className="profile-pic-container">
+                              {message?.user?.imageUrl && (
+                                  <img
+                                      ref={message.user.imageUrl}
+                                      alt={"profile pic"}
+                                  ></img>
+                              )}
+                          </div>
+                          <div className="username-message-container">
+                              <div className="username-time-container">
+                                  <span className="username">
+                                      {/* {message.username} */}username
+                                  </span>
+                                  <span className="time"></span>
+                              </div>
+                              <div className="message-text">
+                                  <p>{message.message}</p>
+                              </div>
+                          </div>
+                          <div className="message-mamangement-container">
+                              <button className="reactions"></button>
+                              <button className="edit"></button>
+                              <button className="delete"></button>
+                          </div>
+                      </div>
+                  ))}
+                  <div ref={messagesEndRef}></div>
                 </div>
-                <form onSubmit={sendChat}>
-                    <input value={chatInput} onChange={updateChatInput} />
-                    <button type="submit">Send</button>
-                </form>
+              </div>
+
+
+
+              <form className='input-field' onSubmit={sendChat}>
+                  <input value={chatInput} onChange={updateChatInput} />
+                  <button type="submit">Send</button>
+              </form>
             </div>
         )
     );
