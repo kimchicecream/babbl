@@ -1,10 +1,35 @@
-.channel-item {
-    padding: 4px;
-    border-radius: 10px;
-    transition: background-color 0.1s ease;
+.channel-list-container .server-header-container {
+    display: flex;
+    align-items: center;
+    height: 46px;
+    padding: 10px 0px;
+
+    border-bottom: 2px solid rgb(53, 53, 53);
 }
 
-.channel-item:hover {
+.channel-list-container .server-name {
+    font-weight: bold;
+    padding-left: 10px;
+}
+
+.channels {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-top: 5px;
+    padding: 0px 10px;
+}
+
+.channel-list-container .channel-item {
+    padding: 4px 0px 4px 10px;
+    border-radius: 10px;
+    transition: background-color 0.1s ease;
+    font-size: 16px;
+    color: rgb(103, 103, 103);
+}
+
+.channel-list-container .channel-item:hover {
     cursor: pointer;
     background-color: rgb(77, 77, 77);
+    color: white;
 }

@@ -19,7 +19,9 @@ export default function MessageFeed({ channel }) {
             <div className="message-feed-container">
 
                 <div className="channel-header-container">
-                    <span className="channel-name"># {channel.name}</span>
+                    <span className="channel-name">
+                        # {channel.name}
+                    </span>
                 </div>
                 <div className="message-feed">
                     <Chat initMessages={messages} channelId={channel.id} />

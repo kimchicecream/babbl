@@ -23,7 +23,9 @@ export default function ChannelList({ server, onSelectChannel }) {
             <div className="channels">
                 {channels.map((channel) => (
                     <div key={channel.id} className="channel-item" onClick={() => onSelectChannel(channel)}>
-                        <span>{channel.name}</span>
+                        <span>
+                            <span id='hash'>#</span> {channel.name}
+                        </span>
                     </div>
                 ))}
             </div>
