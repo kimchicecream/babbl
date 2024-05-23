@@ -1,19 +1,19 @@
-import "./reactionsList.css"
+import "./reactionsList.css";
+import { emojiList } from "../../../public/emojis";
 
-export const ReactionsList = () => {
+export const ReactionsList = ({ messageId }) => {
+    const emojis = []
+    for (let i = 0; i < 80; i++) {
+        emojis.push((
+            <button className="react-button"
+            onClick={() => {}}
+            >{emojiList(i)}</button>
+        ))
+    }
+
     return (
         <div id="reactions-list">
-            <button>&#128512;</button>
-            <button>&#128513;</button>
-            <button>&#128514;</button>
-            <button>&#128515;</button>
-            <button>&#128516;</button>
-            <button>&#128517;</button>
-            <button>&#128518;</button>
-            <button>&#128519;</button>
-            <button>&#128520;</button>
-            <button>&#128521;</button>
-            <button>&#128522;</button>
+            {emojis}
         </div>
     );
 };

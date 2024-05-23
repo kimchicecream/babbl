@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import { io } from "socket.io-client";
 import { ReactionsList } from "./reactionsList";
+import { emojiList } from "../../../public/emojis";
 import "./testchatsocket.css";
 let socket;
 
@@ -14,11 +15,11 @@ const reduceReactions = (reactions) => {
 
     const buttons = [];
     // map counts to actual reaction buttons
-    for (const [key, count] of Object.entries(counts)) {
+    for (const [emojiId, count] of Object.entries(counts)) {
         buttons.push(
             <button className="reaction-button">
-                {/* TODO: change this to render emoji with emoji id "key" */}
-                {renderEmoji(key)} {count}
+                <span key={emojiId}>{emojiList(parseInt(emojiId))}</span>{" "}
+                {count}
             </button>
         );
     }
@@ -26,27 +27,11 @@ const reduceReactions = (reactions) => {
     return buttons;
 };
 
-// TODO: refactor into a list in a diff file maybe
-const renderEmoji = (id) => {
-    return [
-        <span key={0}>&#128512;</span>,
-        <span key={1}>&#128513;</span>,
-        <span key={2}>&#128514;</span>,
-        <span key={3}>&#128515;</span>,
-        <span key={4}>&#128516;</span>,
-        <span key={5}>&#128517;</span>,
-        <span key={6}>&#128518;</span>,
-        <span key={7}>&#128519;</span>,
-        <span key={8}>&#128520;</span>,
-        <span key={9}>&#128521;</span>,
-        <span key={10}>&#128522;</span>,
-    ][id];
-};
-
 const Chat = ({ initMessages, channelId }) => {
     const [chatInput, setChatInput] = useState("");
     const [messages, setMessages] = useState(initMessages);
     const [showReactionsMenu, setShowMenu] = useState(false);
+    const [messageId, setMessageId] = useState(null); // for adding a reaction
     const user = useSelector((state) => state.session.user);
     const messagesEndRef = useRef(null);
     const messagesContainerRef = useRef(null);
@@ -146,19 +131,19 @@ const Chat = ({ initMessages, channelId }) => {
                                     </div>
                                     {message.reactions.length > 0 && (
                                         <div className="reactions">
-                                            {message.reactions.length > 0 &&
-                                                reduceReactions(
-                                                    message.reactions
-                                                )}
+                                            {reduceReactions(message.reactions)}
                                         </div>
                                     )}
                                 </div>
                                 <div className="message-management-container">
                                     <button
                                         className="reactions"
-                                        onClick={() =>
-                                            setShowMenu(!showReactionsMenu)
-                                        }
+                                        onClick={() => {
+                                            // this is jank and i miss the Message component
+                                            setMessageId(message.id);
+                                            setShowMenu(!showReactionsMenu);
+                                            // Message component will return inshallah
+                                        }}
                                     ></button>
                                     <button className="edit"></button>
                                     <button className="delete"></button>
@@ -166,8 +151,9 @@ const Chat = ({ initMessages, channelId }) => {
                             </div>
                         ))}
                         <div ref={messagesEndRef}></div>
-                        {/* TODO: make buttons add reactions CHRIS MORNING */}
-                        {showReactionsMenu && <ReactionsList />}
+                        {showReactionsMenu && (
+                            <ReactionsList messageId={messageId} />
+                        )}
                     </div>
                 </div>
 
