@@ -15,7 +15,9 @@ const mapMessages = (messages) => {
 }
 
 const reduceReactions = (reactions) => {
-    const counts = reactions.reduce((counts, reaction) => {
+    const reactionsArr = Object.values(reactions);
+
+    const counts = reactionsArr.reduce((counts, reaction) => {
         counts[reaction.emojiId.toString()] =
             (counts[reaction.emojiId.toString()] || 0) + 1;
         return counts;
@@ -137,11 +139,12 @@ const Chat = ({ initMessages, channelId }) => {
                                     <div className="message-text">
                                         <p>{message.message}</p>
                                     </div>
-                                    {/* {message.reactions.length > 0 && (
+                                    {Object.keys(message.reactions).length > 0 && (
                                         <div className="reactions">
+                                            {console.log("REACTIONS: ", message.reactions)};
                                             {reduceReactions(message.reactions)}
                                         </div>
-                                    )} */}
+                                    )}
                                 </div>
                                 <div className="message-management-container">
                                     <button
