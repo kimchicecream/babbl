@@ -74,7 +74,7 @@ def create_new_server():
         )
         db.session.add(madeServer)
         db.session.commit()
-        
+
         db.session.add(Channel(
             name = "General",
             serverId = madeServer.id,
@@ -103,18 +103,25 @@ def delete_server(serverId):
 @login_required
 def update_server(serverId):
      # auth REQUIRED, CURRENT USER OWN THE SERVER
-    server_to_update=Server.query.get(serverId)
 
-    if server_to_update.creatorId != current_user.id:
-        return {'errors': {'message': 'Unauthorized'}}, 401
+    server_to_update=Server.query.get(serverId)
+    print(server_to_update, " !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+    # if server_to_update.creatorId != current_user.id:
+    #     return {'errors': {'message': 'Unauthorized'}}, 401
+
+
 
     form = CreateServerForm()
     form['csrf_token'].data = request.cookies['csrf_token']
+    print(form.data)
     if form.validate_on_submit():
+        print("???????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????????")
         server_to_update.name = form.data["name"]
         server_to_update.description = form.data["description"]
         server_to_update.imageUrl= form.data["imageUrl"]
+        db.session.add(server_to_update)
         db.session.commit()
+
         return server_to_update.to_dict()
 
     if form.errors:

@@ -39,9 +39,10 @@ const loadServersByUser = (servers) => ({
 // };
 
 export const editServerThunk = (serverObj) => async (dispatch) => {
-  const response = await fetch(`api/servers/${serverObj.id}`, {
+  const response = await fetch(`api/servers/${serverObj.id}/edit`, {
     method: "POST",
-    body: serverObj,
+    body: JSON.stringify(serverObj),
+    headers: { "Content-Type": "application/json" },
   });
   if (response.ok) {
     const data = await response.json();
@@ -64,20 +65,20 @@ export const deleteServerThunk = (serverId) => async (dispatch) => {
 };
 
 export const createServerThunk = (serverObj) => async (dispatch) => {
-    const response = await fetch("api/servers/create", {
-        method: "POST",
-        body: JSON.stringify(serverObj),
-        headers: { "Content-Type": "application/json" },
-    });
-    
-    if (response.ok) {
-        const data = await response.json();
-        dispatch(createServer(data));
-        return data;
-    } else {
-        const error = await response.json();
-        return error;
-    }
+  const response = await fetch("api/servers/create", {
+    method: "POST",
+    body: JSON.stringify(serverObj),
+    headers: { "Content-Type": "application/json" },
+  });
+
+  if (response.ok) {
+    const data = await response.json();
+    dispatch(createServer(data));
+    return data;
+  } else {
+    const error = await response.json();
+    return error;
+  }
 };
 
 export const loadAllServersThunk = () => async (dispatch) => {

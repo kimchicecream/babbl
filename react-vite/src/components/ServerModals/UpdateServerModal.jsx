@@ -1,15 +1,16 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
 // Import thunk/action creator
 // import { thunkUpdateServer } from "../../redux/server";
 // import "./UpdateServerModal.css";
+import { editServerThunk } from "../../redux/servers";
 
-function UpdateServerModal() {
+function UpdateServerModal({ server }) {
   const dispatch = useDispatch();
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
+  const [name, setName] = useState(server.name);
+  const [description, setDescription] = useState(server.description);
+  const [imageUrl, setImageUrl] = useState(server.imageUrl);
   const [errors, setErrors] = useState({});
   const sessionUser = useSelector((state) => state.session.user);
   const { closeModal } = useModal();
@@ -20,9 +21,15 @@ function UpdateServerModal() {
     //DESTRUCTURE USER DATA TO COMPLETE SERVER OBJECT
     //validates user and sign in and token and all good thins
 
-    const serverObj = { name, description, imageUrl };
+    const serverObj = {
+      name,
+      description,
+      imageUrl,
+      id: server.id,
+      creatorId: sessionUser.id,
+    };
 
-    const serverResponse = await dispatch(thunkUpdateServer(serverObj));
+    const serverResponse = await dispatch(editServerThunk(serverObj));
 
     if (serverResponse.errors) {
       setErrors(serverResponse.errors);
