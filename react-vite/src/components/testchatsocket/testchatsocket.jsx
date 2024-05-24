@@ -34,9 +34,9 @@ const Chat = ({ initMessages, channelId }) => {
                     message: message["msg"],
                     id: message["id"],
                     user: {
-                        username: user.username,
-                        id: user.id,
-                        imageUrl: user.imageUrl,
+                        username: message["user"]["username"],
+                        id: message["user"]["id"],
+                        imageUrl: message["user"]["imageUrl"],
                     },
                     reactions: {},
                 }

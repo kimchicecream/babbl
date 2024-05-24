@@ -6,7 +6,7 @@ import { useFSModal } from "../../context/FullScreenModal";
 // import "./CreateServerModal.css";
 import { createServerThunk } from "../../redux/servers";
 
-function CreateServerModal() {
+function CreateServerModal({ setSelectedServerId, onSelectServer }) {
     const dispatch = useDispatch();
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
@@ -29,13 +29,17 @@ function CreateServerModal() {
         // );
 
         const serverResponse = await dispatch(createServerThunk(serverObj));
+        // const data = await serverResponse.json();
+        // console.log("DATA:", serverResponse)
 
         // console.log("res: ", serverResponse)
         if (serverResponse.errors) {
             // console.log("le ", serverResponse.errors)
             setErrors(serverResponse.errors);
         } else {
+            onSelectServer(serverResponse.id);
             closeModal();
+            setSelectedServerId(serverResponse.id);
         }
     };
 

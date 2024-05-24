@@ -58,6 +58,7 @@ function MainPage() {
                     <ChannelList
                         server={selectedServer}
                         onSelectChannel={setSelectedChannel}
+                        onSelectServer={handleServerSelect}
                     />
                 )}
                 <div className="profile-container">

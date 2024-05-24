@@ -34,6 +34,11 @@ export default function ServerList({ onSelectServer }) {
             setSelectedServerId(firstServer.id);
             onSelectServer(firstServer);
         }
+        // if (servers.length > 0 && selectedServerId) {
+        //     onSelectServer(servers[selectedServerId]);
+        // }
+        // else onSelectServer(servers[selectedServerId])
+        // console.log('in the use effect: ', selectedServerId)
     }, [servers, selectedServerId, onSelectServer]);
 
     const handleServerClick = (server) => {
@@ -62,7 +67,7 @@ export default function ServerList({ onSelectServer }) {
             <div className="create-explore-container">
                 <OpenFSModalButton
                     buttonText={<i className="fa-solid fa-plus"></i>}
-                    modalComponent={<CreateServerModal />}
+                    modalComponent={<CreateServerModal setSelectedServerId={setSelectedServerId} onSelectServer={onSelectServer} />}
                     className="create-button"
                 />
                 <OpenFSModalButton

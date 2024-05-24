@@ -5,7 +5,7 @@ import CreateChannelModal from "../ChannelModals/CreateChannelModal";
 import { useEffect, useState } from "react";
 import "./ChannelList.css";
 
-export default function ChannelList({ server, onSelectChannel }) {
+export default function ChannelList({ server, onSelectChannel, onSelectServer }) {
     // write code here
     const dispatch = useDispatch();
     const channels = useSelector((state) => state.channels || {});
@@ -18,6 +18,7 @@ export default function ChannelList({ server, onSelectChannel }) {
 
     useEffect(() => {
         if (Object.keys(channels).length > 0) {
+            // onSelectServer(server);
             const firstChannel = channels[Object.keys(channels)[0]];
             setSelectedChannel(firstChannel.id);
             onSelectChannel(firstChannel);
