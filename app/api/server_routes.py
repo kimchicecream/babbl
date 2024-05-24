@@ -1,5 +1,5 @@
 from flask import Blueprint, request
-from app.models import db, Server
+from app.models import db, Server, Channel
 from app.forms.server_create import CreateServerForm
 from flask_login import current_user, login_required
 from sqlalchemy.orm import joinedload
@@ -31,6 +31,7 @@ def create_new_server():
     # print(creator_id)
     form = CreateServerForm()
     form['csrf_token'].data = request.cookies['csrf_token']
+    print("form data ", form.data)
     if form.validate_on_submit():
         new_server = {
             "name": form.data["name"],
@@ -39,11 +40,19 @@ def create_new_server():
             "creatorId": form.data["creatorId"]
         }
 
-        madeServer= Server(
+        madeServer = Server(
             **new_server
         )
         db.session.add(madeServer)
         db.session.commit()
+        
+        db.session.add(Channel(
+            name = "General",
+            serverId = madeServer.id,
+            creatorId = form.data["creatorId"]
+        ))
+        db.session.commit()
+        # TODO: reactions dont work on new server. why? CHRIS MORNING
         return madeServer.to_dict()
     return form.errors, 401
 

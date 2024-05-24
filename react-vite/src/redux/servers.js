@@ -54,9 +54,12 @@ export const deleteServerThunk = (serverId) => async (dispatch) => {
 export const createServerThunk = (serverObj) => async (dispatch) => {
     const response = await fetch("api/servers/create", {
         method: "POST",
-        body: serverObj,
+        body: JSON.stringify(serverObj),
+        headers: { "Content-Type": "application/json" },
     });
+    
     if (response.ok) {
+        console.log('ok');
         const data = await response.json();
         dispatch(createServer(data));
         return data;
