@@ -89,6 +89,12 @@ export const deleteMessageThunk = (messageId) => async (dispatch) => {
     }
 };
 
+export const createMessageFromSocket = (message) => async (dispatch) => {
+    console.log("WITHIN THE THUNK CREATOR", message);
+    dispatch(createNewMessage(message));
+    return message;
+}
+
 export const createNewMessageThunk =
     (messageObj, channelId) => async (dispatch) => {
         const response = await fetch(`api/messages/${channelId}/new`, {

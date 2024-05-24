@@ -57,16 +57,17 @@ def delete_reaction(reactionId):
 @message_routes.route('/<int:messageId>/reactions', methods = ["POST"])
 @login_required
 def create_reaction(messageId):
-     # auth REQUIRED, CURRENT USER PART OF CHANNEL
-    message = Message.query.get(messageId)
-    channel = Channel.query.get(message.channelId)
+    # auth REQUIRED, CURRENT USER PART OF CHANNEL
+    # message = Message.query.get(messageId)
+    # channel = Channel.query.get(message.channelId)
 
-    user_id_list = []
-    for user in channel.users:
-        user_id_list.append(user.id)
+    # user_id_list = []
+    # for user in channel.users:
+    #     user_id_list.append(user.id)
 
-    if current_user.id not in user_id_list:
-        return {'errors': {'message': 'Unauthorized'}}, 401
+    # print(user_id_list)
+    # if current_user.id not in user_id_list:
+    #     return {'errors': {'message': 'Unauthorized'}}, 401
 
     form = ReactionForm()
     form['csrf_token'].data = request.cookies['csrf_token']
