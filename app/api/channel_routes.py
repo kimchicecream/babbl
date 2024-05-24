@@ -5,10 +5,8 @@ from flask_login import current_user, login_required
 
 channel_routes = Blueprint('channels', __name__)
 
-#add login_required
 
 @channel_routes.route('/<int:serversId>/all')
-@login_required
 def all_channel(serversId):
   channels = Channel.query.filter_by(serverId=serversId).all()
   print(channels)
@@ -22,12 +20,14 @@ def all_channel(serversId):
 def create_new_channel():
 
     # auth REQUIRED, CURRENT USER  SERVER OWNER
+    form = ChannelForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+
     server = Server.query.get(form.data["serverId"])
     if server.creatorId != current_user.id:
         return {'errors': {'message': 'Unauthorized'}}, 401
 
-    form = ChannelForm()
-    form['csrf_token'].data = request.cookies['csrf_token']
+
     if form.validate_on_submit():
         new_channel = {
             "name": form.data["name"],
@@ -42,9 +42,14 @@ def create_new_channel():
     return form.errors, 401
 
 @channel_routes.route('/<int:channelId>/delete', methods=['GET'])
-# @login_required
+@login_required
 def delete_channel(channelId):
         # auth REQUIRED, CURRENT USER  SERVER OWNER
+    form = ChannelForm()
+    server = Server.query.get(form.data["serverId"])
+    if server.creatorId != current_user.id:
+        return {'errors': {'message': 'Unauthorized'}}, 401
+
     channel_to_delete=Channel.query.get(channelId)
     db.session.delete(channel_to_delete)
     db.session.commit()
@@ -52,11 +57,16 @@ def delete_channel(channelId):
 
 
 @channel_routes.route('/<int:channelId>/edit', methods=["POST"])
-# @login_required
+@login_required
 def update_channel(channelId):
         # auth REQUIRED, CURRENT USER  SERVER OWNER
     form = ChannelForm()
     form['csrf_token'].data = request.cookies['csrf_token']
+
+    server = Server.query.get(form.data["serverId"])
+    if server.creatorId != current_user.id:
+        return {'errors': {'message': 'Unauthorized'}}, 401
+
     if form.validate_on_submit():
         channel_to_update=Channel.query.get(channelId)
         channel_to_update.name = form.data["name"]

@@ -73,10 +73,13 @@ def create_new_server():
     return form.errors, 401
 
 @server_routes.route('/<int:serverId>/delete', methods=['GET'])
-# @login_required
+@login_required
 def delete_server(serverId):
      # auth REQUIRED, CURRENT USER HAS TO OWN SERVER
     server_to_delete=Server.query.get(serverId)
+    if server_to_delete.creatorId != current_user.id:
+        return {'errors': {'message': 'Unauthorized'}}, 401
+
     db.session.delete(server_to_delete)
     db.session.commit()
     return "success!"
@@ -84,13 +87,17 @@ def delete_server(serverId):
     # if it has errors, we will need to debug it
 
 @server_routes.route('/<int:serverId>/edit', methods=["POST"])
-# @login_required
+@login_required
 def update_server(serverId):
      # auth REQUIRED, CURRENT USER OWN THE SERVER
+    server_to_update=Server.query.get(serverId)
+
+    if server_to_update.creatorId != current_user.id:
+        return {'errors': {'message': 'Unauthorized'}}, 401
+
     form = CreateServerForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
-        server_to_update=Server.query.get(serverId)
         server_to_update.name = form.data["name"]
         server_to_update.description = form.data["description"]
         server_to_update.imageUrl= form.data["imageUrl"]
