@@ -19,13 +19,15 @@ def all_channel(serversId):
 @channel_routes.route('/new', methods=["GET","POST"])
 @login_required
 def create_new_channel():
-
+    print("CREATE CHANNEL CALL ??????????????????????????????????????????????????????????????????")
     # auth REQUIRED, CURRENT USER  SERVER OWNER
     form = ChannelForm()
     form['csrf_token'].data = request.cookies['csrf_token']
+    print(form.data)
 
     server = Server.query.get(form.data["serverId"])
     if server.creatorId != current_user.id:
+        print('fail !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
         return {'errors': {'message': 'Unauthorized'}}, 401
 
 

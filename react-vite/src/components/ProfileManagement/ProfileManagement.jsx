@@ -14,7 +14,7 @@ export default function ProfileManagement() {
                 </div>
             </div>
             <button className="settings-button">
-                <i class="fa-solid fa-gear"></i>
+                <i className="fa-solid fa-gear"></i>
             </button>
         </div>
     )

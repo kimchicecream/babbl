@@ -17,7 +17,7 @@ def get_all_messages_by_channel(channelsId):
     # reaction_list=[]
     # for message in messages:
     #     reactions = Reaction.query.filter_by(messageId=message.id).all()
-    #     reaction_list.append[reactions]
+    #     reaction_list.append(reactions)
 
     # return [message.to_dict() for message in messages]
     messages = Message.query.options(joinedload(Message.reactions), joinedload(Message.user)).filter_by(channelId=channelsId).all()
@@ -63,7 +63,7 @@ def create_reaction(messageId):
 
     user_id_list = []
     for user in channel.users:
-        user_id_list.append[user.id]
+        user_id_list.append(user.id)
 
     if current_user.id not in user_id_list:
         return {'errors': {'message': 'Unauthorized'}}, 401
@@ -92,7 +92,7 @@ def create_message(channelId):
 
     user_id_list = []
     for user in channel.users:
-        user_id_list.append[user.id]
+        user_id_list.append(user.id)
 
     if current_user.id not in user_id_list:
         return {'errors': {'message': 'Unauthorized'}}, 401
