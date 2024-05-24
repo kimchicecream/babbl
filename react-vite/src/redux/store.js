@@ -9,7 +9,10 @@ import sessionReducer from "./session";
 import serversReducer from "./servers";
 import channelsReducer from "./channels";
 import messagesReducer from "./messages";
+import membershipsReducer from "./memberships";
+
 const rootReducer = combineReducers({
+  memberships: membershipsReducer,
   messages: messagesReducer,
   servers: serversReducer,
   channels: channelsReducer,

@@ -1,7 +1,8 @@
 from flask import Blueprint, request
-from app.models import Channel, db, Server
+from app.models import Channel, db, Server, channel_membership
 from app.forms.channel_create import ChannelForm
 from flask_login import current_user, login_required
+from sqlalchemy import insert, delete
 
 channel_routes = Blueprint('channels', __name__)
 
@@ -77,3 +78,32 @@ def update_channel(channelId):
 
     if form.errors:
         return form.errors, 401 #double check status number
+
+@channel_routes.route('/<int:channelId>/join')
+@login_required
+def join_channel(channelId):
+    join_channel_statement= insert(channel_membership).values(user_id=current_user.id, channel_id= channelId)
+    db.session.execute(join_channel_statement)
+    db.session.commit()
+    return "success"
+
+@channel_routes.route('/<int:channelId>/leave')
+@login_required
+def leave_channel(channelId):
+    leave_channel_statement = delete(channel_membership).where(channel_membership.c.user_id==current_user.id, channel_membership.c.channel_id ==channelId)
+    db.session.execute(leave_channel_statement)
+    db.session.commit()
+    return"success"
+
+@channel_routes.route('/<int:channelId>/allMembers')
+# @login_required
+def all_channel_members(channelId):
+   channel= Channel.query.get(channelId)
+   users = channel.users
+   answerArray = [user.to_dict() for user in users]
+   answerDict = {}
+   for answer in answerArray:
+       answerDict[answer["id"]]=answer
+
+
+   return answerDict

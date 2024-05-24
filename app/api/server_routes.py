@@ -3,15 +3,12 @@ from app.models import db, Server, server_membership
 from app.forms.server_create import CreateServerForm
 from flask_login import current_user, login_required
 from sqlalchemy.orm import joinedload
-from sqlalchemy import insert
+from sqlalchemy import insert, delete
 
 server_routes = Blueprint('servers', __name__)
 
 @server_routes.route('/all')
 def get_all_servers():
-    print("BELOW THIS IS GOING TO PRINT USERSSss!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-    print(current_user.id)
-    print("ABOVE THIS IS GOING TO PRINT USERSSss!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
 
 
     servers = Server.query.all()
@@ -31,19 +28,28 @@ def get_servers_by_userId(userId):
     return answer_list
 
 
-# @server_routes.route('/<int:serverId>/join', methods=["POST"])
-# # @login_required
-# def join_server(serverId):
+@server_routes.route('/<int:serverId>/join', methods=["POST"])
+@login_required
+def join_server(serverId):
+    join_server_statement= insert(server_membership).values(user_id=current_user.id, server_id=serverId)
+    db.session.execute(join_server_statement)
+    db.session.commit()
+    # delete_statement= delete(server_membership).where(server_membership.c.user_id == current_user.id, server_membership.c.server_id == serverId)
+    # db.session.execute(delete_statement)
+    # db.session.commit()
 
-#     server = Server.query.get(serverId)
-#     users =  server.users
-#     res = insert(server_membership).values(user_id=current_user.id, server_id=serverId)
-#     print("BELOW THIS IS GOING TO PRINT USERSSss!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-#     print(res)
+    return "success"
 
 
 
-#     return
+@server_routes.route('/<int:serverId>/leave', methods=["POST"])
+@login_required
+def leave_server(serverId):
+    leave_statement= delete(server_membership).where(server_membership.c.user_id == current_user.id, server_membership.c.server_id == serverId)
+    db.session.execute(leave_statement)
+    db.session.commit()
+
+    return "success"
 
 
 

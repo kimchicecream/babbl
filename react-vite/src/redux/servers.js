@@ -3,12 +3,6 @@ const LOAD_SERVERS_BY_USER = "servers/getServersByUser";
 const CREATE_SERVER = "servers/createNew";
 const DELETE_SERVER = "servers/delete";
 const EDIT_SERVER = "servers/edit";
-const JOIN_SERVER = "servers/join";
-
-const joinServer = (serverId) => ({
-  type: JOIN_SERVER,
-  payload: serverId,
-});
 
 const deleteServer = (serverId) => ({
   type: DELETE_SERVER,
@@ -35,10 +29,22 @@ const loadServersByUser = (servers) => ({
   payload: servers,
 });
 
+// export const joinServerThunk = (serverid) => async (dispatch) => {
+//   const response = await fetch(`api/servers/${serverid}/join`, {
+//     method: "POST",
+//   });
+//   if (response.ok) {
+//     dispatch(joinServer(serverid));
+//   }
+// };
+
 export const editServerThunk = (serverObj) => async (dispatch) => {
-  const response = await fetch(`api/servers/${serverObj.id}`);
+  const response = await fetch(`api/servers/${serverObj.id}`, {
+    method: "POST",
+    body: serverObj,
+  });
   if (response.ok) {
-    const data = response.json();
+    const data = await response.json();
     dispatch(editServer(data));
   } else {
     const error = await response.json();
