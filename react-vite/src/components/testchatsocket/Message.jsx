@@ -35,6 +35,7 @@ export const Message = ({ message, index }) => {
                     <img src={message.user.imageUrl} alt={"profile pic"} />
                 )}
             </div>
+            {/* testsetsetsett */}
             <div className="username-message-container">
                 <div className="username-time-container">
                     <span className="username">{message.user.username}</span>
