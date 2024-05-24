@@ -3,9 +3,9 @@ import { emojiList } from "../../../public/emojis";
 import { createReactionThunk } from "../../redux/messages";
 import { useSelector, useDispatch } from "react-redux";
 
-export const ReactionsList = ({ messageId }) => {
+export const ReactionsList = ({ message }) => {
     const dispatch = useDispatch();
-    const user = useSelector((state) => state.session.user);
+    const userId = useSelector((state) => state.session.user.id);
     const emojis = [];
     for (let i = 0; i < 80; i++) {
         emojis.push(
@@ -13,11 +13,10 @@ export const ReactionsList = ({ messageId }) => {
                 className="react-button"
                 key={i}
                 onClick={() => {
-                    // console.log("emoji ", i, " pressed");
                     dispatch(
                         createReactionThunk({
                             emojiId: i,
-                            messageId: messageId,
+                            messageId: message.id,
                             userId: user.id,
                         })
                     );

@@ -47,8 +47,6 @@ export const deleteReactionThunk = (reactionId) => async (dispatch) => {
 };
 
 export const createReactionThunk = (reactionObj) => async (dispatch) => {
-    console.log('now im here')
-    console.log("thunk obj: ", reactionObj)
     const response = await fetch(
         `api/messages/${reactionObj.messageId}/reactions`,
         {
@@ -111,7 +109,6 @@ export const getMessagesByChannelThunk = (channelId) => async (dispatch) => {
     const response = await fetch(`/api/messages/${channelId}`);
     if (response.ok) {
         const data = await response.json();
-        console.log('htisaikjfhkajsd:', data)
         dispatch(getMessagesByChannel(data));
     } else {
         const error = await response.json();
@@ -127,7 +124,6 @@ const messagesReducer = (state = {}, action) => {
             action.payload.forEach((message) => {
                 newState[message.id] = message
             })
-            // newState = { ...action.payload };
             return newState;
         }
         case CREATE_REACTION: {
