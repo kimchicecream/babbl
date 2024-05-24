@@ -8,16 +8,6 @@ function LandingPage() {
         <div className="hero-title">
           <h1 id="introducing">Introducing</h1>
           <img src="../../../public/babbl-name.png"></img>
-          <button
-            onClick={() => {
-              fetch("/api/servers/1/join", {
-                method: "POST",
-                body: {},
-              });
-            }}
-          >
-            TEST JOIN SERVER BUTTON JOINING SERRVER 1
-          </button>
         </div>
         <div className="video-container">
           <video
