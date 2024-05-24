@@ -28,6 +28,14 @@ export default function ServerList({ onSelectServer }) {
         dispatch(loadAllServersThunk());
     }, [dispatch]);
 
+    useEffect(() => {
+        if (servers.length > 0 && !selectedServerId) {
+            const firstServer = servers[0];
+            setSelectedServerId(firstServer.id);
+            onSelectServer(firstServer);
+        }
+    }, [servers, selectedServerId, onSelectServer]);
+
     const handleServerClick = (server) => {
         setSelectedServerId(server.id);
         onSelectServer(server);
