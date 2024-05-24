@@ -7,6 +7,8 @@ import "./ChannelList.css";
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
 import DeleteServerModal from "../ServerModals/DeleteServerModal";
 import UpdateServerModal from "../ServerModals/UpdateServerModal";
+import UpdateChannelModal from "../ChannelModals/UpdateChannelModal";
+import DeleteChannelModal from "../ChannelModals/DeleteChannelModal";
 
 export default function ChannelList({
   server,
@@ -72,6 +74,16 @@ export default function ChannelList({
           >
             <span>
               <span id="hash">#</span> {formatChannelName(channel.name)}
+              <OpenModalButton
+                buttonText={"Edit channel"}
+                modalComponent={<UpdateChannelModal channel={channel} />}
+                className="create-channel-button"
+              />
+              <OpenModalButton
+                buttonText={"Delete channel"}
+                modalComponent={<DeleteChannelModal channelId={channel.id} />}
+                className="create-channel-button"
+              />
             </span>
           </div>
         ))}

@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
-import { deleteChannelThunk } from "../../store/channels";
+import { deleteChannelThunk } from "../../redux/channels";
 // import "./DeleteChannelModal.css";
 
 function DeleteChannelModal({ channelId }) {

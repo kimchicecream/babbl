@@ -49,9 +49,10 @@ def create_new_channel():
 def delete_channel(channelId):
         # auth REQUIRED, CURRENT USER  SERVER OWNER
     form = ChannelForm()
+    print(form.data,"THIS IS FROM THE DELETE CHANNEL ROUTE IN THE BE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
     server = Server.query.get(form.data["serverId"])
-    if server.creatorId != current_user.id:
-        return {'errors': {'message': 'Unauthorized'}}, 401
+    # if server.creatorId != current_user.id:
+    #     return {'errors': {'message': 'Unauthorized'}}, 401
 
     channel_to_delete=Channel.query.get(channelId)
     db.session.delete(channel_to_delete)
@@ -62,19 +63,23 @@ def delete_channel(channelId):
 @channel_routes.route('/<int:channelId>/edit', methods=["POST"])
 @login_required
 def update_channel(channelId):
+    print("THIS THE TOP OF EDIT CHANNEL ROUTE BACK END")
         # auth REQUIRED, CURRENT USER  SERVER OWNER
+
     form = ChannelForm()
     form['csrf_token'].data = request.cookies['csrf_token']
+    print(form.data)
 
-    server = Server.query.get(form.data["serverId"])
-    if server.creatorId != current_user.id:
-        return {'errors': {'message': 'Unauthorized'}}, 401
+    # server = Server.query.get(form.data["serverId"])
+    # if server.creatorId != current_user.id:
+    #     return {'errors': {'message': 'Unauthorized'}}, 401
 
     if form.validate_on_submit():
         channel_to_update=Channel.query.get(channelId)
         channel_to_update.name = form.data["name"]
         channel_to_update.serverId = form.data["serverId"]
         channel_to_update.creatorId= form.data["creatorId"]
+        db.session.add(channel_to_update)
         db.session.commit()
         return channel_to_update.to_dict()
 

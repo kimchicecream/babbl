@@ -26,9 +26,8 @@ const getChannelsByServer = (channels) => ({
 export const deleteChannelThunk = (channelId) => async (dispatch) => {
   const response = await fetch(`/api/channels/${channelId}/delete`);
   if (response.ok) {
-    const data = await response.json();
     dispatch(deleteChannel(channelId));
-    return data;
+    return response;
   } else {
     const error = await response.json();
     return error;
@@ -36,7 +35,11 @@ export const deleteChannelThunk = (channelId) => async (dispatch) => {
 };
 
 export const editChannelThunk = (channelObj) => async (dispatch) => {
-  const response = await fetch(`/api/channels/${channelObj.id}/edit`, {
+  console.log(
+    channelObj,
+    "################################################################################"
+  );
+  const response = await fetch(`/api/channels/${channelObj.channelId}/edit`, {
     method: "POST",
     body: JSON.stringify(channelObj),
     headers: { "Content-Type": "application/json" },
@@ -44,6 +47,7 @@ export const editChannelThunk = (channelObj) => async (dispatch) => {
   if (response.ok) {
     const data = await response.json();
     dispatch(editChannel(data));
+    return data;
   } else {
     const error = await response.json();
     return error;
@@ -57,11 +61,10 @@ export const createChannelThunk = (channelObj) => async (dispatch) => {
     headers: { "Content-Type": "application/json" },
   });
 
-
   if (response.ok) {
     const data = await response.json();
     dispatch(createChannel(data));
-    return 'success'
+    return "success";
   } else {
     const error = await response.json();
     return error;
@@ -85,8 +88,8 @@ const channelsReducer = (state = {}, action) => {
     case GET_CHANNELS_BY_SERVER: {
       newState = {};
       action.payload.forEach((channel) => {
-        newState[channel.id] = channel
-      })
+        newState[channel.id] = channel;
+      });
       return newState;
     }
     case CREATE_CHANNEL: {
