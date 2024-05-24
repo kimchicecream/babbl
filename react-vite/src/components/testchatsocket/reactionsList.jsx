@@ -17,7 +17,7 @@ export const ReactionsList = ({ message }) => {
                         createReactionThunk({
                             emojiId: i,
                             messageId: message.id,
-                            userId: user.id,
+                            userId
                         })
                     );
                 }}

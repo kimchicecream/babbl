@@ -61,7 +61,7 @@ export const Message = ({ message, index }) => {
                 ></button>
             </div>
             {showReactionsMenu === true && (
-                <ReactionsList messageId={message} />
+                <ReactionsList message={message} />
             )}
         </div>
     );
