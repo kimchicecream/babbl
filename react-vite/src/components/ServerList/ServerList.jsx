@@ -1,19 +1,37 @@
 import "./ServerList.css";
 import CreateServerModal from "../ServerModals/CreateServerModal";
-import OpenModalButton from "../OpenModalButton";
+import OpenFSModalButton from "../OpenFSModalButton";
 import ServerIndexModal from "../ServerModals/ServerIndexModal";
 import { useSelector, useDispatch } from "react-redux";
-import { loadAllServersThunk, loadServersByUserThunk } from "../../redux/servers";
-import React, { useEffect } from "react";
+import { loadAllServersThunk } from "../../redux/servers";
+import { useEffect, useState } from "react";
+
+const PreloadImage = ({ src, alt }) => {
+    const [loaded, setLoaded] = useState(false);
+    return (
+        <img
+            src={src}
+            alt={alt}
+            onLoad={() => setLoaded(true)}
+            style={{ visibility: loaded ? 'visible' : 'hidden' }}
+            className="server-icon"
+        />
+    );
+};
 
 export default function ServerList({ onSelectServer }) {
     const dispatch = useDispatch();
     const servers = useSelector((state) => state.servers?.allServers || []);
+    const [selectedServerId, setSelectedServerId] = useState(null);
 
     useEffect(() => {
         dispatch(loadAllServersThunk());
-        // dispatch(loadServersByUser());
     }, [dispatch]);
+
+    const handleServerClick = (server) => {
+        setSelectedServerId(server.id);
+        onSelectServer(server);
+    };
 
     return (
         <div className="server-list-container">
@@ -23,21 +41,26 @@ export default function ServerList({ onSelectServer }) {
             <div className="divider"></div>
             <div className="servers">
                 {servers.map((server) => (
-                    <div key={server.id} className="server-item" onClick={() => onSelectServer(server)}>
-                        <img src={server.imageUrl} alt={`${server.name}`}/>
+                    <div
+                        key={server.id}
+                        className={`server-item ${selectedServerId === server.id ? 'selected' : ''}`}
+                        onClick={() => handleServerClick(server)}
+                    >
+                        {selectedServerId === server.id && <div className="indicator"></div>}
+                        <PreloadImage src={server.imageUrl} alt={`${server.name}`} />
                     </div>
                 ))}
             </div>
-            <div id="join-create-container">
-                <OpenModalButton
-                    buttonText={<img src='./something.png'/>}
-                    modalComponent={<ServerIndexModal />}
-                    className="create-button"
-                />
-                <OpenModalButton
-                    buttonText="Create server"
+            <div className="create-explore-container">
+                <OpenFSModalButton
+                    buttonText={<i className="fa-solid fa-plus"></i>}
                     modalComponent={<CreateServerModal />}
                     className="create-button"
+                />
+                <OpenFSModalButton
+                    buttonText={<i className="fa-solid fa-compass"></i>}
+                    modalComponent={<ServerIndexModal />}
+                    className="explore-button"
                 />
             </div>
         </div>
