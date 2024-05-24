@@ -26,7 +26,6 @@ const Chat = ({ initMessages, channelId }) => {
         // happens on message receive
         socket.on("chat", (message) => {
             if (message.channelId === channelId) {
-                console.log("creating message from SOCKET ~~~~~~~~~~~~~~~~!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", message)
                 dispatch(createMessageFromSocket(message));
                 setMessages((prevMessages) => [
                     ...prevMessages,

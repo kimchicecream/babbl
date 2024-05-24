@@ -10,6 +10,7 @@ function ServerIndexModal() {
   const { closeModal } = useFSModal();
 
   const servers = useSelector((state) => state.servers.allServers);
+  const user = useSelector((state) => state.session.user);
 
   useEffect(() => {
       dispatch(loadAllServersThunk());
@@ -22,7 +23,7 @@ function ServerIndexModal() {
     <div className="load-all-servers-container">
       <div className="header">
         <button className='close-button' onClick={closeModal}>
-          <i class="fa-solid fa-xmark"></i>
+          <i className="fa-solid fa-xmark"></i>
         </button>
         <div className="header-image">
           <h1>Explore</h1>
@@ -41,6 +42,9 @@ function ServerIndexModal() {
                 <div className="server-desc">
                   {server.description}
                 </div>
+                {user.id !== server.creatorId && (
+                    <button className="join-server-button">Join Server</button>
+                )}
               </div>
           </div>
         ))}

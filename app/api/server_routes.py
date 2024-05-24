@@ -9,9 +9,7 @@ server_routes = Blueprint('servers', __name__)
 
 @server_routes.route('/all')
 def get_all_servers():
-
-
-    servers = Server.query.all()
+    servers = Server.query.options(joinedload(Server.users)).all()
     answer_list = []
     for server in servers:
         answer_list.append(server.to_dict())

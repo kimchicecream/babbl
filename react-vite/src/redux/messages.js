@@ -90,26 +90,25 @@ export const deleteMessageThunk = (messageId) => async (dispatch) => {
 };
 
 export const createMessageFromSocket = (message) => async (dispatch) => {
-    console.log("WITHIN THE THUNK CREATOR", message);
     dispatch(createNewMessage(message));
     return message;
 }
 
-export const createNewMessageThunk =
-    (messageObj, channelId) => async (dispatch) => {
-        const response = await fetch(`api/messages/${channelId}/new`, {
-            method: "POST",
-            body: messageObj,
-        });
-        if (response.ok) {
-            newMessage = await response.json();
-            dispatch(createNewMessage(newMessage));
-            return newMessage;
-        } else {
-            const error = await response.json();
-            return error;
-        }
-    };
+// export const createNewMessageThunk =
+//     (messageObj, channelId) => async (dispatch) => {
+//         const response = await fetch(`api/messages/${channelId}/new`, {
+//             method: "POST",
+//             body: messageObj,
+//         });
+//         if (response.ok) {
+//             newMessage = await response.json();
+//             dispatch(createNewMessage(newMessage));
+//             return newMessage;
+//         } else {
+//             const error = await response.json();
+//             return error;
+//         }
+//     };
 
 export const getMessagesByChannelThunk = (channelId) => async (dispatch) => {
     const response = await fetch(`/api/messages/${channelId}`);
