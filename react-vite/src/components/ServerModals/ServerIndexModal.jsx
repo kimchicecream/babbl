@@ -1,31 +1,51 @@
-import { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { useModal } from "../../context/Modal";
-// Import thunk/action creator
-// import { thunkServerIndex } from "../../redux/server";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useFSModal } from "../../context/FullScreenModal";
+import { loadAllServersThunk } from "../../redux/servers";
+import './ServerIndexModal.css';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 function ServerIndexModal() {
   const dispatch = useDispatch();
-  const [allServers, setAllServers] = useState([]);
+  const { closeModal } = useFSModal();
 
-  const { closeModal } = useModal();
+  const servers = useSelector((state) => state.servers.allServers);
 
   useEffect(() => {
-    //call a thunk for get all servers, setServerArray with return
-  }, []);
+      dispatch(loadAllServersThunk());
+  }, [dispatch]);
 
   //       Hover FOR ALL SERVER, JOIN OR observe, redirecr when clicked, AND closeModal();
   //       closeModal();
 
   return (
-    <>
-      <h1>all the servers bro, totally pick one</h1>s
-      <ul>
-        {allServers.map((server) => (
-          <li key={server.id}>{server.name}</li>
+    <div className="load-all-servers-container">
+      <div className="header">
+        <button className='close-button' onClick={closeModal}>
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+        <div className="header-image">
+          <h1>Explore</h1>
+          <img src='../../../public/explore-image.png' />
+        </div>
+
+      </div>
+      <div className="all-servers-container">
+        {servers.map((server) => (
+          <div className='server-card' key={server.id}>
+            <img src={server.imageUrl} />
+              <div className="server-info">
+                <div className="server-title">
+                  {server.name}
+                </div>
+                <div className="server-desc">
+                  {server.description}
+                </div>
+              </div>
+          </div>
         ))}
-      </ul>
-    </>
+      </div>
+    </div>
   );
 }
 
