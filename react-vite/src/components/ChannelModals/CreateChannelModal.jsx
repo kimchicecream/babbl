@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useModal } from "../../context/Modal";
+// import { useModal } from "../../context/Modal";
+import { useFSModal } from "../../context/FullScreenModal";
 import { createChannelThunk } from "../../redux/channels";
 // Import thunk/action creator
 // import { thunkCreateChannel } from "../../redux/channel";
@@ -12,7 +13,7 @@ function CreateChannelModal({ server }) {
   const [errors, setErrors] = useState({});
   const sessionUser = useSelector((state) => state.session.user);
 
-  const { closeModal } = useModal();
+  const { closeModal } = useFSModal();
 
   const handleSubmit = async (e) => {
     e.preventDefault();

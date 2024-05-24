@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useModal } from "../../context/Modal";
+import { useFSModal } from "../../context/FullScreenModal";
 // Import thunk/action creator
 // import { thunkCreateServer } from "../../redux/server";
 // import "./CreateServerModal.css";
@@ -14,29 +14,27 @@ function CreateServerModal() {
     const [errors, setErrors] = useState({});
     const user = useSelector((state) => state.session.user);
 
-    const { closeModal } = useModal();
+    const { closeModal } = useFSModal();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log("ASDASDASDASDASDASD");
 
         //DESTRUCTURE USER DATA TO COMPLETE SERVER OBJECT
         //validates user and sign in and token and all good thins
 
         const serverObj = { name, description, imageUrl, creatorId: user.id};
-        console.log(
-            "-------------------------------------------------------------------",
-            serverObj
-        );
+        // console.log(
+        //     "-------------------------------------------------------------------",
+        //     serverObj
+        // );
 
         const serverResponse = await dispatch(createServerThunk(serverObj));
 
-        console.log("res: ", serverResponse)
+        // console.log("res: ", serverResponse)
         if (serverResponse.errors) {
-            console.log("le ", serverResponse.errors)
+            // console.log("le ", serverResponse.errors)
             setErrors(serverResponse.errors);
         } else {
-            console.log('hmm...')
             closeModal();
         }
     };
