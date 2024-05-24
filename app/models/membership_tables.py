@@ -5,7 +5,7 @@ from app.models import environment, SCHEMA
 
 if environment == "production":
     db.Model.metadata.schema = SCHEMA
-    
+
 
 server_membership = db.Table(
     "server_memberships",
