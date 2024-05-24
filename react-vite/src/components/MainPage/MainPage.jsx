@@ -9,7 +9,7 @@ import { getChannelsByServerThunk } from "../../redux/channels";
 
 function MainPage() {
     const dispatch = useDispatch();
-    const channels = useSelector((state) => state.channels?.serverChannels || []);
+    const channels = useSelector((state) => state.channels || []);
     const [selectedServer, setSelectedServer] = useState({});
     const [selectedChannel, setSelectedChannel] = useState({});
     // const [isLoaded, setIsLoaded] = useState(false);
@@ -30,7 +30,7 @@ function MainPage() {
     };
 
     useEffect(() => {
-        if (channels.length > 0) {
+        if (Object.keys(channels).length > 0) {
             setSelectedChannel(channels[0]);
             // setIsLoaded(true);
         }

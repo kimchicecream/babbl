@@ -22,7 +22,7 @@ export default function ChannelList({ server, onSelectChannel }) {
     }, [dispatch, server]);
 
     useEffect(() => {
-        if (channels.length > 0) {
+        if (Object.keys(channels).length > 0) {
             const firstChannel = channels[0];
             setSelectedChannel(firstChannel.id);
             onSelectChannel(firstChannel);
