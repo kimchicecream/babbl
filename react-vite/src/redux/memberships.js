@@ -24,9 +24,9 @@ const joinChannel = (channelId) => ({
   payload: channelId,
 });
 
-const loadChannelMembers = (members_array) => ({
+const loadChannelMembers = (membersobj) => ({
   type: LOAD_CHANNEL_MEMBERS,
-  payload: members_array,
+  payload: membersobj,
 });
 
 export const loadChannelMembersThunk = (channelId) => async (dispatch) => {
@@ -68,7 +68,7 @@ const membershipsReducer = (state = {}, action) => {
   let newState;
   switch (action.type) {
     case LOAD_CHANNEL_MEMBERS: {
-      newState = {};
+      newState = { ...action.payload };
       return newState;
     }
     default:

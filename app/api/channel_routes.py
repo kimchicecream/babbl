@@ -91,6 +91,9 @@ def all_channel_members(channelId):
    channel= Channel.query.get(channelId)
    users = channel.users
    answerArray = [user.to_dict() for user in users]
-   print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
-   print(answerArray)
-   return answerArray
+   answerDict = {}
+   for answer in answerArray:
+       answerDict[answer["id"]]=answer
+
+
+   return answerDict
