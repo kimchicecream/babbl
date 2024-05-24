@@ -9,8 +9,11 @@ const Chat = ({ initMessages, channelId }) => {
     const [chatInput, setChatInput] = useState("");
     const [messages, setMessages] = useState(Object.values(initMessages));
     const user = useSelector((state) => state.session.user);
+    const channels = useSelector((state) => state.channels || []);
     const messagesEndRef = useRef(null);
     const messagesContainerRef = useRef(null);
+
+    const currentChannel = Object.keys(channels).find(channel => channel.id === channelId);
 
     useEffect(() => {
         let socket_url = "http://127.0.0.1:8000";
@@ -64,6 +67,10 @@ const Chat = ({ initMessages, channelId }) => {
 
     const sendChat = (e) => {
         e.preventDefault();
+        // does not allow empty input field to be sent on submit
+        if (chatInput.trim() === "") {
+            return;
+        }
         socket.emit("chat", {
             user: {
                 username: user.username,
@@ -93,8 +100,14 @@ const Chat = ({ initMessages, channelId }) => {
                 </div>
 
                 <form className="input-field" onSubmit={sendChat}>
-                    <input value={chatInput} onChange={updateChatInput} />
-                    <button type="submit">Send</button>
+                    <i className="fa-solid fa-plus"></i>
+                    <input
+                        value={chatInput}
+                        onChange={updateChatInput}
+                        placeholder={`Message ${currentChannel ? currentChannel.name : ''}`}
+                    />
+                    <button type='submit' className="submit-button"></button>
+                    <button className="reactions-button"></button>
                 </form>
             </div>
         )

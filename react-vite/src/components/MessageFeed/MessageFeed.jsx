@@ -6,20 +6,29 @@ import { getMessagesByChannelThunk } from "../../redux/messages";
 
 export default function MessageFeed({ channel }) {
     const dispatch = useDispatch();
-    const messages = useSelector(
-        (state) => state.messages || {}
-    );
+    const messages = useSelector((state) => state.messages || {});
 
     useEffect(() => {
-        dispatch(getMessagesByChannelThunk(channel.id));
+        if (channel && channel.id) {
+            dispatch(getMessagesByChannelThunk(channel.id));
+        }
     }, [dispatch, channel]);
+
+    const formatChannelName = (name) => {
+        return name.toLowerCase().replace(/\s+/g, '-');
+    };
+
+    if (!channel || !channel.name) {
+        return null; // or a loading indicator
+    }
 
     return (
         <>
             <div className="message-feed-container">
                 <div className="channel-header-container">
                     <span className="channel-name">
-                        # {channel.name}
+                        <span id='hash'>#</span>
+                        <span id='channel-name'> {formatChannelName(channel.name)}</span>
                     </span>
                 </div>
                 <div className="message-feed">
