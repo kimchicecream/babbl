@@ -22,14 +22,9 @@
     align-items: center;
     height: 55px;
     width: 55px;
-    background-color: rgb(77, 77, 77);
-    border-radius: 50%;
-    transition: border-radius 0.1s ease;
-}
-
-.server-list-container .logo-button:hover {
-    border-radius: 35%;
     background-color: rgb(140, 79, 255);
+    border-radius: 35%;
+    transition: border-radius 0.2s ease;
 }
 
 .server-list-container .logo-button img {
@@ -37,16 +32,12 @@
     width: 55px;
 }
 
-.server-list-container #join-create-container {
-    display: flex;
-    flex-direction: column;
-}
-
 .server-list-container .servers {
     display: flex;
     flex-direction: column;
     gap: 4px;
     height: 100%;
+    overflow-y: auto;
 }
 
 .servers img {
@@ -57,7 +48,72 @@
     transition: border-radius 0.2s ease;
 }
 
-.servers img:hover {
+.server-item:hover img,
+.server-item.selected img {
     border-radius: 35%;
     cursor: pointer;
+}
+
+/* SELECTED SERVER INDICATOR */
+.server-item .indicator {
+    position: absolute;
+    left: 0px;
+
+    width: 5px;
+    height: 55px;
+
+    background-color: rgb(140, 79, 255);
+    border-radius: 0 5px 5px 0;
+}
+
+.server-item.selected .indicator {
+    display: block;
+}
+
+.server-item .indicator {
+    display: none;
+}
+
+/* EXPLORE AND CREATE BUTTON */
+.server-list-container .create-explore-container {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+
+    margin-bottom: 10px;
+}
+
+.server-list-container .explore-button,
+.server-list-container .create-button {
+    all: unset;
+
+    font-size: 30px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    height: 55px;
+    width: 55px;
+
+    background-color: rgb(36, 36, 36);
+    border-radius: 50%;
+    transition: background-color 0.2s ease, border-radius 0.2s ease;
+}
+
+.server-list-container .explore-button:hover,
+.server-list-container .create-button:hover {
+    border-radius: 35%;
+    background-color: rgb(140, 79, 255);
+}
+
+.server-list-container .explore-button:hover i,
+.server-list-container .create-button:hover i {
+    color: white;
+}
+
+.server-list-container .create-button i,
+.server-list-container .explore-button i {
+    color: rgb(140, 79, 255);
+    transition: color 0.2s ease;
 }
