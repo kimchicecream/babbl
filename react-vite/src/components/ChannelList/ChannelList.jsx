@@ -3,14 +3,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import "./ChannelList.css";
 
-const mapChannels = (channels) => {
-    const returnArr = [];
-    for (const value of Object.values(channels)) {
-        returnArr.push(value)
-    }
-    return returnArr;
-}
-
 export default function ChannelList({ server, onSelectChannel }) {
     // write code here
     const dispatch = useDispatch();
@@ -48,7 +40,7 @@ export default function ChannelList({ server, onSelectChannel }) {
                 <span className="dropdown"></span>
             </div>
             <div className="channels">
-                {mapChannels(channels).map((channel) => (
+                {Object.values(channels).map((channel) => (
                     <div
                         key={channel.id}
                         className={`channel-item ${selectedChannel === channel.id ? 'selected' : ''}`}

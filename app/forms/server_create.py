@@ -6,8 +6,7 @@ from app.models import Server
 #unique
 def server_is_unique(form, field):
     name = field.data
-    server = Server.query.filter(Server.name == name)
-
+    server = Server.query.filter(Server.name == name).first()
     if server:
         raise ValidationError("Server name must be unique!")
 
