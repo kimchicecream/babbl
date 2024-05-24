@@ -1,17 +1,19 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { useModal } from "../../context/Modal";
+import { useDispatch, useSelector } from "react-redux";
+// import { useModal } from "../../context/Modal";
+import { useFSModal } from "../../context/FullScreenModal";
+import { createChannelThunk } from "../../redux/channels";
 // Import thunk/action creator
 // import { thunkCreateChannel } from "../../redux/channel";
 // import "./CreateChannelModal.css";
 
-function CreateChannelModal() {
+function CreateChannelModal({ server }) {
   const dispatch = useDispatch();
   const [name, setName] = useState("");
   const [errors, setErrors] = useState({});
   const sessionUser = useSelector((state) => state.session.user);
 
-  const { closeModal } = useModal();
+  const { closeModal } = useFSModal();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -19,9 +21,9 @@ function CreateChannelModal() {
     //DESTRUCTURE USER DATA TO COMPLETE OBJECT??
     //validates user and sign in and token and all good thins
 
-    const newChannelObj = { name };
+    const newChannelObj = { name, serverId: server.id, creatorId: sessionUser.id };
 
-    const serverResponse = await dispatch(thunkCreateChannel(newChannelObj));
+    const serverResponse = await dispatch(createChannelThunk(newChannelObj));
 
     if (serverResponse.errors) {
       setErrors(serverResponse.errors);

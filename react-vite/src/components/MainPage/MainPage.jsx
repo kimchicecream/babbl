@@ -38,8 +38,8 @@ function MainPage() {
     }, [servers, selectedServer, dispatch]);
 
     useEffect(() => {
-        if (channels.length > 0) {
-            setSelectedChannel(channels[0]);
+        if (Object.keys(channels).length > 0) {
+            setSelectedChannel(channels[Object.keys(channels)[0]]);
         }
     }, [channels]);
 

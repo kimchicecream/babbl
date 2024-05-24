@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import { io } from "socket.io-client";
 import { Message } from "./Message";
+import { createMessageFromSocket } from "../../redux/messages";
+import { useDispatch } from "react-redux";
 import "./testchatsocket.css";
 let socket;
 
@@ -12,6 +14,7 @@ const Chat = ({ initMessages, channelId }) => {
     const channels = useSelector((state) => state.channels || []);
     const messagesEndRef = useRef(null);
     const messagesContainerRef = useRef(null);
+    const dispatch = useDispatch();
 
     const currentChannel = Object.keys(channels).find(channel => channel.id === channelId);
 
@@ -23,21 +26,24 @@ const Chat = ({ initMessages, channelId }) => {
 
         socket = io(socket_url);
 
-        // does this happen on sending or receiving a message?
+        // happens on message receive
         socket.on("chat", (message) => {
             if (message.channelId === channelId) {
+                const newMessage = {
+                    channelId,
+                    message: message["msg"],
+                    id: message["id"],
+                    user: {
+                        username: user.username,
+                        id: user.id,
+                        imageUrl: user.imageUrl,
+                    },
+                    reactions: {},
+                }
+                dispatch(createMessageFromSocket(newMessage));
                 setMessages((prevMessages) => [
                     ...prevMessages,
-                    {
-                        channelId,
-                        message: message["msg"],
-                        user: {
-                            username: user.username,
-                            id: user.id,
-                            imageUrl: user.imageUrl,
-                        },
-                        reactions: {},
-                    },
+                    newMessage,
                 ]);
             }
         });

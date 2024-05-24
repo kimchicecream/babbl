@@ -26,7 +26,7 @@ const getChannelsByServer = (channels) => ({
 export const deleteChannelThunk = (channelId) => async (dispatch) => {
   const response = await fetch(`/api/channels/${channelId}/delete`);
   if (response.ok) {
-    const data = response.json();
+    const data = await response.json();
     dispatch(deleteChannel(channelId));
     return data;
   } else {
@@ -38,7 +38,8 @@ export const deleteChannelThunk = (channelId) => async (dispatch) => {
 export const editChannelThunk = (channelObj) => async (dispatch) => {
   const response = await fetch(`/api/channels/${channelObj.id}/edit`, {
     method: "POST",
-    body: channelObj,
+    body: JSON.stringify(channelObj),
+    headers: { "Content-Type": "application/json" },
   });
   if (response.ok) {
     const data = await response.json();
@@ -52,11 +53,15 @@ export const editChannelThunk = (channelObj) => async (dispatch) => {
 export const createChannelThunk = (channelObj) => async (dispatch) => {
   const response = await fetch("/api/channels/new", {
     method: "POST",
-    body: channelObj,
+    body: JSON.stringify(channelObj),
+    headers: { "Content-Type": "application/json" },
   });
+
+
   if (response.ok) {
     const data = await response.json();
     dispatch(createChannel(data));
+    return 'success'
   } else {
     const error = await response.json();
     return error;
@@ -78,12 +83,15 @@ const channelsReducer = (state = {}, action) => {
   let newState;
   switch (action.type) {
     case GET_CHANNELS_BY_SERVER: {
-      newState = { ...action.payload };
+      newState = {};
+      action.payload.forEach((channel) => {
+        newState[channel.id] = channel
+      })
       return newState;
     }
     case CREATE_CHANNEL: {
       newState = { ...state };
-      newState.channelId = action.payload.channel;
+      newState[action.payload.id] = action.payload;
       return newState;
     }
     case DELETE_CHANNEL: {

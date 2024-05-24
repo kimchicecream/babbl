@@ -1,5 +1,5 @@
 from flask import Blueprint, request
-from app.models import User, db, Message, Reaction
+from app.models import User, db, Message, Reaction, Channel
 #we need to create and import forms for each modal that uses one
 #  EXAMPLE from app.forms.server_create mport CreateServerForm
 from app.forms.message_create import CreateMessageForm
@@ -10,16 +10,14 @@ from sqlalchemy.orm import joinedload
 
 message_routes = Blueprint('messages',__name__)
 
-#add login_required
 
 @message_routes.route('/<int:channelsId>')
-# @login_required
 def get_all_messages_by_channel(channelsId):
     # messages = Message.query.filter_by(channelId=channelsId).all()
     # reaction_list=[]
     # for message in messages:
     #     reactions = Reaction.query.filter_by(messageId=message.id).all()
-    #     reaction_list.append[reactions]
+    #     reaction_list.append(reactions)
 
     # return [message.to_dict() for message in messages]
     messages = Message.query.options(joinedload(Message.reactions), joinedload(Message.user)).filter_by(channelId=channelsId).all()
@@ -43,9 +41,12 @@ def get_all_messages_by_channel(channelsId):
     return result
 
 @message_routes.route('/<int:reactionId>/delete')
-# @login_required
+@login_required
 def delete_reaction(reactionId):
+     # auth REQUIRED, CURRENT USER
     reaction_to_delete = Reaction.query.get(reactionId)
+    if reaction_to_delete.userId != current_user.id:
+        return {'errors': {'message': 'Unauthorized'}}, 401
     returnObj = reaction_to_delete.for_message()
     db.session.delete(reaction_to_delete)
     db.session.commit()
@@ -54,8 +55,20 @@ def delete_reaction(reactionId):
 
 
 @message_routes.route('/<int:messageId>/reactions', methods = ["POST"])
-# @login_required
+@login_required
 def create_reaction(messageId):
+    # auth REQUIRED, CURRENT USER PART OF CHANNEL
+    # message = Message.query.get(messageId)
+    # channel = Channel.query.get(message.channelId)
+
+    # user_id_list = []
+    # for user in channel.users:
+    #     user_id_list.append(user.id)
+
+    # print(user_id_list)
+    # if current_user.id not in user_id_list:
+    #     return {'errors': {'message': 'Unauthorized'}}, 401
+
     form = ReactionForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit:
@@ -72,13 +85,19 @@ def create_reaction(messageId):
         return form.errors, 401
 
 
-
-
-
-
 @message_routes.route('/<int:channelId>/new', methods=["POST", "GET"])
-# @login_required
+@login_required
 def create_message(channelId):
+     # auth REQUIRED, CURRENT USER MEMBER OF CHANNEL
+    channel = Channel.query.get(channelId)
+
+    user_id_list = []
+    for user in channel.users:
+        user_id_list.append(user.id)
+
+    if current_user.id not in user_id_list:
+        return {'errors': {'message': 'Unauthorized'}}, 401
+
     form = CreateMessageForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit:
@@ -97,14 +116,18 @@ def create_message(channelId):
 
 
 @message_routes.route('/<int:messageId>/edit')
-# @login_required
+@login_required
 def edit_message_by_id(messageId):
+     # auth REQUIRED, CURRENT USER
+    message_to_update = Message.query.get(messageId)
+    if current_user.id != message_to_update.userId:
+        return {'errors': {'message': 'Unauthorized'}}, 401
 
     form = CreateMessageForm()
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
-        message_to_update = Message.query.get(messageId)
+        # message_to_update = Message.query.get(messageId)
         message_to_update.message = form.data["message"]
         message_to_update.imageUrl = form.data["imageUrl"]
         message_to_update.isEdited = True
@@ -117,9 +140,12 @@ def edit_message_by_id(messageId):
 
 
 @message_routes.route('/<int:messageId>/delete')
-# @login_required
+@login_required
 def delete_message_by_id(messageId):
     message_to_delete = Message.query.get(messageId)
+    if current_user.id != message_to_delete.userId:
+        return {'errors': {'message': 'Unauthorized'}}, 401
+
     db.session.delete(message_to_delete)
     db.session.commit()
     return "Success!"

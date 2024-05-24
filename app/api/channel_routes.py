@@ -1,14 +1,13 @@
 from flask import Blueprint, request
-from app.models import Channel, db, Server
+from app.models import Channel, db, Server, channel_membership
 from app.forms.channel_create import ChannelForm
 from flask_login import current_user, login_required
+from sqlalchemy import insert, delete
 
 channel_routes = Blueprint('channels', __name__)
 
-#add login_required
 
 @channel_routes.route('/<int:serversId>/all')
-# @login_required
 def all_channel(serversId):
   channels = Channel.query.filter_by(serverId=serversId).all()
   print(channels)
@@ -18,19 +17,20 @@ def all_channel(serversId):
   return channel_list
 
 @channel_routes.route('/new', methods=["GET","POST"])
-# @login_required
+@login_required
 def create_new_channel():
-
-    # creator_id = current_user.get_id()
-    # print(creator_id)v``
-    # print(server_id)
-    # curr_user_servers = Server.query.filter_by(creatorId=creator_id)
-
-    # if not curr_user_servers:
-    #     return {"error": "No server found for this user."}, 400
-
+    print("CREATE CHANNEL CALL ??????????????????????????????????????????????????????????????????")
+    # auth REQUIRED, CURRENT USER  SERVER OWNER
     form = ChannelForm()
     form['csrf_token'].data = request.cookies['csrf_token']
+    print(form.data)
+
+    server = Server.query.get(form.data["serverId"])
+    if server.creatorId != current_user.id:
+        print('fail !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+        return {'errors': {'message': 'Unauthorized'}}, 401
+
+
     if form.validate_on_submit():
         new_channel = {
             "name": form.data["name"],
@@ -45,8 +45,14 @@ def create_new_channel():
     return form.errors, 401
 
 @channel_routes.route('/<int:channelId>/delete', methods=['GET'])
-# @login_required
+@login_required
 def delete_channel(channelId):
+        # auth REQUIRED, CURRENT USER  SERVER OWNER
+    form = ChannelForm()
+    server = Server.query.get(form.data["serverId"])
+    if server.creatorId != current_user.id:
+        return {'errors': {'message': 'Unauthorized'}}, 401
+
     channel_to_delete=Channel.query.get(channelId)
     db.session.delete(channel_to_delete)
     db.session.commit()
@@ -54,10 +60,16 @@ def delete_channel(channelId):
 
 
 @channel_routes.route('/<int:channelId>/edit', methods=["POST"])
-# @login_required
+@login_required
 def update_channel(channelId):
+        # auth REQUIRED, CURRENT USER  SERVER OWNER
     form = ChannelForm()
     form['csrf_token'].data = request.cookies['csrf_token']
+
+    server = Server.query.get(form.data["serverId"])
+    if server.creatorId != current_user.id:
+        return {'errors': {'message': 'Unauthorized'}}, 401
+
     if form.validate_on_submit():
         channel_to_update=Channel.query.get(channelId)
         channel_to_update.name = form.data["name"]
@@ -68,3 +80,32 @@ def update_channel(channelId):
 
     if form.errors:
         return form.errors, 401 #double check status number
+
+@channel_routes.route('/<int:channelId>/join')
+@login_required
+def join_channel(channelId):
+    join_channel_statement= insert(channel_membership).values(user_id=current_user.id, channel_id= channelId)
+    db.session.execute(join_channel_statement)
+    db.session.commit()
+    return "success"
+
+@channel_routes.route('/<int:channelId>/leave')
+@login_required
+def leave_channel(channelId):
+    leave_channel_statement = delete(channel_membership).where(channel_membership.c.user_id==current_user.id, channel_membership.c.channel_id ==channelId)
+    db.session.execute(leave_channel_statement)
+    db.session.commit()
+    return"success"
+
+@channel_routes.route('/<int:channelId>/allMembers')
+# @login_required
+def all_channel_members(channelId):
+   channel= Channel.query.get(channelId)
+   users = channel.users
+   answerArray = [user.to_dict() for user in users]
+   answerDict = {}
+   for answer in answerArray:
+       answerDict[answer["id"]]=answer
+
+
+   return answerDict
