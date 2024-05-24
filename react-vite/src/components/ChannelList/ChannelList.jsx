@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import "./ChannelList.css";
 
 export default function ChannelList({ server, onSelectChannel }) {
-    // write code here
     const dispatch = useDispatch();
     const channels = useSelector((state) => state.channels?.serverChannels || []);
     const [selectedChannel, setSelectedChannel] = useState(null);
