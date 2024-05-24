@@ -40,12 +40,15 @@ export const loadChannelMembersThunk = (channelId) => async (dispatch) => {
   }
 };
 
-export const joinServerThunk = (serverid) => async (dispatch) => {
-  const response = await fetch(`api/servers/${serverid}/join`, {
+export const joinServerThunk = (serverId) => async (dispatch) => {
+  const response = await fetch(`api/servers/${serverId}/join`, {
     method: "POST",
   });
+//   const data = await response.json()
+//   console.log("RES:", data);
+
   if (response.ok) {
-    dispatch(joinServer(serverid));
+    dispatch(joinServer(serverId));
   } else {
     const error = await response.json();
     return error;
@@ -53,11 +56,11 @@ export const joinServerThunk = (serverid) => async (dispatch) => {
 };
 
 export const leaveServerThunk = (serverId) => async (dispatch) => {
-  const response = await fetch(`api/servers/${serverid}/join`, {
+  const response = await fetch(`api/servers/${serverId}/join`, {
     method: "POST",
   });
   if (response.ok) {
-    dispatch(joinServer(serverid));
+    dispatch(joinServer(serverId));
   } else {
     const error = await response.json();
     return error;

@@ -22,7 +22,7 @@ function CreateServerModal() {
         //DESTRUCTURE USER DATA TO COMPLETE SERVER OBJECT
         //validates user and sign in and token and all good thins
 
-        const serverObj = { name, description, imageUrl, creatorId: user.id};
+        const serverObj = { name, description, imageUrl, creatorId: user.id };
         // console.log(
         //     "-------------------------------------------------------------------",
         //     serverObj
