@@ -26,7 +26,7 @@ const getChannelsByServer = (channels) => ({
 export const deleteChannelThunk = (channelId) => async (dispatch) => {
   const response = await fetch(`/api/channels/${channelId}/delete`);
   if (response.ok) {
-    const data = response.json();
+    const data = await response.json();
     dispatch(deleteChannel(channelId));
     return data;
   } else {
