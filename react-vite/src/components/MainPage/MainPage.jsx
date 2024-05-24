@@ -12,7 +12,7 @@ function MainPage() {
     const channels = useSelector((state) => state.channels?.serverChannels || []);
     const [selectedServer, setSelectedServer] = useState({});
     const [selectedChannel, setSelectedChannel] = useState({});
-    const [isLoaded, setIsLoaded] = useState(false);
+    // const [isLoaded, setIsLoaded] = useState(false);
 
     // useEffect to keep the page from scrolling
     useEffect(() => {
@@ -25,14 +25,14 @@ function MainPage() {
 
     const handleServerSelect = (server) => {
         setSelectedServer(server);
-        setIsLoaded(false);
+        // setIsLoaded(false);
         dispatch(getChannelsByServerThunk(server.id));
     };
 
     useEffect(() => {
         if (channels.length > 0) {
             setSelectedChannel(channels[0]);
-            setIsLoaded(true);
+            // setIsLoaded(true);
         }
     }, [channels]);
 
@@ -42,13 +42,11 @@ function MainPage() {
                 <ServerList onSelectServer={handleServerSelect} />
             </div>
             <div className="channel-column">
-                {Object.keys(selectedServer).length !== 0 && isLoaded ? (
+                {Object.keys(selectedServer).length !== 0 && (
                     <ChannelList
                         server={selectedServer}
                         onSelectChannel={setSelectedChannel}
                     />
-                ) : (
-                    null
                 )}
                 <div className="profile-container">
                     <ProfileManagement />
