@@ -47,7 +47,6 @@ def delete_reaction(reactionId):
     reaction_to_delete = Reaction.query.get(reactionId)
     if reaction_to_delete.userId != current_user.id:
         return {'errors': {'message': 'Unauthorized'}}, 401
-    
     returnObj = reaction_to_delete.for_message()
     db.session.delete(reaction_to_delete)
     db.session.commit()
@@ -73,8 +72,8 @@ def create_reaction(messageId):
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit:
         newReaction = {
-            "userId":form.data["userId"],
-            "messageId": form.data["messageId"],
+            "userId": form.data["userId"],
+            "messageId": messageId,
             "emojiId": form.data["emojiId"]
         }
         made_reaction = Reaction ( **newReaction)

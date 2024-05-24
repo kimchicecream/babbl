@@ -51,7 +51,8 @@ export const createReactionThunk = (reactionObj) => async (dispatch) => {
         `api/messages/${reactionObj.messageId}/reactions`,
         {
             method: "POST",
-            body: reactionObj,
+            body: JSON.stringify(reactionObj),
+            headers: { "Content-Type": "application/json" },
         }
     );
     if (response.ok) {
@@ -119,7 +120,10 @@ const messagesReducer = (state = {}, action) => {
     let newState;
     switch (action.type) {
         case GET_MESSAGES_BY_CHANNEL: {
-            newState = { ...action.payload };
+            newState = {};
+            action.payload.forEach((message) => {
+                newState[message.id] = message
+            })
             return newState;
         }
         case CREATE_REACTION: {

@@ -21,6 +21,14 @@ export default function ChannelList({ server, onSelectChannel }) {
         dispatch(getChannelsByServerThunk(server.id));
     }, [dispatch, server]);
 
+    useEffect(() => {
+        if (Object.keys(channels).length > 0) {
+            const firstChannel = channels[0];
+            setSelectedChannel(firstChannel.id);
+            onSelectChannel(firstChannel);
+        }
+    }, [channels, onSelectChannel]);
+
     const formatChannelName = (name) => {
         const formattedName = name.toLowerCase().replace(/\s+/g, '-');
         return formattedName.length > 20 ? `${formattedName.substring(0, 20)}...` : formattedName;

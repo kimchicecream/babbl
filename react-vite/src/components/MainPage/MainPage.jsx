@@ -3,15 +3,18 @@ import ServerList from "../ServerList";
 import ChannelList from "../ChannelList";
 import MessageFeed from "../MessageFeed";
 import ProfileManagement from "../ProfileManagement";
-import React, { useEffect, useState } from "react";
-// import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getChannelsByServerThunk } from "../../redux/channels";
 
 function MainPage() {
-    // const channels = useSelector((state) => state.channels?.serverChannels);
+    const dispatch = useDispatch();
+    const channels = useSelector((state) => state.channels || []);
     const [selectedServer, setSelectedServer] = useState({});
     const [selectedChannel, setSelectedChannel] = useState({});
-    // useEffect to keep the page from scrolling
+    // const [isLoaded, setIsLoaded] = useState(false);
 
+    // useEffect to keep the page from scrolling
     useEffect(() => {
         document.body.style.overflow = "hidden";
 
@@ -20,18 +23,23 @@ function MainPage() {
         };
     }, []);
 
-    // useEffect(() => {
-    //     if (channels.length) setSelectedServer(channels[0])
-    // }, [channels])
+    const handleServerSelect = (server) => {
+        setSelectedServer(server);
+        // setIsLoaded(false);
+        dispatch(getChannelsByServerThunk(server.id));
+    };
 
-    // useEffect(() => {
-    //     if (!channels.length)
-    // })
+    useEffect(() => {
+        if (Object.keys(channels).length > 0) {
+            setSelectedChannel(channels[0]);
+            // setIsLoaded(true);
+        }
+    }, [channels]);
 
     return (
         <div className="main-page-container">
             <div className="server-column">
-                <ServerList onSelectServer={setSelectedServer} />
+                <ServerList onSelectServer={handleServerSelect} />
             </div>
             <div className="channel-column">
                 {Object.keys(selectedServer).length !== 0 && (
@@ -40,7 +48,9 @@ function MainPage() {
                         onSelectChannel={setSelectedChannel}
                     />
                 )}
-                <ProfileManagement />
+                <div className="profile-container">
+                    <ProfileManagement />
+                </div>
             </div>
             <div className="message-feed-column">
                 {Object.keys(selectedChannel).length !== 0 && (

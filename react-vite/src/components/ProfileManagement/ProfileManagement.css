@@ -2,28 +2,27 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
 
-    height: 60px;
+    height: 58px;
     width: 100%;
 
-    padding: 6px 10px;
+    padding: 6px 10px 6px 5px;
 
     background-color: rgb(42, 42, 42);
-
-    /* border: 2px solid red; */
 }
 
 .profile-management-container .user-info {
     display: flex;
     align-items: center;
     gap: 10px;
-    width: 120px;
-    /* border: 2px solid red; */
+    width: 140px;
+    padding: 5px;
 }
 
 .profile-management-container .user-info:hover {
-    background-color: rgba(159, 117, 244, 0.206);
-    border-radius: 3px;
+    background-color: rgba(122, 122, 122, 0.206);
+    border-radius: 7px;
 }
 
 .profile-management-container .user-info img {
@@ -31,14 +30,13 @@
     width: 40px;
 
     border-radius: 50%;
-
-    /* border: 2px solid red; */
 }
 
 .profile-management-container .user-info .username-status-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    padding-top: 3px;
 }
 
 .profile-management-container .user-info .username-status-container #username {
@@ -48,4 +46,39 @@
 
 .profile-management-container .user-info .username-status-container #status {
     font-size: 13px;
+    color: rgb(121, 121, 121);
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.profile-management-container button {
+    all: unset;
+    height: 33px;
+    width: 33px;
+
+    border-radius: 5px;
+}
+
+.profile-management-container button i {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: gray;
+
+    font-size: 20px;
+}
+
+.profile-management-container button:hover i {
+    animation: rotate 1s ease;
+}
+
+.profile-management-container button:hover {
+    background-color: rgba(122, 122, 122, 0.206);
 }
