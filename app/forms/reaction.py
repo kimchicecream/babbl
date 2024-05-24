@@ -4,6 +4,6 @@ from wtforms.validators import DataRequired
 
 
 class ReactionForm(FlaskForm):
-    emojiId= IntegerField('emojiId', validators=[DataRequired()])
+    emojiId = IntegerField('emojiId', validators=[DataRequired()])
     messageId= IntegerField('messageId', validators=[DataRequired()])
     userId =  IntegerField('userId', validators=[DataRequired()])

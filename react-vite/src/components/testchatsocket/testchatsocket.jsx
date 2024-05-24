@@ -1,47 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import { io } from "socket.io-client";
-import { ReactionsList } from "./reactionsList";
-import { emojiList } from "../../../public/emojis";
+import { Message } from "./Message";
 import "./testchatsocket.css";
 let socket;
 
-const mapMessages = (messages) => {
-    const returnArr = [];
-    for (const value of Object.values(messages)) {
-        returnArr.push(value)
-    }
-    return returnArr;
-}
-
-const reduceReactions = (reactions) => {
-    const reactionsArr = Object.values(reactions);
-
-    const counts = reactionsArr.reduce((counts, reaction) => {
-        counts[reaction.emojiId.toString()] =
-            (counts[reaction.emojiId.toString()] || 0) + 1;
-        return counts;
-    }, {});
-
-    const buttons = [];
-    // map counts to actual reaction buttons
-    for (const [emojiId, count] of Object.entries(counts)) {
-        buttons.push(
-            <button className="reaction-button">
-                <span key={emojiId}>{emojiList(parseInt(emojiId))}</span>{" "}
-                {count}
-            </button>
-        );
-    }
-
-    return buttons;
-};
-
 const Chat = ({ initMessages, channelId }) => {
     const [chatInput, setChatInput] = useState("");
-    const [messages, setMessages] = useState(mapMessages(initMessages));
-    const [showReactionsMenu, setShowMenu] = useState(false);
-    const [messageId, setMessageId] = useState(null); // for adding a reaction
+    const [messages, setMessages] = useState(Object.values(initMessages));
     const user = useSelector((state) => state.session.user);
     const messagesEndRef = useRef(null);
     const messagesContainerRef = useRef(null);
@@ -67,7 +33,7 @@ const Chat = ({ initMessages, channelId }) => {
                             id: user.id,
                             imageUrl: user.imageUrl,
                         },
-                        reactions: [],
+                        reactions: {},
                     },
                 ]);
             }
@@ -81,7 +47,7 @@ const Chat = ({ initMessages, channelId }) => {
 
     useEffect(() => {
         // loads messages from props if props change
-        setMessages(mapMessages(initMessages));
+        setMessages(Object.values(initMessages));
     }, [initMessages]);
 
     useEffect(() => {
@@ -106,7 +72,7 @@ const Chat = ({ initMessages, channelId }) => {
             },
             msg: chatInput,
             channelId,
-            reactions: [],
+            reactions: {},
         });
         setChatInput("");
     };
@@ -120,50 +86,9 @@ const Chat = ({ initMessages, channelId }) => {
                 >
                     <div className="messages-wrapper">
                         {messages.map((message, ind) => (
-                            <div className="message-container" key={ind}>
-                                <div className="profile-pic-container">
-                                    {message?.user?.imageUrl && (
-                                        <img
-                                            src={message.user.imageUrl}
-                                            alt={"profile pic"}
-                                        />
-                                    )}
-                                </div>
-                                <div className="username-message-container">
-                                    <div className="username-time-container">
-                                        <span className="username">
-                                            {message.user.username}
-                                        </span>
-                                        <span className="time"></span>
-                                    </div>
-                                    <div className="message-text">
-                                        <p>{message.message}</p>
-                                    </div>
-                                    {Object.keys(message.reactions).length > 0 && (
-                                        <div className="reactions">
-                                            {reduceReactions(message.reactions)}
-                                        </div>
-                                    )}
-                                </div>
-                                <div className="message-management-container">
-                                    <button
-                                        className="reactions"
-                                        onClick={() => {
-                                            // this is jank and i miss the Message component
-                                            setMessageId(message.id);
-                                            setShowMenu(!showReactionsMenu);
-                                            // Message component will return inshallah
-                                        }}
-                                    ></button>
-                                    <button className="edit"></button>
-                                    <button className="delete"></button>
-                                </div>
-                            </div>
+                            <Message message={message} index={ind} />
                         ))}
                         <div ref={messagesEndRef}></div>
-                        {showReactionsMenu && (
-                            <ReactionsList messageId={messageId} />
-                        )}
                     </div>
                 </div>
 

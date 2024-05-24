@@ -45,7 +45,7 @@ def get_all_messages_by_channel(channelsId):
 @message_routes.route('/<int:reactionId>/delete')
 # @login_required
 def delete_reaction(reactionId):
-    reaction_to_delete = Reaction.query.get(reactionId);
+    reaction_to_delete = Reaction.query.get(reactionId)
     returnObj = reaction_to_delete.for_message()
     db.session.delete(reaction_to_delete)
     db.session.commit()
@@ -60,8 +60,8 @@ def create_reaction(messageId):
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit:
         newReaction = {
-            "userId":form.data["userId"],
-            "messageId": form.data["messageId"],
+            "userId": form.data["userId"],
+            "messageId": messageId,
             "emojiId": form.data["emojiId"]
         }
         made_reaction = Reaction ( **newReaction)
