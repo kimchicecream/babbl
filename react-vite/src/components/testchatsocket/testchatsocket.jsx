@@ -26,20 +26,21 @@ const Chat = ({ initMessages, channelId }) => {
         // happens on message receive
         socket.on("chat", (message) => {
             if (message.channelId === channelId) {
-                dispatch(createMessageFromSocket(message));
+                const newMessage = {
+                    channelId,
+                    message: message["msg"],
+                    id: message["id"],
+                    user: {
+                        username: user.username,
+                        id: user.id,
+                        imageUrl: user.imageUrl,
+                    },
+                    reactions: {},
+                }
+                dispatch(createMessageFromSocket(newMessage));
                 setMessages((prevMessages) => [
                     ...prevMessages,
-                    {
-                        channelId,
-                        message: message["msg"],
-                        id: message["id"],
-                        user: {
-                            username: user.username,
-                            id: user.id,
-                            imageUrl: user.imageUrl,
-                        },
-                        reactions: {},
-                    },
+                    newMessage,
                 ]);
             }
         });
