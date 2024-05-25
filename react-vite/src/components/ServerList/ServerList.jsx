@@ -30,26 +30,48 @@ export default function ServerList({ onSelectServer }) {
     dispatch(loadAllServersThunk());
   }, [dispatch]);
 
-  // useEffect(() => {
-  //   let socket_url = "http://127.0.0.1:8000";
-  //   if (import.meta.env.MODE === "production") {
-  //     socket_url = "https://babbl.onrender.com";
-  //   }
+//   // useEffect(() => {
+//   //   let socket_url = "http://127.0.0.1:8000";
+//   //   if (import.meta.env.MODE === "production") {
+//   //     socket_url = "https://babbl.onrender.com";
+//   //   }
+// <<<<<<< frontend-alex
+// =======
 
-  //   serverSocket = io(socket_url);
-  //   serverSocket.on("server", (a) => {
-  //     console.log(
-  //       "THIS IS ME CALLING THE LOAD ALL SERVERS THUNK IN THE SERVER LIST FILE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-  //     );
-  //     dispatch(loadAllServersThunk());
-  //   });
+// // <<<<<<< login_logout
+// //     let serverSocket = io(socket_url);
+// //     serverSocket.on("server", (a) => {
+// //       console.log(
+// //         "THIS IS ME CALLING THE LOAD ALL SERVERS THUNK IN THE SERVER LIST FILE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+// //       );
+// //       dispatch(loadAllServersThunk());
+// //     });
+// >>>>>>> weekendDEV
 
-    // socket.emit("server");
+//   //   serverSocket = io(socket_url);
+//   //   serverSocket.on("server", (a) => {
+//   //     console.log(
+//   //       "THIS IS ME CALLING THE LOAD ALL SERVERS THUNK IN THE SERVER LIST FILE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+//   //     );
+//   //     dispatch(loadAllServersThunk());
+//   //   });
+// <<<<<<< frontend-alex
+// =======
+// // >>>>>>> weekendDEV
+// >>>>>>> weekendDEV
 
-    // return () => {
-    //   socket.disconnect();
-    // };
-  // });
+//   //   // socket.emit("server");
+
+// <<<<<<< frontend-alex
+//     // return () => {
+//     //   socket.disconnect();
+//     // };
+// =======
+//   //   // return () => {
+//   //   //   socket.disconnect();
+//   //   // };
+// >>>>>>> weekendDEV
+//   // });
 
   useEffect(() => {
     if (servers.length > 0 && !selectedServerId) {

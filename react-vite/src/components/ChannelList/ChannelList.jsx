@@ -11,6 +11,7 @@ import CreateChannelModal from "../ChannelModals/CreateChannelModal";
 import io from 'socket.io-client';
 import "./ChannelList.css";
 
+
 let socket;
 
 export default function ChannelList({ server, onSelectChannel }) {
@@ -18,6 +19,27 @@ export default function ChannelList({ server, onSelectChannel }) {
   const channels = useSelector((state) => state.channels || {});
   const user = useSelector((state) => state.session.user);
   const [selectedChannel, setSelectedChannel] = useState(null);
+
+  
+//   BELOW IS WHQAT WAS THERE BEFORE I MERGED IN FRONTEND ALEX
+  
+  
+// // <<<<<<< alex-work
+// export default function ChannelList({ server, onSelectChannel }) {
+//     const dispatch = useDispatch();
+//     const channels = useSelector((state) => state.channels?.serverChannels || []);
+//     const [selectedChannel, setSelectedChannel] = useState(null);
+// // export default function ChannelList({
+// //   server,
+// //   onSelectChannel,
+// //   onSelectServer,
+// // }) {
+// //   // write code here
+// //   const dispatch = useDispatch();
+// //   const channels = useSelector((state) => state.channels || {});
+// //   const user = useSelector((state) => state.session.user);
+// //   const [selectedChannel, setSelectedChannel] = useState(null); >>>>>>> weekendDEV
+
 
   useEffect(() => {
     dispatch(getChannelsByServerThunk(server.id));
