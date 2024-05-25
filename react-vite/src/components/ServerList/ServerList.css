@@ -9,7 +9,7 @@
 
 .server-list-container .divider {
     height: 2px;
-    width: 40px;
+    width: 0px;
     background-color: rgba(128, 128, 128, 0.495);
     margin: 10px 0;
 }

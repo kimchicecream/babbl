@@ -7,11 +7,11 @@ function LandingPage() {
       <div className="hero-container">
         <div className="hero-title">
           <h1 id="introducing">Introducing</h1>
-          <img src="../../../public/babbl-name.png"></img>
+          <img src="../../../babbl-name.png"></img>
         </div>
         <div className="video-container">
           <video
-            src="../../../public/background-video/background-video.mp4"
+            src="../../../background-video/background-video.mp4"
             className="background-video"
             autoPlay
             muted
