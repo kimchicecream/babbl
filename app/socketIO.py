@@ -16,13 +16,20 @@ socketio = SocketIO(cors_allowed_origins=origins)
 # handle chat messages
 @socketio.on("chat")
 def handle_chat(data):
-    db.session.add(
-        Message(
+
+    message = Message(
             userId = data["user"]["id"],
             channelId = data["channelId"],
             message = data["msg"]
         )
-    )
+    db.session.add(message)
     db.session.commit()
-
+    data["id"] = message.id
+    print("data !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", data)
     emit("chat", data, broadcast=True)
+
+
+@socketio.on("server")
+def _update(data):
+
+    emit("server", data, broadcast=True)

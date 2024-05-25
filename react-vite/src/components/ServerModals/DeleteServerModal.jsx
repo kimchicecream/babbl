@@ -1,6 +1,7 @@
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
-import { deleteServerThunk } from "../../store/servers";
+import { deleteServerThunk } from "../../redux/servers";
+// import { deleteServerThunk } from "../../store/servers";
 // import "./DeleteServerModal.css";
 
 function DeleteServerModal({ serverId }) {

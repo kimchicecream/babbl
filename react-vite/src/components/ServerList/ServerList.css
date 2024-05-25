@@ -74,6 +74,11 @@
     display: none;
 }
 
+.server-item {
+    border: 2px solid white;
+    height: 60px;
+}
+
 /* EXPLORE AND CREATE BUTTON */
 .server-list-container .create-explore-container {
     display: flex;

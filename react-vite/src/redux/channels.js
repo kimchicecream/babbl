@@ -26,9 +26,8 @@ const getChannelsByServer = (channels) => ({
 export const deleteChannelThunk = (channelId) => async (dispatch) => {
   const response = await fetch(`/api/channels/${channelId}/delete`);
   if (response.ok) {
-    data = response.json();
     dispatch(deleteChannel(channelId));
-    return data;
+    return response;
   } else {
     const error = await response.json();
     return error;
@@ -36,13 +35,19 @@ export const deleteChannelThunk = (channelId) => async (dispatch) => {
 };
 
 export const editChannelThunk = (channelObj) => async (dispatch) => {
-  const response = await fetch(`/api/channels/${channelObj.id}/edit`, {
+  console.log(
+    channelObj,
+    "################################################################################"
+  );
+  const response = await fetch(`/api/channels/${channelObj.channelId}/edit`, {
     method: "POST",
-    body: channelObj,
+    body: JSON.stringify(channelObj),
+    headers: { "Content-Type": "application/json" },
   });
   if (response.ok) {
-    data = response.json();
+    const data = await response.json();
     dispatch(editChannel(data));
+    return data;
   } else {
     const error = await response.json();
     return error;
@@ -50,29 +55,46 @@ export const editChannelThunk = (channelObj) => async (dispatch) => {
 };
 
 export const createChannelThunk = (channelObj) => async (dispatch) => {
-  const newChannel = await fetch("/api/channels/new", {
+  const response = await fetch("/api/channels/new", {
     method: "POST",
-    body: channelObj,
+    body: JSON.stringify(channelObj),
+    headers: { "Content-Type": "application/json" },
   });
-  dispatch(createChannel(newChannel));
+
+  if (response.ok) {
+    const data = await response.json();
+    dispatch(createChannel(data));
+    return "success";
+  } else {
+    const error = await response.json();
+    return error;
+  }
 };
 
 export const getChannelsByServerThunk = (serverId) => async (dispatch) => {
-  const serversChannels = await fetch(`api/channels/${serverId}/all`);
-  const data = await serversChannels.json()
-  dispatch(getChannelsByServer(data));
+  const response = await fetch(`api/channels/${serverId}/all`);
+  if (response.ok) {
+    const data = await response.json();
+    dispatch(getChannelsByServer(data));
+  } else {
+    const error = await response.json();
+    return error;
+  }
 };
 
 const channelsReducer = (state = {}, action) => {
   let newState;
   switch (action.type) {
     case GET_CHANNELS_BY_SERVER: {
-      newState = { ...state, serverChannels: action.payload };
+      newState = {};
+      action.payload.forEach((channel) => {
+        newState[channel.id] = channel;
+      });
       return newState;
     }
     case CREATE_CHANNEL: {
       newState = { ...state };
-      newState.channelId = action.payload.channel;
+      newState[action.payload.id] = action.payload;
       return newState;
     }
     case DELETE_CHANNEL: {

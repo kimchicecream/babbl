@@ -1,19 +1,31 @@
-import "./reactionsList.css"
+import "./reactionsList.css";
+import { emojiList } from "../../../public/emojis";
+import { createReactionThunk } from "../../redux/messages";
+import { useSelector, useDispatch } from "react-redux";
 
-export const ReactionsList = () => {
-    return (
-        <div id="reactions-list">
-            <button>&#128512;</button>
-            <button>&#128513;</button>
-            <button>&#128514;</button>
-            <button>&#128515;</button>
-            <button>&#128516;</button>
-            <button>&#128517;</button>
-            <button>&#128518;</button>
-            <button>&#128519;</button>
-            <button>&#128520;</button>
-            <button>&#128521;</button>
-            <button>&#128522;</button>
-        </div>
-    );
+export const ReactionsList = ({ message }) => {
+    const dispatch = useDispatch();
+    const userId = useSelector((state) => state.session.user.id);
+    const emojis = [];
+    for (let i = 0; i < 80; i++) {
+        emojis.push(
+            <button
+                className="react-button"
+                key={i}
+                onClick={() => {
+                    dispatch(
+                        createReactionThunk({
+                            emojiId: i,
+                            messageId: message.id,
+                            userId
+                        })
+                    );
+                }}
+            >
+                {emojiList(i)}
+            </button>
+        );
+    }
+
+    return <div id="reactions-list">{emojis}</div>;
 };

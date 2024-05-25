@@ -30,6 +30,12 @@ class Server(db.Model):
     channels = relationship(
         "Channel", back_populates="server", cascade="all, delete-orphan"
     )
+    
+    def users_in_server(self):
+        returnList = []
+        for user in self.users:
+            returnList.append(user.id)
+        return returnList
 
     def to_dict(self):
         return {
@@ -40,4 +46,5 @@ class Server(db.Model):
             "imageUrl": self.imageUrl,
             "created_at": self.created_at,
             "updated_at": self.updated_at,
+            "users": self.users_in_server()
         }

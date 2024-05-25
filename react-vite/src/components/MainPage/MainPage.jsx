@@ -6,13 +6,14 @@ import ProfileManagement from "../ProfileManagement";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getChannelsByServerThunk } from "../../redux/channels";
+import { loadAllServersThunk } from "../../redux/servers";
 
 function MainPage() {
     const dispatch = useDispatch();
-    const channels = useSelector((state) => state.channels?.serverChannels || []);
+    const servers = useSelector((state) => state.servers.allServers || []);
+    const channels = useSelector((state) => state.channels || []);
     const [selectedServer, setSelectedServer] = useState({});
     const [selectedChannel, setSelectedChannel] = useState({});
-    const [isLoaded, setIsLoaded] = useState(false);
 
     // useEffect to keep the page from scrolling
     useEffect(() => {
@@ -23,18 +24,29 @@ function MainPage() {
         };
     }, []);
 
-    const handleServerSelect = (server) => {
-        setSelectedServer(server);
-        setIsLoaded(false);
-        dispatch(getChannelsByServerThunk(server.id));
-    };
+    useEffect(() => {
+        dispatch(loadAllServersThunk());
+    }, [dispatch]);
+
+    // useEffect to select the first server on intial load of MainPage
+    useEffect(() => {
+        if (servers.length > 0 && !selectedServer) {
+            const firstServer = servers[0];
+            setSelectedServer(firstServer);
+            dispatch(getChannelsByServerThunk(firstServer.id));
+        }
+    }, [servers, selectedServer, dispatch]);
 
     useEffect(() => {
-        if (channels.length > 0) {
-            setSelectedChannel(channels[0]);
-            setIsLoaded(true);
+        if (Object.keys(channels).length > 0) {
+            setSelectedChannel(channels[Object.keys(channels)[0]]);
         }
     }, [channels]);
+
+    const handleServerSelect = (server) => {
+        setSelectedServer(server);
+        dispatch(getChannelsByServerThunk(server.id));
+    };
 
     return (
         <div className="main-page-container">
@@ -42,20 +54,19 @@ function MainPage() {
                 <ServerList onSelectServer={handleServerSelect} />
             </div>
             <div className="channel-column">
-                {Object.keys(selectedServer).length !== 0 && isLoaded ? (
+                {selectedServer && (
                     <ChannelList
                         server={selectedServer}
                         onSelectChannel={setSelectedChannel}
+                        onSelectServer={handleServerSelect}
                     />
-                ) : (
-                    null
                 )}
                 <div className="profile-container">
                     <ProfileManagement />
                 </div>
             </div>
             <div className="message-feed-column">
-                {Object.keys(selectedChannel).length !== 0 && (
+                {selectedChannel && (
                     <MessageFeed channel={selectedChannel} />
                 )}
             </div>

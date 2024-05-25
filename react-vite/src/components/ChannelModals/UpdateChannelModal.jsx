@@ -3,22 +3,23 @@ import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { selectUnknownFields } from "express-validator/src/field-selection";
 // Import thunk/action creator
-// import { thunkUpdateChannel } from "../../redux/channel";
+// import { thunkUpdateChannel } from "../../redux/c
 // import "./UpdateChannelModal.css";
+import { editChannelThunk } from "../../redux/channels";
 
-function UpdateChannelModal({ channelId }) {
+function UpdateChannelModal({ channel }) {
   const dispatch = useDispatch();
-  const [name, setName] = useState("");
+  const [name, setName] = useState(channel.name);
   const [errors, setErrors] = useState({});
   const sessionUser = useSelector((state) => state.session.user);
-  const channel = useSelector((state) => {
-    state.channel[channelId];
-  });
+  // const channel = useSelector((state) => {
+  //   state.channels[channelId];
+  // });
   const { closeModal } = useModal();
 
-  useEffect(() => {
-    setName(channel.name);
-  }, []);
+  // useEffect(() => {
+  //   setName(channel.name);
+  // }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -27,9 +28,14 @@ function UpdateChannelModal({ channelId }) {
     //validates user and sign in and token and all good stuff,
     //DEFINITELY get another set of eyes on this hahaha
 
-    const channelObj = { name };
+    const channelObj = {
+      name,
+      channelId: channel.id,
+      serverId: channel.serverId,
+      creatorId: sessionUser.id,
+    };
 
-    const serverResponse = await dispatch(thunkUpdateChnnel(channelObj));
+    const serverResponse = await dispatch(editChannelThunk(channelObj));
 
     if (serverResponse.errors) {
       setErrors(serverResponse.errors);
