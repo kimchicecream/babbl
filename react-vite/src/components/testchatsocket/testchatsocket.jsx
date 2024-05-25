@@ -1,15 +1,17 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { io } from "socket.io-client";
 import { Message } from "./Message";
 import { createMessageFromSocket } from "../../redux/messages";
-import { useDispatch } from "react-redux";
 import "./testchatsocket.css";
+import { ReactionsList } from "./reactionsList";
+
 let socket;
 
 const Chat = ({ initMessages, channelId }) => {
   const [chatInput, setChatInput] = useState("");
   const [messages, setMessages] = useState(Object.values(initMessages));
+  const [showReactionsMenu, setShowReactionsMenu] = useState(false);
   const user = useSelector((state) => state.session.user);
   const channels = useSelector((state) => state.channels || []);
   const messagesEndRef = useRef(null);
@@ -92,6 +94,10 @@ const Chat = ({ initMessages, channelId }) => {
     setChatInput("");
   };
 
+  const handleCloseReactionsMenu = () => {
+    setShowReactionsMenu(false);
+  };
+
   return (
     user && (
       <div className="chat-socket-container">
@@ -115,7 +121,11 @@ const Chat = ({ initMessages, channelId }) => {
           {/* <button className="reactions-button">
             <i class="fa-solid fa-face-kiss-beam"></i>
           </button> */}
-          <i class="fa-solid fa-face-kiss-beam"></i>
+          <i
+            class="fa-solid fa-face-kiss-beam"
+            onClick={() => setShowReactionsMenu(!showReactionsMenu)}
+          ></i>
+          {showReactionsMenu && <ReactionsList onClose={handleCloseReactionsMenu} />}
         </form>
       </div>
     )

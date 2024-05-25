@@ -19,50 +19,6 @@
   justify-content: flex-end;
 }
 
-/* INDIVIDUAL MESSAGES */
-.message-container {
-  display: flex;
-
-  margin-bottom: 20px;
-  padding-left: 10px;
-  padding-top: 5px;
-  padding-bottom: 5px;
-
-  border: 2px solid blue;
-}
-
-.profile-pic-container {
-  border: 2px solid red;
-  height: 40px;
-  width: 40px;
-  border-radius: 50%;
-}
-
-.profile-pic-container img {
-    height: 100%;
-    border-radius: 50%;
-}
-
-.message-text {
-  word-wrap: break-word;
-  word-break: break-word;
-  width: 1000px;
-
-  border: 2px solid rgb(255, 242, 0);
-}
-
-.username-message-container {
-  padding-left: 10px;
-}
-
-.chat-socket-container .username {
-  border: 2px solid red;
-}
-
-.message-container:hover .reactions {
-    height: 19.5px;
-}
-
 /* MESSAGE INPUT FIELD */
 .chat-socket-container .input-field {
   display: flex;
@@ -119,4 +75,129 @@
 
 .chat-socket-container .input-field .fa-solid.fa-face-kiss-beam:hover {
   color: rgb(138, 138, 138);
+}
+
+/* INDIVIDUAL MESSAGES */
+.message-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 20px;
+  padding: 5px 10px;
+
+  border: 2px solid blue;
+}
+
+.profile-pic-container {
+  border: 2px solid red;
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+}
+
+.profile-pic-container img {
+    height: 100%;
+    border-radius: 50%;
+}
+
+.message-text {
+  position: relative;
+
+  word-wrap: break-word;
+  word-break: break-word;
+
+
+  border: 2px solid rgb(255, 242, 0);
+}
+
+.username-message-container {
+  padding-left: 10px;
+  flex-grow: 1;
+}
+
+.chat-socket-container .username {
+  font-weight: bold;
+}
+
+.message-management-container {
+  visibility: hidden; /* set back to 'hidden' */
+
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+  justify-self: flex-end;
+
+  position: relative;
+  bottom: 30px;
+
+  height: 30px;
+  /* width: 90px; */
+
+  background-color: rgb(54, 54, 54);
+  border-radius: 5px;
+
+  /* border: 1px solid red; */
+}
+
+.message-management-container.owner {
+  width: 90px; /* Width for non-owner */
+}
+
+.message-management-container.not-owner {
+  width: 35px; /* Width for non-owner */
+}
+
+.message-management-container .delete-message-button {
+  all: unset;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 100%;
+  width: 100%;
+}
+
+.message-management-container .fa-solid.fa-face-kiss-beam,
+.message-management-container .fa-solid.fa-pen,
+.message-management-container .fa-solid.fa-trash-can  {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  overflow: hidden;
+
+  height: 100%;
+  width: 100%;
+}
+
+.message-management-container .fa-solid.fa-face-kiss-beam {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.message-management-container .fa-solid.fa-trash-can {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.message-management-container .fa-solid.fa-face-kiss-beam:hover,
+.message-management-container .fa-solid.fa-pen:hover  {
+  background-color: rgba(128, 128, 128, 0.228);
+}
+
+.message-management-container .fa-solid.fa-trash-can:hover {
+  background-color: rgba(128, 128, 128, 0.228);
+  color: rgb(255, 74, 74);
+}
+
+
+.message-container:hover {
+  background-color: rgba(148, 148, 148, 0.245);
+}
+
+.message-container:hover .message-management-container {
+  visibility: visible;
 }
