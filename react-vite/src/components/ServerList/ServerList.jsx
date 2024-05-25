@@ -36,6 +36,15 @@ export default function ServerList({ onSelectServer }) {
   //     socket_url = "https://babbl.onrender.com";
   //   }
 
+// <<<<<<< login_logout
+//     let serverSocket = io(socket_url);
+//     serverSocket.on("server", (a) => {
+//       console.log(
+//         "THIS IS ME CALLING THE LOAD ALL SERVERS THUNK IN THE SERVER LIST FILE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+//       );
+//       dispatch(loadAllServersThunk());
+//     });
+
   //   serverSocket = io(socket_url);
   //   serverSocket.on("server", (a) => {
   //     console.log(
@@ -43,6 +52,7 @@ export default function ServerList({ onSelectServer }) {
   //     );
   //     dispatch(loadAllServersThunk());
   //   });
+// >>>>>>> weekendDEV
 
   //   // socket.emit("server");
 
