@@ -32,8 +32,10 @@ function LoginFormModal() {
   };
 
   return (
-    <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
-      <h1 style={{margin: "10px 0 20px 0"}}>Welcome!</h1>
+    <div
+      style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+    >
+      <h1 style={{ margin: "10px 0 20px 0" }}>Welcome!</h1>
       <form className="form" onSubmit={handleSubmit}>
         <label>
           Email
@@ -55,9 +57,11 @@ function LoginFormModal() {
           />
         </label>
         {errors.password && <p>{errors.password}</p>}
-        <button className="submit-button" type="submit">Log In</button>
+        <button className="submit-button" type="submit">
+          Log In
+        </button>
       </form>
-    </div >
+    </div>
   );
 }
 
