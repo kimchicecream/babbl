@@ -19,6 +19,18 @@ function SignupFormModal() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(
+      "??????????????????????????????????????????????????????????????????????????????????????????????????????????"
+    );
+
+    const newuser = {
+      email,
+      username,
+      firstName,
+      lastName,
+      password,
+    };
+    console.log(newuser);
 
     if (password !== confirmPassword) {
       return setErrors({
@@ -27,15 +39,7 @@ function SignupFormModal() {
       });
     }
 
-    const serverResponse = await dispatch(
-      thunkSignup({
-        email,
-        username,
-        firstName,
-        lastName,
-        password,
-      })
-    );
+    const serverResponse = await dispatch(thunkSignup(newuser));
 
     if (serverResponse) {
       setErrors(serverResponse);
@@ -46,8 +50,10 @@ function SignupFormModal() {
   };
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-      <h1 style={{margin: "10px 0 20px 0"}}>Sign Up for babbl!</h1>
+    <div
+      style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+    >
+      <h1 style={{ margin: "10px 0 20px 0" }}>Sign Up for babbl!</h1>
       {errors.server && <p>{errors.server}</p>}
       <form className="form" onSubmit={handleSubmit}>
         <label>
@@ -79,7 +85,7 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.username && <p>{errors.username}</p>}
+        {errors.firstName && <p>{errors.firstName}</p>}
         <label>
           Last Name
           <input
@@ -89,7 +95,7 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.username && <p>{errors.username}</p>}
+        {errors.lastName && <p>{errors.lastName}</p>}
         <label>
           Password
           <input
@@ -110,7 +116,9 @@ function SignupFormModal() {
           />
         </label>
         {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
-        <button className="submit-button" type="submit">Sign Up!</button>
+        <button className="submit-button" type="submit">
+          Sign Up!
+        </button>
       </form>
     </div>
   );

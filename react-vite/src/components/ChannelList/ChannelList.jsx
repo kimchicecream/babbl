@@ -10,16 +10,21 @@ import UpdateServerModal from "../ServerModals/UpdateServerModal";
 import UpdateChannelModal from "../ChannelModals/UpdateChannelModal";
 import DeleteChannelModal from "../ChannelModals/DeleteChannelModal";
 
-export default function ChannelList({
-  server,
-  onSelectChannel,
-  onSelectServer,
-}) {
-  // write code here
-  const dispatch = useDispatch();
-  const channels = useSelector((state) => state.channels || {});
-  const user = useSelector((state) => state.session.user);
-  const [selectedChannel, setSelectedChannel] = useState(null);
+// <<<<<<< alex-work
+export default function ChannelList({ server, onSelectChannel }) {
+    const dispatch = useDispatch();
+    const channels = useSelector((state) => state.channels?.serverChannels || []);
+    const [selectedChannel, setSelectedChannel] = useState(null);
+// export default function ChannelList({
+//   server,
+//   onSelectChannel,
+//   onSelectServer,
+// }) {
+//   // write code here
+//   const dispatch = useDispatch();
+//   const channels = useSelector((state) => state.channels || {});
+//   const user = useSelector((state) => state.session.user);
+//   const [selectedChannel, setSelectedChannel] = useState(null); >>>>>>> weekendDEV
 
   useEffect(() => {
     dispatch(getChannelsByServerThunk(server.id));
