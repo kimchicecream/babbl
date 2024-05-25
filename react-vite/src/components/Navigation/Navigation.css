@@ -59,3 +59,13 @@
   display: block;
   border: 2px solid red;
 }
+
+#demo-login-button {
+    all: unset;
+    padding: 10px 10px;
+    border-radius: 10px;
+}
+
+#demo-login-button:hover {
+    background-color: rgb(164, 164, 164);
+}
