@@ -58,7 +58,7 @@
     }
 }
 
-.profile-management-container button {
+.settings-button {
     all: unset;
     height: 33px;
     width: 33px;
@@ -75,10 +75,23 @@
     font-size: 20px;
 }
 
-.profile-management-container button:hover i {
+.settings-button i {
     animation: rotate 1s ease;
 }
 
-.profile-management-container button:hover {
+.settings-button:hover {
     background-color: rgba(122, 122, 122, 0.206);
+}
+
+#user-mgmt-logout-button {
+    all: unset;
+    position: relative;
+    bottom: 50px;
+    left: 44px;
+    padding: 4px;
+    border-radius: 4px;
+}
+
+#user-mgmt-logout-button:hover {
+    background-color: rgba(122, 122, 122);
 }

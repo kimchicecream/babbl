@@ -36,7 +36,7 @@ export default function ServerList({ onSelectServer }) {
       socket_url = "https://babbl.onrender.com";
     }
 
-    serverSocket = io(socket_url);
+    let serverSocket = io(socket_url);
     serverSocket.on("server", (a) => {
       console.log(
         "THIS IS ME CALLING THE LOAD ALL SERVERS THUNK IN THE SERVER LIST FILE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
