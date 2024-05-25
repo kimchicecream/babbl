@@ -111,8 +111,11 @@ const Chat = ({ initMessages, channelId }) => {
             onChange={updateChatInput}
             placeholder={`Message ${currentChannel ? currentChannel.name : ""}`}
           />
-          <button type="submit" className="submit-button"></button>
-          <button className="reactions-button"></button>
+          {/* <button type="submit" className="submit-button"></button> */}
+          {/* <button className="reactions-button">
+            <i class="fa-solid fa-face-kiss-beam"></i>
+          </button> */}
+          <i class="fa-solid fa-face-kiss-beam"></i>
         </form>
       </div>
     )
