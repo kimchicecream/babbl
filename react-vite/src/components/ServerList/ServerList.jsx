@@ -30,26 +30,26 @@ export default function ServerList({ onSelectServer }) {
     dispatch(loadAllServersThunk());
   }, [dispatch]);
 
-  useEffect(() => {
-    let socket_url = "http://127.0.0.1:8000";
-    if (import.meta.env.MODE === "production") {
-      socket_url = "https://babbl.onrender.com";
-    }
+  // useEffect(() => {
+  //   let socket_url = "http://127.0.0.1:8000";
+  //   if (import.meta.env.MODE === "production") {
+  //     socket_url = "https://babbl.onrender.com";
+  //   }
 
-    serverSocket = io(socket_url);
-    serverSocket.on("server", (a) => {
-      console.log(
-        "THIS IS ME CALLING THE LOAD ALL SERVERS THUNK IN THE SERVER LIST FILE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-      );
-      dispatch(loadAllServersThunk());
-    });
+  //   serverSocket = io(socket_url);
+  //   serverSocket.on("server", (a) => {
+  //     console.log(
+  //       "THIS IS ME CALLING THE LOAD ALL SERVERS THUNK IN THE SERVER LIST FILE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+  //     );
+  //     dispatch(loadAllServersThunk());
+  //   });
 
     // socket.emit("server");
 
     // return () => {
     //   socket.disconnect();
     // };
-  });
+  // });
 
   useEffect(() => {
     if (servers.length > 0 && !selectedServerId) {
