@@ -2,11 +2,27 @@ import "./reactionsList.css";
 import { emojiList } from "../../../public/emojis";
 import { createReactionThunk } from "../../redux/messages";
 import { useSelector, useDispatch } from "react-redux";
+import { useEffect, useRef } from "react";
 
-export const ReactionsList = ({ message }) => {
+export const ReactionsList = ({ message, onClose }) => {
     const dispatch = useDispatch();
     const userId = useSelector((state) => state.session.user.id);
     const emojis = [];
+    const reactionsListRef = useRef(null);
+
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (reactionsListRef.current && !reactionsListRef.current.contains(event.target)) {
+                onClose();
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [onClose]);
+
     for (let i = 0; i < 80; i++) {
         emojis.push(
             <button
@@ -27,5 +43,5 @@ export const ReactionsList = ({ message }) => {
         );
     }
 
-    return <div id="reactions-list">{emojis}</div>;
+    return <div id="reactions-list" ref={reactionsListRef}>{emojis}</div>;
 };

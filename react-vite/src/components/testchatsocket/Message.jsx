@@ -1,6 +1,9 @@
 import { ReactionsList } from "./reactionsList";
-import { useState } from "react";
+import { useState , useEffect, useRef } from "react";
+import { useSelector } from "react-redux";
 import { emojiList } from "../../../public/emojis";
+import OpenModalButton from "../OpenModalButton";
+import DeleteMessageModal from "../DeleteMessageModal/DeleteMessageModal";
 
 const reduceReactions = (reactions) => {
     const reactionsArr = Object.values(reactions);
@@ -27,15 +30,35 @@ const reduceReactions = (reactions) => {
 
 export const Message = ({ message, index }) => {
     const [showReactionsMenu, setShowMenu] = useState(false);
+    const messageRef = useRef(null);
+    const currentUser = useSelector((state) => state.session.user);
+
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (messageRef.current && !messageRef.current.contains(event.target)) {
+                setShowMenu(false);
+            }
+        };
+
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, []);
+
+    const isOwner = currentUser && message && currentUser.id === message.userId;
 
     return (
         <div className="message-container" key={index}>
+
+
             <div className="profile-pic-container">
                 {message?.user?.imageUrl && (
-                    <img src={message.user.imageUrl} alt={"profile pic"} />
+                    <img src={message.user.imageUrl} />
                 )}
             </div>
-            {/* testsetsetsett */}
+
+
             <div className="username-message-container">
                 <div className="username-time-container">
                     <span className="username">{message.user.username}</span>
@@ -50,19 +73,30 @@ export const Message = ({ message, index }) => {
                     </div>
                 )}
             </div>
-            <div className="message-management-container">
-                <button
-                    className="reactions"
+
+
+            <div className={`message-management-container ${isOwner ? 'owner' : 'not-owner'}`}>
+                <i
+                    class="fa-solid fa-face-kiss-beam"
                     onClick={() => setShowMenu(!showReactionsMenu)}
-                ></button>
-                <button className="edit"></button>
-                <button
-                    className="delete"
-                    onClick={() => setShowMenu(false)}
-                ></button>
+                ></i>
+                {isOwner && (
+                    <>
+                        <i
+                            class="fa-solid fa-pen"
+                        ></i>
+                        <OpenModalButton
+                            buttonText={<i className="fa-solid fa-trash-can"></i>}
+                            modalComponent={<DeleteMessageModal messageId={message.id} />}
+                            className='delete-message-button'
+                        />
+                    </>
+                )}
             </div>
-            {showReactionsMenu === true && (
-                <ReactionsList message={message} />
+
+
+            {showReactionsMenu && (
+                <ReactionsList message={message} onClose={() => setShowMenu(false)} />
             )}
         </div>
     );
