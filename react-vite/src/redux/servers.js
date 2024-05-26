@@ -47,9 +47,10 @@ export const editServerThunk = (serverObj) => async (dispatch) => {
   if (response.ok) {
     const data = await response.json();
     dispatch(editServer(data));
+    return data;
   } else {
-    const error = await response.json();
-    return error;
+    const errors = await response.json();
+    return { errors };
   }
 };
 
@@ -76,8 +77,8 @@ export const createServerThunk = (serverObj) => async (dispatch) => {
     dispatch(createServer(data));
     return data;
   } else {
-    const error = await response.json();
-    return error;
+    const errors = await response.json();
+    return { errors };
   }
 };
 
