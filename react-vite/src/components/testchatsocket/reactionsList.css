@@ -11,7 +11,7 @@
     overflow: hidden;
     overflow-y: auto;
     scrollbar-width: thin;
-    scrollbar-color: rgb(150, 150, 150) transparent
+    scrollbar-color: rgb(150, 150, 150) transparent;
 }
 
 #reactions-list button {

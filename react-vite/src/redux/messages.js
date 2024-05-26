@@ -5,9 +5,9 @@ const DELETE_MESSAGE = "messages/delete";
 const CREATE_REACTION = "messages/reactions/create";
 const DELETE_REACTION = "messages/reactions/delete";
 
-const deleteReaction = (reactionId) => ({
+const deleteReaction = (reaction) => ({
     type: DELETE_REACTION,
-    payload: reactionId,
+    payload: reaction,
 });
 
 const getMessagesByChannel = (messages) => ({
@@ -36,13 +36,14 @@ const editMessage = (message) => ({
 });
 
 export const deleteReactionThunk = (reactionId) => async (dispatch) => {
-    const response = await fetch(`api/messages/${reactionId}/delete`);
+    const response = await fetch(`api/reactions/${reactionId}/delete`);
     if (response.ok) {
         const data = await response.json();
         dispatch(deleteReaction(data));
+        return data;
     } else {
-        const error = await response.json();
-        return error;
+        const errors = await response.json();
+        return errors;
     }
 };
 
@@ -59,9 +60,10 @@ export const createReactionThunk = (reactionObj) => async (dispatch) => {
         const data = await response.json();
         console.log(data)
         dispatch(createReaction(data));
+        return data;
     } else {
-        const error = await response.json();
-        return error;
+        const errors = await response.json();
+        return errors;
     }
 };
 
@@ -77,8 +79,8 @@ export const editMessageThunk = (messageObj, username, reactions, imageUrl) => a
         data.reactions = reactions;
         dispatch(editMessage(data));
     } else {
-        const error = await response.json();
-        return error;
+        const errors = await response.json();
+        return errors;
     }
 };
 
@@ -88,31 +90,15 @@ export const deleteMessageThunk = (messageId) => async (dispatch) => {
         // const data = await response.json();
         dispatch(deleteMessage(messageId));
     } else {
-        const error = await response.json();
-        return error;
+        const errors = await response.json();
+        return errors;
     }
 };
 
 export const createMessageFromSocket = (message) => async (dispatch) => {
     dispatch(createNewMessage(message));
     return message;
-}
-
-// export const createNewMessageThunk =
-//     (messageObj, channelId) => async (dispatch) => {
-//         const response = await fetch(`api/messages/${channelId}/new`, {
-//             method: "POST",
-//             body: messageObj,
-//         });
-//         if (response.ok) {
-//             newMessage = await response.json();
-//             dispatch(createNewMessage(newMessage));
-//             return newMessage;
-//         } else {
-//             const error = await response.json();
-//             return error;
-//         }
-//     };
+};
 
 export const getMessagesByChannelThunk = (channelId) => async (dispatch) => {
     const response = await fetch(`/api/messages/${channelId}`);
@@ -120,20 +106,20 @@ export const getMessagesByChannelThunk = (channelId) => async (dispatch) => {
         const data = await response.json();
         dispatch(getMessagesByChannel(data));
     } else {
-        const error = await response.json();
-        return error;
+        const errors = await response.json();
+        return errors;
     }
 };
 
 export const editMessageFromSocketThunk = (message) => async (dispatch) => {
     dispatch(editMessage(message));
     return message;
-}
+};
 
 export const deleteMessageFromSocketThunk = (messageId) => async (dispatch) => {
     dispatch(deleteMessage(messageId));
     return messageId;
-}
+};
 
 const messagesReducer = (state = {}, action) => {
     let newState;
@@ -154,7 +140,7 @@ const messagesReducer = (state = {}, action) => {
         }
         case DELETE_REACTION: {
             newState = { ...state };
-            delete newState[action.payload.messageId][
+            delete newState[action.payload.messageId]['reactions'][
                 action.payload.id
             ];
             return newState;

@@ -66,7 +66,7 @@
     border-radius: 5px;
 }
 
-.profile-management-container button i {
+.profile-management-container .fa-solid.fa-gear {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -75,7 +75,7 @@
     font-size: 20px;
 }
 
-.settings-button i {
+.settings-button i:hover {
     animation: rotate 1s ease;
 }
 

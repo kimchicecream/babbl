@@ -4,24 +4,46 @@ import { useDispatch, useSelector } from "react-redux";
 import { emojiList } from "../../../public/emojis";
 import OpenModalButton from "../OpenModalButton";
 import DeleteMessageModal from "../DeleteMessageModal/DeleteMessageModal";
-import { editMessageThunk } from "../../redux/messages";
+import { editMessageThunk, deleteReactionThunk } from "../../redux/messages";
 
-const reduceReactions = (reactions) => {
+const reduceReactions = (reactions, userId) => {
+    const consolidatedReactions = {};
     const reactionsArr = Object.values(reactions);
+    const dispatch = useDispatch();
+    /*
+    an entry in consolidatedReactions will have a key of an emojiId
+    and a value of an array that contains all the reactions with that
+    emojiId associated with this particular message. this allows us
+    to pass in reaction data for reaction deletion
+    */
+    reactionsArr.forEach((reaction) => {
+        if (consolidatedReactions[reaction.emojiId]) {
+            consolidatedReactions[reaction.emojiId].push(reaction);
+        } else consolidatedReactions[reaction.emojiId] = [reaction];
+    });
 
-    const counts = reactionsArr.reduce((counts, reaction) => {
-        counts[reaction.emojiId.toString()] =
-            (counts[reaction.emojiId.toString()] || 0) + 1;
-        return counts;
-    }, {});
+    let react;
+    const removeReaction = (reactionsById) => {
+        if (reactionsById.find((reaction) => {
+            if (reaction.userId === userId) {
+                react = reaction;
+                return true;
+            }
+        })) {
+            dispatch(deleteReactionThunk(react.id));
+        }
+    };
 
     // map counts to actual reaction buttons
     const buttons = [];
-    for (const [emojiId, count] of Object.entries(counts)) {
+    for (const [emojiId, reactionsById] of Object.entries(consolidatedReactions)) {
         buttons.push(
-            <button className="reaction-button">
+            <button
+                className="reaction-button"
+                onClick={() => removeReaction(reactionsById)}
+            >
                 <span key={emojiId}>{emojiList(parseInt(emojiId))}</span>{" "}
-                {count}
+                {reactionsById.length || 0}
             </button>
         );
     }
@@ -99,7 +121,7 @@ export const Message = ({ message, index, socket }) => {
                 </div>
                 {Object.keys(message.reactions).length > 0 && (
                     <div className="reactions">
-                        {reduceReactions(message.reactions)}
+                        {reduceReactions(message.reactions, currentUser.id)}
                     </div>
                 )}
             </div>

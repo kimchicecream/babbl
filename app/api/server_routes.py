@@ -15,7 +15,6 @@ def get_all_servers():
         answer_list.append(server.to_dict())
     return answer_list
 
-
 @server_routes.route('/<int:userId>')
 @login_required
 def get_servers_by_userId(userId):
@@ -24,7 +23,6 @@ def get_servers_by_userId(userId):
     for server in servers:
         answer_list.append(server.to_dict())
     return answer_list
-
 
 @server_routes.route('/<int:serverId>/join', methods=["POST"])
 @login_required
@@ -38,8 +36,6 @@ def join_server(serverId):
 
     return "success"
 
-
-
 @server_routes.route('/<int:serverId>/leave', methods=["POST"])
 @login_required
 def leave_server(serverId):
@@ -48,10 +44,6 @@ def leave_server(serverId):
     db.session.commit()
 
     return "success"
-
-
-
-
 
 @server_routes.route('/create', methods=["POST"])
 @login_required

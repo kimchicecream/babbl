@@ -9,13 +9,11 @@ from .api.user_routes import user_routes
 from .api.auth_routes import auth_routes
 from .api.server_routes import server_routes
 from .api.channel_routes import channel_routes
+from .api.reaction_routes import reaction_routes
 from .seeds import seed_commands
 from .config import Config
 from .socketIO import socketio
 from .api.message_routes import message_routes
-
-
-
 
 app = Flask(__name__, static_folder='../react-vite/dist', static_url_path='/')
 
@@ -38,6 +36,7 @@ app.register_blueprint(auth_routes, url_prefix='/api/auth')
 app.register_blueprint(server_routes, url_prefix='/api/servers')
 app.register_blueprint(channel_routes,url_prefix='/api/channels')
 app.register_blueprint(message_routes, url_prefix='/api/messages')
+app.register_blueprint(reaction_routes, url_prefix='/api/reactions')
 db.init_app(app)
 migrate = Migrate(app, db)
 

@@ -40,20 +40,6 @@ def get_all_messages_by_channel(channelsId):
         result.append(message_dict)
     return result
 
-@message_routes.route('/<int:reactionId>//reactions/delete')
-@login_required
-def delete_reaction(reactionId):
-     # auth REQUIRED, CURRENT USER
-    reaction_to_delete = Reaction.query.get(reactionId)
-    if reaction_to_delete.userId != current_user.id:
-        return {'errors': {'message': 'Unauthorized'}}, 401
-    returnObj = reaction_to_delete.for_message()
-    db.session.delete(reaction_to_delete)
-    db.session.commit()
-    return returnObj
-
-
-
 @message_routes.route('/<int:messageId>/reactions', methods = ["POST"])
 @login_required
 def create_reaction(messageId):
@@ -84,7 +70,6 @@ def create_reaction(messageId):
     else:
         return form.errors, 401
 
-
 @message_routes.route('/<int:channelId>/new', methods=["POST", "GET"])
 @login_required
 def create_message(channelId):
@@ -113,8 +98,6 @@ def create_message(channelId):
         return made_message
     return form.errors, 401
 
-
-
 @message_routes.route('/<int:messageId>/edit', methods=['POST'])
 @login_required
 def edit_message_by_id(messageId):
@@ -136,8 +119,6 @@ def edit_message_by_id(messageId):
 
     if form.errors:
         return form.errors, 401 #double check status number
-
-
 
 @message_routes.route('/<int:messageId>/delete')
 @login_required
