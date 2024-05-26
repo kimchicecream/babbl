@@ -33,7 +33,7 @@ function ServerIndexModal() {
         </button>
         <div className="header-image">
           <h1>Explore</h1>
-          <img src="../../../public/explore-image.png" />
+          <img src="../../../explore-image.png" />
         </div>
       </div>
       <div className="all-servers-container">

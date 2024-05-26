@@ -94,7 +94,7 @@ export default function ServerList({ onSelectServer }) {
   return (
     <div className="server-list-container">
       <button className="logo-button">
-        <img src="../../../public/babbl-logo.png" />
+        <img src="../../../babbl-logo.png" />
       </button>
       <div className="divider"></div>
       <div className="servers">

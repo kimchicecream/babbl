@@ -20,7 +20,7 @@ function Navigation() {
     return (
         <div className="navigation-container">
             <div className="logo-container">
-                <img src="../../../public/babbl-logo.png" />
+                <img src="../../../babbl-logo.png" />
             </div>
             {sessionUser ? (
                 <div className="logged-in">
