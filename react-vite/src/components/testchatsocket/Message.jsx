@@ -1,9 +1,10 @@
 import { ReactionsList } from "./reactionsList";
 import { useState , useEffect, useRef } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { emojiList } from "../../../public/emojis";
 import OpenModalButton from "../OpenModalButton";
 import DeleteMessageModal from "../DeleteMessageModal/DeleteMessageModal";
+import { editMessageThunk } from "../../redux/messages";
 
 const reduceReactions = (reactions) => {
     const reactionsArr = Object.values(reactions);
@@ -30,8 +31,11 @@ const reduceReactions = (reactions) => {
 
 export const Message = ({ message, index }) => {
     const [showReactionsMenu, setShowMenu] = useState(false);
+    const [isEditing, setIsEditing] = useState(false);
+    const [editedMessage, setEditedMessage] = useState(message.message);
     const messageRef = useRef(null);
     const currentUser = useSelector((state) => state.session.user);
+    const dispatch = useDispatch();
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -47,6 +51,18 @@ export const Message = ({ message, index }) => {
     }, []);
 
     const isOwner = currentUser && message && currentUser.id === message.userId;
+
+    const handleEditSubmit = (e) => {
+        if (e.key === 'Enter') {
+            dispatch(editMessageThunk({ ...message, message: editedMessage}, currentUser.username, message.reactions))
+                .then(() => {
+                    setIsEditing(false);
+                })
+        } else if (e.key === 'Escape') {
+            setIsEditing(false);
+            setEditedMessage(message.message);
+        }
+    };
 
     return (
         <div className="message-container" key={index}>
@@ -65,7 +81,18 @@ export const Message = ({ message, index }) => {
                     <span className="time"></span>
                 </div>
                 <div className="message-text">
-                    <p>{message.message}</p>
+                    {isEditing ? (
+                        <input
+                            type='text'
+                            value={editedMessage}
+                            onChange={(e) => setEditedMessage(e.target.value)}
+                            onKeyDown={handleEditSubmit}
+                            onBlur={() => setIsEditing(false)}
+                            autoFocus
+                        />
+                    ) : (
+                        <p>{message.message}</p>
+                    )}
                 </div>
                 {Object.keys(message.reactions).length > 0 && (
                     <div className="reactions">
@@ -84,6 +111,7 @@ export const Message = ({ message, index }) => {
                     <>
                         <i
                             class="fa-solid fa-pen"
+                            onClick={() => setIsEditing(true)}
                         ></i>
                         <OpenModalButton
                             buttonText={<i className="fa-solid fa-trash-can"></i>}

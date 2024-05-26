@@ -115,7 +115,7 @@ def create_message(channelId):
 
 
 
-@message_routes.route('/<int:messageId>/edit')
+@message_routes.route('/<int:messageId>/edit', methods=['POST'])
 @login_required
 def edit_message_by_id(messageId):
      # auth REQUIRED, CURRENT USER

@@ -64,13 +64,16 @@ export const createReactionThunk = (reactionObj) => async (dispatch) => {
     }
 };
 
-export const editMessageThunk = (messageObj) => async (dispatch) => {
+export const editMessageThunk = (messageObj, username, reactions) => async (dispatch) => {
     const response = await fetch(`api/messages/${messageObj.id}/edit`, {
         method: "POST",
-        body: messageObj,
+        body: JSON.stringify(messageObj),
+        headers: { "Content-Type": "application/json" },
     });
     if (response.ok) {
         const data = await response.json();
+        data.user = {username};
+        data.reactions = reactions;
         dispatch(editMessage(data));
     } else {
         const error = await response.json();
