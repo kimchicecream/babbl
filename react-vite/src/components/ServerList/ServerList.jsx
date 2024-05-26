@@ -91,6 +91,11 @@ export default function ServerList({ onSelectServer }) {
     onSelectServer(server);
   };
 
+  const handleNewServer = (newServer) => {
+    setSelectedServerId(newServer.id);
+    onSelectServer(newServer);
+  };
+
   return (
     <div className="server-list-container">
       <button className="logo-button">
@@ -109,7 +114,7 @@ export default function ServerList({ onSelectServer }) {
             {selectedServerId === server.id && (
               <div className="indicator"></div>
             )}
-            <PreloadImage src={server.imageUrl} alt={`${server.name}`} />
+            <PreloadImage src={server.imageUrl} />
           </div>
         ))}
       </div>
@@ -118,8 +123,7 @@ export default function ServerList({ onSelectServer }) {
           buttonText={<i className="fa-solid fa-plus"></i>}
           modalComponent={
             <CreateServerModal
-              setSelectedServerId={setSelectedServerId}
-              onSelectServer={onSelectServer}
+              onNewServer={handleNewServer}
             />
           }
           className="create-button"

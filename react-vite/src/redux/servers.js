@@ -126,7 +126,6 @@ const serversReducer = (state = initialState, action) => {
       newState.allServers[action.payload.id] = action.payload;
       newState.myServers[action.payload.id] = action.payload;
     }
-
     default:
       return state;
   }
