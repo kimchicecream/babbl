@@ -11,15 +11,14 @@ else:
 # initialize your socket instance
 socketio = SocketIO(cors_allowed_origins=origins)
 
+
 # handle chat messages
 @socketio.on("chat")
 def handle_chat(data):
 
     message = Message(
-            userId = data["user"]["id"],
-            channelId = data["channelId"],
-            message = data["msg"]
-        )
+        userId=data["user"]["id"], channelId=data["channelId"], message=data["msg"]
+    )
     db.session.add(message)
     db.session.commit()
     data["id"] = message.id
@@ -32,34 +31,50 @@ def _update(data):
 
     emit("server", data, broadcast=True)
 
+
 # handle channel creation
-@socketio.on('create_channel')
+@socketio.on("create_channel")
 def handle_create_channel(data):
-    channel = Channel(name=data['name'], server_id=data['server_id'])
+    channel = Channel(name=data["name"], server_id=data["server_id"])
     db.session.add(channel)
     db.session.commit()
-    emit('channel_created', channel.to_dict(), broadcast=True)
+    emit("channel_created", channel.to_dict(), broadcast=True)
+
 
 # handle channel update
-@socketio.on('update_channel')
+@socketio.on("update_channel")
 def handle_update_channel(data):
-    channel = Channel.query.get(data['id'])
-    channel.name = data['name']
+    channel = Channel.query.get(data["id"])
+    channel.name = data["name"]
     db.session.commit()
-    emit('channel_updated', channel.to_dict(), broadcast=True)
+    emit("channel_updated", channel.to_dict(), broadcast=True)
+
 
 # handle channel deletion
-@socketio.on('delete_channel')
+@socketio.on("delete_channel")
 def handle_delete_channel(data):
-    channel = Channel.query.get(data['id'])
+    channel = Channel.query.get(data["id"])
     db.session.delete(channel)
     db.session.commit()
-    emit('channel_deleted', {'id': data['id']}, broadcast=True)
+    emit("channel_deleted", {"id": data["id"]}, broadcast=True)
 
-@socketio.on('edit_message')
+
+@socketio.on("edit_message")
 def handle_edit_message(data):
-    emit('edit_message', data, broadcast=True)
+    emit("edit_message", data, broadcast=True)
 
-@socketio.on('delete_message')
+
+@socketio.on("delete_message")
 def handle_delete_message(data):
-    emit('delete_message', data, broadcast=True)
+    emit("delete_message", data, broadcast=True)
+
+
+@socketio.on("create_reaction")
+def handle_create_reaction(data):
+    print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! THIS IS AOSHD JKASGBDKJ ASD")
+    emit("create_reaction", data, broadcast=True)
+
+
+@socketio.on("delete_reaction")
+def handle_delete_reaction(data):
+    emit("delete_reaction", data, broadcast=True)

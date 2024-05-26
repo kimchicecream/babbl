@@ -3,7 +3,7 @@ import { deleteMessageThunk } from "../../redux/messages";
 import { useModal } from "../../context/Modal";
 import './DeleteMessageModal.css'
 
-function DeleteMessageModal({ messageId, socket}) {
+function DeleteMessageModal({ messageId, socket }) {
     const dispatch = useDispatch();
     const { closeModal } = useModal();
 

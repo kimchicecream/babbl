@@ -4,9 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { emojiList } from "../../../public/emojis";
 import OpenModalButton from "../OpenModalButton";
 import DeleteMessageModal from "../DeleteMessageModal/DeleteMessageModal";
-import { editMessageThunk, deleteReactionThunk } from "../../redux/messages";
+import { editMessageThunk, deleteReactionThunk, createReactionFromSocket } from "../../redux/messages";
 
-const reduceReactions = (reactions, userId) => {
+const reduceReactions = (reactions, userId, socket, messageId) => {
     const consolidatedReactions = {};
     const reactionsArr = Object.values(reactions);
     const dispatch = useDispatch();
@@ -22,15 +22,18 @@ const reduceReactions = (reactions, userId) => {
         } else consolidatedReactions[reaction.emojiId] = [reaction];
     });
 
-    let react;
+    let reactId;
     const removeReaction = (reactionsById) => {
         if (reactionsById.find((reaction) => {
             if (reaction.userId === userId) {
-                react = reaction;
+                reactId = reaction.id;
                 return true;
             }
         })) {
-            dispatch(deleteReactionThunk(react.id));
+            dispatch(deleteReactionThunk(reactId))
+            .then(() => {
+                socket.emit('delete_reaction', { id: reactId, messageId })
+            })
         }
     };
 
@@ -65,6 +68,10 @@ export const Message = ({ message, index, socket }) => {
                 setShowMenu(false);
             }
         };
+
+        socket.on('create_reaction', (reaction) => {
+            dispatch(createReactionFromSocket(reaction));
+        })
 
         document.addEventListener("mousedown", handleClickOutside);
         return () => {
@@ -121,7 +128,7 @@ export const Message = ({ message, index, socket }) => {
                 </div>
                 {Object.keys(message.reactions).length > 0 && (
                     <div className="reactions">
-                        {reduceReactions(message.reactions, currentUser.id)}
+                        {reduceReactions(message.reactions, currentUser.id, socket, message.id)}
                     </div>
                 )}
             </div>
@@ -149,7 +156,7 @@ export const Message = ({ message, index, socket }) => {
 
 
             {showReactionsMenu && (
-                <ReactionsList message={message} onClose={() => setShowMenu(false)} />
+                <ReactionsList message={message} socket={socket} onClose={() => setShowMenu(false)} />
             )}
         </div>
     );

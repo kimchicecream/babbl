@@ -67,6 +67,11 @@ export const createReactionThunk = (reactionObj) => async (dispatch) => {
     }
 };
 
+export const createReactionFromSocket = (reaction) => async (dispatch) => {
+    dispatch(createReaction(reaction));
+    return reaction;
+}
+
 export const editMessageThunk = (messageObj, username, reactions, imageUrl) => async (dispatch) => {
     const response = await fetch(`api/messages/${messageObj.id}/edit`, {
         method: "POST",
@@ -120,6 +125,10 @@ export const deleteMessageFromSocketThunk = (messageId) => async (dispatch) => {
     dispatch(deleteMessage(messageId));
     return messageId;
 };
+
+export const deleteReactionFromSocketThunk = (reaction) => async (dispatch) => {
+    dispatch(deleteReaction(reaction))
+}
 
 const messagesReducer = (state = {}, action) => {
     let newState;
