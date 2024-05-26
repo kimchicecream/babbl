@@ -63,7 +63,9 @@ def delete_channel(channelId):
 @channel_routes.route('/<int:channelId>/edit', methods=["POST"])
 @login_required
 def update_channel(channelId):
+    print("THIS THE TOP OF EDIT CHANNEL ROUTE BACK END")
         # auth REQUIRED, CURRENT USER  SERVER OWNER
+
 
     form = ChannelForm()
     form['csrf_token'].data = request.cookies['csrf_token']
@@ -72,6 +74,7 @@ def update_channel(channelId):
     # server = Server.query.get(form.data["serverId"])
     # if server.creatorId != current_user.id:
     #     return {'errors': {'message': 'Unauthorized'}}, 401
+
     if form.validate_on_submit():
         channel_to_update=Channel.query.get(channelId)
         channel_to_update.name = form.data["name"]
