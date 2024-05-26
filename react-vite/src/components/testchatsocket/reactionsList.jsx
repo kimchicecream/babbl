@@ -1,5 +1,5 @@
 import "./reactionsList.css";
-import { emojiList } from "../../../public/emojis";
+import { emojiList } from "./emojis";
 import { createReactionThunk } from "../../redux/messages";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useRef } from "react";

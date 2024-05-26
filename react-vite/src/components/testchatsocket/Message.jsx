@@ -1,7 +1,7 @@
 import { ReactionsList } from "./reactionsList";
 import { useState , useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { emojiList } from "../../../public/emojis";
+import { emojiList } from "./emojis";
 import OpenModalButton from "../OpenModalButton";
 import DeleteMessageModal from "../DeleteMessageModal/DeleteMessageModal";
 import { editMessageThunk, deleteReactionThunk, createReactionFromSocket } from "../../redux/messages";
