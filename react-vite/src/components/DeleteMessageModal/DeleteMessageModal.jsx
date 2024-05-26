@@ -31,7 +31,7 @@ function DeleteMessageModal({ messageId, socket}) {
             </div>
             <div className="delete-button">
                 <button className='cancel-button' onClick={cancelDelete}>Cancel</button>
-                <button className="delete-button" onClick={handleDelete}>Delete</button>
+                <button className='delete-button' onClick={handleDelete}>Delete</button>
             </div>
         </div>
     )
