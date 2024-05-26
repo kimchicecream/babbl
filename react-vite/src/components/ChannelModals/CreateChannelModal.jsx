@@ -21,7 +21,11 @@ function CreateChannelModal({ server }) {
     //DESTRUCTURE USER DATA TO COMPLETE OBJECT??
     //validates user and sign in and token and all good thins
 
-    const newChannelObj = { name, serverId: server.id, creatorId: sessionUser.id };
+    const newChannelObj = {
+      name,
+      serverId: server.id,
+      creatorId: sessionUser.id,
+    };
 
     const serverResponse = await dispatch(createChannelThunk(newChannelObj));
 

@@ -20,6 +20,16 @@ function UpdateServerModal({ server }) {
 
     //DESTRUCTURE USER DATA TO COMPLETE SERVER OBJECT
     //validates user and sign in and token and all good thins
+    console.log("%c server log>", "color:blue; font-size: 26px", server);
+
+    if (
+      name === server.name &&
+      description === server.description &&
+      imageUrl === server.imageUrl
+    ) {
+      closeModal();
+      return;
+    }
 
     const serverObj = {
       name,

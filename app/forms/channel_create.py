@@ -17,7 +17,7 @@ def no_double_channels(form, field):
     for channel in channels:
         if field.data == channel.name:
             print('no double channels failed')
-            raise ValidationError('This channel name has already existed! choose another one!')
+            raise ValidationError('This channel name already exists')
 
 
 class ChannelForm(FlaskForm):

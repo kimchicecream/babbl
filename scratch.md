@@ -1,5 +1,3 @@
-## wed night notes
+## sat night notes
 
-# found to do
-
-response.ok error handling in the store reducers
+when i click away from the

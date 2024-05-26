@@ -42,8 +42,18 @@ function UpdateChannelModal({ channel }) {
     const serverResponse = await dispatch(editChannelThunk(channelObj));
 
     if (serverResponse.errors) {
+      console.log(
+        "%c serverResponse.errors log>",
+        "color:red; font-size: 26px",
+        serverResponse.errors
+      );
       setErrors(serverResponse.errors);
     } else {
+      console.log(
+        "%c serverResponse log>",
+        "color:blue; font-size: 26px",
+        serverResponse
+      );
       closeModal();
     }
   };
