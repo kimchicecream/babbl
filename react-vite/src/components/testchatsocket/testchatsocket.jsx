@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { io } from "socket.io-client";
 import { Message } from "./Message";
-import { createMessageFromSocket } from "../../redux/messages";
+import { createMessageFromSocket, editMessageFromSocketThunk, deleteMessageFromSocketThunk } from "../../redux/messages";
 import "./testchatsocket.css";
 import { ReactionsList } from "./reactionsList";
 
@@ -49,6 +49,16 @@ const Chat = ({ initMessages, channelId }) => {
       }
     });
 
+    // handles edited messages
+    socket.on('edit_message', (message) => {
+      dispatch(editMessageFromSocketThunk(message));
+    })
+
+    // handles deleted messages
+    socket.on('delete_message', (messageId) => {
+      dispatch(deleteMessageFromSocketThunk(messageId));
+    })
+
     return () => {
       console.log(
         "THIS IS THE DISCONNECTION FROM THE CHAT SOCKET @@@@@@@@@@@@"
@@ -57,6 +67,7 @@ const Chat = ({ initMessages, channelId }) => {
       socket.disconnect();
     };
   }, [channelId, user]);
+
 
   useEffect(() => {
     // loads messages from props if props change
@@ -104,7 +115,7 @@ const Chat = ({ initMessages, channelId }) => {
         <div className="socket-messages-scroll" ref={messagesContainerRef}>
           <div className="messages-wrapper">
             {messages.map((message, ind) => (
-              <Message message={message} index={ind} />
+              <Message message={message} index={ind} socket={socket}/>
             ))}
             <div ref={messagesEndRef}></div>
           </div>

@@ -64,7 +64,7 @@ export const createReactionThunk = (reactionObj) => async (dispatch) => {
     }
 };
 
-export const editMessageThunk = (messageObj, username, reactions) => async (dispatch) => {
+export const editMessageThunk = (messageObj, username, reactions, imageUrl) => async (dispatch) => {
     const response = await fetch(`api/messages/${messageObj.id}/edit`, {
         method: "POST",
         body: JSON.stringify(messageObj),
@@ -72,7 +72,7 @@ export const editMessageThunk = (messageObj, username, reactions) => async (disp
     });
     if (response.ok) {
         const data = await response.json();
-        data.user = {username};
+        data.user = {username, imageUrl};
         data.reactions = reactions;
         dispatch(editMessage(data));
     } else {
@@ -123,6 +123,16 @@ export const getMessagesByChannelThunk = (channelId) => async (dispatch) => {
         return error;
     }
 };
+
+export const editMessageFromSocketThunk = (message) => async (dispatch) => {
+    dispatch(editMessage(message));
+    return message;
+}
+
+export const deleteMessageFromSocketThunk = (messageId) => async (dispatch) => {
+    dispatch(deleteMessage(messageId));
+    return messageId;
+}
 
 const messagesReducer = (state = {}, action) => {
     let newState;

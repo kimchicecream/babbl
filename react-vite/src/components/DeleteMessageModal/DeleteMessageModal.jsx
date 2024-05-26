@@ -3,13 +3,16 @@ import { deleteMessageThunk } from "../../redux/messages";
 import { useModal } from "../../context/Modal";
 import './DeleteMessageModal.css'
 
-function DeleteMessageModal({ messageId }) {
+function DeleteMessageModal({ messageId, socket}) {
     const dispatch = useDispatch();
     const { closeModal } = useModal();
 
     const handleDelete = async (e) => {
         e.preventDefault();
-        await dispatch(deleteMessageThunk(messageId));
+        await dispatch(deleteMessageThunk(messageId))
+            .then(() => {
+                socket.emit('delete_message', messageId)
+            })
         closeModal();
         return;
     }
