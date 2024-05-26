@@ -27,6 +27,10 @@ function UpdateChannelModal({ channel }) {
     //DESTRUCTURE USER DATA TO COMPLETE OBJECT??
     //validates user and sign in and token and all good stuff,
     //DEFINITELY get another set of eyes on this hahaha
+    if (name === channel.name) {
+      closeModal();
+      return;
+    }
 
     const channelObj = {
       name,
