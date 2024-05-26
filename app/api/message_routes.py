@@ -40,7 +40,7 @@ def get_all_messages_by_channel(channelsId):
         result.append(message_dict)
     return result
 
-@message_routes.route('/<int:reactionId>/delete')
+@message_routes.route('/<int:reactionId>//reactions/delete')
 @login_required
 def delete_reaction(reactionId):
      # auth REQUIRED, CURRENT USER
