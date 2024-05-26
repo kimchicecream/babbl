@@ -72,8 +72,8 @@ export const createChannelThunk = (channelObj) => async (dispatch) => {
     dispatch(createChannel(data));
     return "success";
   } else {
-    const error = await response.json();
-    return error;
+    const errors = await response.json();
+    return { errors };
   }
 };
 
