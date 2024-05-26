@@ -45,12 +45,18 @@ export const editChannelThunk = (channelObj) => async (dispatch) => {
     headers: { "Content-Type": "application/json" },
   });
   if (response.ok) {
+    console.log(
+      "THIS IS THE RESPONSE OK IF IN THE EDit CHANNELS thunk JS REDUX "
+    );
     const data = await response.json();
     dispatch(editChannel(data));
     return data;
   } else {
-    const error = await response.json();
-    return error;
+    console.log(
+      "THIS IS THE RESPONSEELSEeeeeeeeeeIF IN THE EDit CHANNELS thunk JS REDUX "
+    );
+    const errors = await response.json();
+    return { errors };
   }
 };
 
