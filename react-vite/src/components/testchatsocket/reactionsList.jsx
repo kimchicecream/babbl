@@ -29,13 +29,16 @@ export const ReactionsList = ({ message, onClose }) => {
                 className="react-button"
                 key={i}
                 onClick={() => {
-                    dispatch(
-                        createReactionThunk({
-                            emojiId: i,
-                            messageId: message.id,
-                            userId
-                        })
-                    );
+                    const reactionsArr = Object.values(message.reactions)
+                    if (!reactionsArr.find((reaction) => reaction.emojiId === i && reaction.userId === userId)) {
+                        dispatch(
+                            createReactionThunk({
+                                emojiId: i,
+                                messageId: message.id,
+                                userId
+                            })
+                        );
+                    }
                 }}
             >
                 {emojiList(i)}

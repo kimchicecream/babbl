@@ -29,7 +29,7 @@ const reduceReactions = (reactions) => {
     return buttons;
 };
 
-export const Message = ({ message, index }) => {
+export const Message = ({ message, index, socket }) => {
     const [showReactionsMenu, setShowMenu] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
     const [editedMessage, setEditedMessage] = useState(message.message);
@@ -54,9 +54,12 @@ export const Message = ({ message, index }) => {
 
     const handleEditSubmit = (e) => {
         if (e.key === 'Enter') {
-            dispatch(editMessageThunk({ ...message, message: editedMessage}, currentUser.username, message.reactions))
+            dispatch(editMessageThunk({ ...message, message: editedMessage}, currentUser.username, message.reactions, currentUser.imageUrl))
                 .then(() => {
                     setIsEditing(false);
+                })
+                .then(() => {
+                    socket.emit('edit_message', {...message, message: editedMessage})
                 })
         } else if (e.key === 'Escape') {
             setIsEditing(false);
@@ -115,7 +118,7 @@ export const Message = ({ message, index }) => {
                         ></i>
                         <OpenModalButton
                             buttonText={<i className="fa-solid fa-trash-can"></i>}
-                            modalComponent={<DeleteMessageModal messageId={message.id} />}
+                            modalComponent={<DeleteMessageModal messageId={message.id} socket={socket} />}
                             className='delete-message-button'
                         />
                     </>

@@ -55,3 +55,11 @@ def handle_delete_channel(data):
     db.session.delete(channel)
     db.session.commit()
     emit('channel_deleted', {'id': data['id']}, broadcast=True)
+
+@socketio.on('edit_message')
+def handle_edit_message(data):
+    emit('edit_message', data, broadcast=True)
+
+@socketio.on('delete_message')
+def handle_delete_message(data):
+    emit('delete_message', data, broadcast=True)
