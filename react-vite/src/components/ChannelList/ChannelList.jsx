@@ -28,7 +28,7 @@ export default function ChannelList({
     const [selectedChannel, setSelectedChannel] = useState(null);
 
     useEffect(() => {
-        dispatch(getChannelsByServerThunk(server.id));
+        if (server?.id) dispatch(getChannelsByServerThunk(server.id));
     }, [dispatch, server.id]);
 
     useEffect(() => {
