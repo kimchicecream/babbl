@@ -2,14 +2,15 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, IntegerField, SubmitField
 from wtforms.validators import DataRequired, ValidationError, Length
 from app.models import Server
+from sqlalchemy import func
+
 
 #unique
 def server_is_unique(form, field):
     name = field.data
-    server = Server.query.filter(Server.name == name).first()
+    server = Server.query.filter(func.lower(Server.name)== func.lower(name)).first()
     if server:
-        raise ValidationError("Server name must be unique!")
-
+        raise ValidationError("Server name is already in use")
 
 
 class CreateServerForm(FlaskForm):
