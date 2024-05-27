@@ -59,6 +59,8 @@ export default function ChannelList({
         socket.on("update_channel", (channel) => {
             dispatch(editChannelFromSocket(channel));
         });
+
+        return () => socket.disconnect();
     }, [dispatch]);
 
     const formatChannelName = (name) => {
@@ -130,16 +132,19 @@ export default function ChannelList({
                                         }
                                         className="create-channel-button"
                                     />
-                                    <OpenModalButton
-                                        buttonText={"Delete channel"}
-                                        modalComponent={
-                                            <DeleteChannelModal
-                                                channelId={channel.id}
-                                                socket={socket}
-                                            />
-                                        }
-                                        className="create-channel-button"
-                                    />
+                                    {channel.name.toLowerCase() !==
+                                        "general" && (
+                                        <OpenModalButton
+                                            buttonText={"Delete channel"}
+                                            modalComponent={
+                                                <DeleteChannelModal
+                                                    channelId={channel.id}
+                                                    socket={socket}
+                                                />
+                                            }
+                                            className="create-channel-button"
+                                        />
+                                    )}
                                 </>
                             )}
                         </span>
