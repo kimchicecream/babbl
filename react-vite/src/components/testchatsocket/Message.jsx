@@ -98,7 +98,7 @@ export const Message = ({ message, index, socket }) => {
     if (e.key === "Enter") {
       dispatch(
         editMessageThunk(
-          { ...message, message: editedMessage },
+          { ...message, message: editedMessage, userId: message.user.id },
           currentUser.username,
           message.reactions,
           currentUser.imageUrl

@@ -122,6 +122,7 @@ def edit_message_by_id(messageId):
         return message_to_update.to_dict()
 
     if form.errors:
+        print(form.errors)
         return form.errors, 401 #double check status number
 
 @message_routes.route('/<int:messageId>/delete')
