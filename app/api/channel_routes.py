@@ -101,7 +101,7 @@ def leave_channel(channelId):
     leave_channel_statement = delete(channel_membership).where(channel_membership.c.user_id==current_user.id, channel_membership.c.channel_id ==channelId)
     db.session.execute(leave_channel_statement)
     db.session.commit()
-    return"success"
+    return "success"
 
 @channel_routes.route('/<int:channelId>/allMembers')
 # @login_required

@@ -1,4 +1,8 @@
-import { getChannelsByServerThunk, createChannelFromSocket } from "../../redux/channels";
+import {
+    getChannelsByServerThunk,
+    createChannelFromSocket,
+    deleteChannelFromSocket,
+} from "../../redux/channels";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
@@ -8,9 +12,8 @@ import UpdateChannelModal from "../ChannelModals/UpdateChannelModal";
 import DeleteChannelModal from "../ChannelModals/DeleteChannelModal";
 import OpenFSModalButton from "../OpenFSModalButton";
 import CreateChannelModal from "../ChannelModals/CreateChannelModal";
-// import io from "socket.io-client";
+import io from "socket.io-client";
 import "./ChannelList.css";
-
 let socket;
 
 export default function ChannelList({
@@ -36,19 +39,25 @@ export default function ChannelList({
         }
     }, [channels, onSelectChannel]);
 
-    // useEffect(() => {
-    //     let socket_url = "http://127.0.0.1:8000/channel";
-    //     if (import.meta.env.MODE === "production") {
-    //         socket_url = "https://babbl.onrender.com/channel";
-    //     }
+    useEffect(() => {
+        let socket_url = "http://127.0.0.1:8000";
+        if (import.meta.env.MODE === "production") {
+            socket_url = "https://babbl.onrender.com";
+        }
 
-    //     socket = io(socket_url);
+        socket = io(socket_url);
 
-    //     socket.on("create_channel", (channel) => {
-    //         console.log("CHANNEL FROM SOCKET", channel)
-    //         dispatch(createChannelFromSocket(channel));
-    //     })
-    // });
+        console.log("new socket in channel list ", socket);
+
+        socket.on("create_channel", (channel) => {
+            dispatch(createChannelFromSocket(channel));
+        });
+
+        socket.on("delete_channel", (channelId) => {
+            console.log("CHANNELid FROM SOCKET", channelId);
+            dispatch(deleteChannelFromSocket(channelId));
+        })
+    }, []);
 
     const formatChannelName = (name) => {
         const formattedName = name.toLowerCase().replace(/\s+/g, "-");
@@ -106,7 +115,10 @@ export default function ChannelList({
                             <OpenModalButton
                                 buttonText={"Edit channel"}
                                 modalComponent={
-                                    <UpdateChannelModal channel={channel} />
+                                    <UpdateChannelModal
+                                        channel={channel}
+                                        socket={socket}
+                                    />
                                 }
                                 className="create-channel-button"
                             />
@@ -115,6 +127,7 @@ export default function ChannelList({
                                 modalComponent={
                                     <DeleteChannelModal
                                         channelId={channel.id}
+                                        socket={socket}
                                     />
                                 }
                                 className="create-channel-button"
@@ -125,7 +138,12 @@ export default function ChannelList({
                 {user.id === server.creatorId && (
                     <OpenFSModalButton
                         buttonText={"Create a Channel"}
-                        modalComponent={<CreateChannelModal server={server} socket={socket} />}
+                        modalComponent={
+                            <CreateChannelModal
+                                server={server}
+                                socket={socket}
+                            />
+                        }
                         className="create-channel-button"
                     />
                 )}

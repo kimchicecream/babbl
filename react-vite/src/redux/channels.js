@@ -70,7 +70,7 @@ export const createChannelThunk = (channelObj) => async (dispatch) => {
   if (response.ok) {
     const data = await response.json();
     dispatch(createChannel(data));
-    return "success";
+    return data;
   } else {
     const errors = await response.json();
     return { errors };
@@ -79,6 +79,10 @@ export const createChannelThunk = (channelObj) => async (dispatch) => {
 
 export const createChannelFromSocket = (channelObj) => async (dispatch) => {
     dispatch(createChannel(channelObj));
+}
+
+export const deleteChannelFromSocket = (channelId) => async (dispatch) => {
+    dispatch(deleteChannel(channelId));
 }
 
 export const getChannelsByServerThunk = (serverId) => async (dispatch) => {
