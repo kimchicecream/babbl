@@ -32,13 +32,13 @@ export default function ChannelList({
     }, [dispatch, server.id]);
 
     useEffect(() => {
-        if (Object.keys(channels).length > 0) {
+        if (selectedChannel === null && Object.keys(channels).length > 0) {
             // onSelectServer(server);
             const firstChannel = channels[Object.keys(channels)[0]];
             setSelectedChannel(firstChannel.id);
             onSelectChannel(firstChannel);
         }
-    }, [channels, onSelectChannel]);
+    }, [channels, onSelectChannel, selectedChannel]);
 
     useEffect(() => {
         let socket_url = "http://127.0.0.1:8000";
