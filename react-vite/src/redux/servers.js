@@ -134,8 +134,19 @@ const serversReducer = (state = initialState, action) => {
     }
     case CREATE_SERVER: {
       newState = { ...state };
-      newState.allServers = { ...newState.allServers, ...action.payload };
-      newState.myServers = { ...newState.myServers, ...action.payload };
+      console.log("%C newState LOG>", "COLOR:BLUE; FONT-SIZE: 26PX", newState);
+      console.log(
+        action.payload,
+        "ACTION PAYLOAD IN THE SERVERS REDUCER CREATE SERVER ########################################################################"
+      );
+      newState.allServers = {
+        ...newState.allServers,
+        [action.payload.id]: { ...action.payload },
+      };
+      newState.myServers = {
+        ...newState.myServers,
+        [action.payload.id]: { ...action.payload },
+      };
       return newState;
     }
     case DELETE_SERVER: {
@@ -143,7 +154,8 @@ const serversReducer = (state = initialState, action) => {
 
       delete newState.allServers[action.payload];
       delete newState.myServers[action.payload];
-      return newState;
+      const ultranewstate = { ...newState };
+      return ultranewstate;
     }
     case EDIT_SERVER: {
       newState = { ...state };

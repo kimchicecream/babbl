@@ -23,7 +23,7 @@ const PreloadImage = ({ src, alt }) => {
 
 export default function ServerList({ onSelectServer }) {
   const dispatch = useDispatch();
-  const servers = useSelector((state) => state.servers?.allServers || []);
+  const servers = useSelector((state) => state.servers?.allServers || {});
   const [selectedServerId, setSelectedServerId] = useState(null);
 
   useEffect(() => {
@@ -74,8 +74,8 @@ export default function ServerList({ onSelectServer }) {
   //   // });
 
   useEffect(() => {
-    if (servers.length > 0 && !selectedServerId) {
-      const firstServer = servers[0];
+    if (Object.values(servers).length > 0 && !selectedServerId) {
+      const firstServer = servers[Object.keys(servers)[0]];
       setSelectedServerId(firstServer.id);
       onSelectServer(firstServer);
     }

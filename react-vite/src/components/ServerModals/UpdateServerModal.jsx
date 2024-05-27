@@ -6,7 +6,12 @@ import { useModal } from "../../context/Modal";
 // import "./UpdateServerModal.css";
 import { editServerThunk } from "../../redux/servers";
 
-function UpdateServerModal({ server }) {
+function UpdateServerModal({
+  server,
+  onSelectServer,
+  onSelectChannel,
+  selectedChannel,
+}) {
   const dispatch = useDispatch();
   const [name, setName] = useState(server.name);
   const [description, setDescription] = useState(server.description);
@@ -44,6 +49,8 @@ function UpdateServerModal({ server }) {
     if (serverResponse.errors) {
       setErrors(serverResponse.errors);
     } else {
+      onSelectServer(serverObj);
+      onSelectChannel(selectedChannel);
       closeModal();
     }
   };

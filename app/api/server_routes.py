@@ -101,6 +101,7 @@ def delete_server(serverId):
 @login_required
 def update_server(serverId):
      # auth REQUIRED, CURRENT USER OWN THE SERVER
+    print("THIS IS THE TOP OF THE UPDATE SERVER ROUTE $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
 
     server_to_update=Server.query.get(serverId)
     print(server_to_update, " !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")

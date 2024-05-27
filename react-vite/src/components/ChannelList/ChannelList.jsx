@@ -8,12 +8,16 @@ import UpdateChannelModal from "../ChannelModals/UpdateChannelModal";
 import DeleteChannelModal from "../ChannelModals/DeleteChannelModal";
 import OpenFSModalButton from "../OpenFSModalButton";
 import CreateChannelModal from "../ChannelModals/CreateChannelModal";
-import io from 'socket.io-client';
+import io from "socket.io-client";
 import "./ChannelList.css";
 
 let socket;
 
-export default function ChannelList({ server, onSelectChannel }) {
+export default function ChannelList({
+  server,
+  onSelectChannel,
+  onSelectServer,
+}) {
   const dispatch = useDispatch();
   const channels = useSelector((state) => state.channels || {});
   const user = useSelector((state) => state.session.user);
@@ -73,16 +77,30 @@ export default function ChannelList({ server, onSelectChannel }) {
     <div className="channel-list-container">
       <div className="server-header-container">
         <span className="server-name">{server.name}</span>
-          <OpenModalButton
-            buttonText={"Edit a server"}
-            modalComponent={<UpdateServerModal server={server} />}
-            className="edit-server-button"
-          />
-          <OpenModalButton
-            buttonText={"Delete a server"}
-            modalComponent={<DeleteServerModal serverId={server.id} />}
-            className="delete-server-button"
-          />
+        <OpenModalButton
+          buttonText={"Edit a server"}
+          modalComponent={
+            <UpdateServerModal
+              server={server}
+              onSelectServer={onSelectServer}
+              onSelectChannel={onSelectChannel}
+              selectedChannel={selectedChannel}
+            />
+          }
+          className="edit-server-button"
+        />
+        <OpenModalButton
+          buttonText={"Delete a server"}
+          modalComponent={
+            <DeleteServerModal
+              serverId={server.id}
+              onSelectServer={onSelectServer}
+              onSelectChannel={onSelectChannel}
+              selectedChannel={selectedChannel}
+            />
+          }
+          className="delete-server-button"
+        />
       </div>
       <div className="channels">
         {Object.values(channels).map((channel) => (
