@@ -98,13 +98,17 @@ export const Message = ({ message, index, socket }) => {
     if (e.key === "Enter") {
       dispatch(
         editMessageThunk(
-          { ...message, message: editedMessage, userId: message.user.id },
+          { ...message, message: editedMessage, userId: message.userId },
           currentUser.username,
           message.reactions,
           currentUser.imageUrl
         )
       )
-        .then(() => {
+        .then((response) => {
+          console.log(
+            "RESPONMSE FROM THE EDIT MESSAGE THUNK IN THE MESSAGE JSX %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%",
+            response
+          );
           setIsEditing(false);
         })
         .then(() => {

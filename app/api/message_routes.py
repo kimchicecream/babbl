@@ -109,7 +109,7 @@ def edit_message_by_id(messageId):
 
     form = CreateMessageForm()
     form['csrf_token'].data = request.cookies['csrf_token']
-
+    print(form.data)
     if form.validate_on_submit():
         print("THIS IS NEVER GETTING HIT*(******************************************************************************************************************************************************************************)")
         # message_to_update = Message.query.get(messageId)

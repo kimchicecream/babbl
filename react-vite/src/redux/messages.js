@@ -75,8 +75,9 @@ export const createReactionFromSocket = (reaction) => async (dispatch) => {
 export const editMessageThunk =
   (messageObj, username, reactions, imageUrl) => async (dispatch) => {
     console.log(
-      "THIS IS THE EDIT MESSAGE THUNK BEING VALLED !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",
-      messageObj
+      "THIS IS THE GE THUNK BEING VALLED !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",
+      messageObj,
+      JSON.stringify(messageObj)
     );
     console.log("USERNAME ETClL:", username);
     const response = await fetch(`api/messages/${messageObj.id}/edit`, {
