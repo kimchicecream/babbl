@@ -106,7 +106,6 @@ export const Message = ({ message, index, socket }) => {
         .then(() => {
           socket.emit("edit_message", { ...message, message: editedMessage });
         });
-      v;
     } else if (e.key === "Escape") {
       setIsEditing(false);
       setEditedMessage(message.message);
