@@ -14,12 +14,12 @@ def authenticate():
     # print(current_user.id, "CURRENT USERRRrrrrrrrrrr")
     if current_user.is_authenticated:
         return current_user.to_dict()
-    return {'errors': {'message': 'Unauthorized'}}, 401
+    return {'errors': {'message': 'Unauthorized'}}, 200     # 200 to simply avoid a 401 "error" in the console, it looks bad
 
 
 @auth_routes.route('/login', methods=['POST'])
 def login():
-    print('login function is getting called in auth_routes.py !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+    # print('login function is getting called in auth_routes.py !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
     print(request.json)
     """
     Logs a user in
@@ -30,15 +30,15 @@ def login():
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
         # Add the user to the session, we are logged in!
-        print("this is a test ahhhhh!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+        # print("this is a test ahhhhh!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
         user = User.query.filter(User.email == form.data['email']).first()
-        print(user, "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+        # print(user, "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
         if user:
-            print(f'User found: {user}')
+            # print(f'User found: {user}')
             login_user(user)
-            print(f'!!!!!!!user {user.email} logged in successfully')
+            # print(f'!!!!!!!user {user.email} logged in successfully')
             return user.to_dict()
-    print('????????????????????????????? form validations failed')
+    # print('????????????????????????????? form validations failed')
     return form.errors, 401
 
 
@@ -59,7 +59,7 @@ def sign_up():
 
     form = SignUpForm()
     form['csrf_token'].data = request.cookies['csrf_token']
-    print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
+    # print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
     print(form.data)
     if form.validate_on_submit():
         user = User(
