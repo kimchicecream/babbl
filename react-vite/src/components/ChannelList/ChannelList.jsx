@@ -132,8 +132,7 @@ export default function ChannelList({
                                         }
                                         className="create-channel-button"
                                     />
-                                    {channel.name.toLowerCase() !==
-                                        "general" && (
+                                    {channel.id !== Object.values(channels)[0].id && (
                                         <OpenModalButton
                                             buttonText={"Delete channel"}
                                             modalComponent={
