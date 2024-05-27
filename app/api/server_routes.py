@@ -70,7 +70,7 @@ def create_new_server():
         db.session.commit()
 
         db.session.add(Channel(
-            name = "General",
+            name = "general",
             serverId = madeServer.id,
             creatorId = form.data["creatorId"]
         ))
