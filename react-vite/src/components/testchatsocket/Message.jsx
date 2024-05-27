@@ -86,7 +86,10 @@ export const Message = ({ message, index, socket }) => {
     };
   }, []);
 
-  const isOwner = currentUser.id === message["user"]["id"];
+  const isOwner =
+    currentUser.id === message["user"]["id"] ||
+    currentUser.id === message.userId;
+
   const handleEditSubmit = (e) => {
     if (e.key === "Enter") {
       dispatch(
@@ -103,6 +106,7 @@ export const Message = ({ message, index, socket }) => {
         .then(() => {
           socket.emit("edit_message", { ...message, message: editedMessage });
         });
+      v;
     } else if (e.key === "Escape") {
       setIsEditing(false);
       setEditedMessage(message.message);
