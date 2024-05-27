@@ -1,10 +1,8 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useFSModal } from "../../context/FullScreenModal";
-// Import thunk/action creator
-// import { thunkCreateServer } from "../../redux/server";
-// import "./CreateServerModal.css";
 import { createServerThunk } from "../../redux/servers";
+import './CreateServerModal.css'
 
 function CreateServerModal({ onNewServer }) {
     const dispatch = useDispatch();
@@ -36,8 +34,13 @@ function CreateServerModal({ onNewServer }) {
     };
 
     return (
-        <>
-            <h1>Create Server</h1>
+        <div className="create-server-fs-modal">
+            <div className="exit-button">
+                <i className="fa-solid fa-xmark" onClick={closeModal}></i>
+            </div>
+            <div className="header">
+                <h1>Create Server</h1>
+            </div>
             <form onSubmit={handleSubmit}>
                 <label>
                     Name
@@ -73,7 +76,7 @@ function CreateServerModal({ onNewServer }) {
 
                 <button type="submit">Create</button>
             </form>
-        </>
+        </div>
     );
 }
 

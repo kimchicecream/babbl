@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getChannelsByServerThunk } from "../../redux/channels";
 import { loadAllServersThunk } from "../../redux/servers";
-import { io } from "socket.io-client";
+// import { io } from "socket.io-client";
 let socket;
 
 function MainPage() {
@@ -19,12 +19,12 @@ function MainPage() {
 
   // useEffect to keep the page from scrolling
   useEffect(() => {
-    let socket_url = "http://127.0.0.1:8000";
-    if (import.meta.env.MODE === "production") {
-        socket_url = "https://babbl.onrender.com";
-    }
+    // let socket_url = "http://127.0.0.1:8000";
+    // if (import.meta.env.MODE === "production") {
+    //     socket_url = "https://babbl.onrender.com";
+    // }
 
-    socket = io(socket_url);
+    // socket = io(socket_url);
 
     document.body.style.overflow = "hidden";
 

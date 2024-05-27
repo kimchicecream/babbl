@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-// import { io } from "socket.io-client";
+import { io } from "socket.io-client";
 import { Message } from "./Message";
 import {
     createMessageFromSocket,
@@ -12,9 +12,9 @@ import {
 import "./testchatsocket.css";
 import { ReactionsList } from "./reactionsList";
 
-// let socket;
+let socket;
 
-const Chat = ({ initMessages, channelId, socket }) => {
+const Chat = ({ initMessages, channelId }) => {
     const [chatInput, setChatInput] = useState("");
     const [messages, setMessages] = useState(Object.values(initMessages));
     const [showReactionsMenu, setShowReactionsMenu] = useState(false);
@@ -23,19 +23,18 @@ const Chat = ({ initMessages, channelId, socket }) => {
     const messagesEndRef = useRef(null);
     const messagesContainerRef = useRef(null);
     const dispatch = useDispatch();
-    const [newMessageAdded, setNewMessageAdded] = useState(false);
 
     const currentChannel = Object.keys(channels).find(
         (channel) => channel.id === channelId
     );
 
     useEffect(() => {
-        // let socket_url = "http://127.0.0.1:8000";
-        // if (import.meta.env.MODE === "production") {
-        //     socket_url = "https://babbl.onrender.com";
-        // }
+        let socket_url = "http://127.0.0.1:8000";
+        if (import.meta.env.MODE === "production") {
+            socket_url = "https://babbl.onrender.com";
+        }
 
-        // socket = io(socket_url);
+        socket = io(socket_url);
 
         // happens on message receive
         socket.on("chat", (message) => {
@@ -53,7 +52,6 @@ const Chat = ({ initMessages, channelId, socket }) => {
                 };
                 dispatch(createMessageFromSocket(newMessage));
                 setMessages((prevMessages) => [...prevMessages, newMessage]);
-                setNewMessageAdded(true);
             }
         });
 
@@ -94,14 +92,11 @@ const Chat = ({ initMessages, channelId, socket }) => {
 
     useEffect(() => {
         // Scroll to the bottom when messages change
-        if (newMessageAdded) {
-            if (messagesContainerRef.current) {
-                messagesContainerRef.current.scrollTop =
-                    messagesContainerRef.current.scrollHeight;
-            }
-            setNewMessageAdded(false);
+        if (messagesContainerRef.current) {
+            messagesContainerRef.current.scrollTop =
+                messagesContainerRef.current.scrollHeight;
         }
-    }, [messages, newMessageAdded]);
+    }, [messages]);
 
     const updateChatInput = (e) => {
         setChatInput(e.target.value);
