@@ -57,11 +57,17 @@ export const editServerThunk = (serverObj) => async (dispatch) => {
 export const deleteServerThunk = (serverId) => async (dispatch) => {
   const response = await fetch(`api/servers/${serverId}/delete`);
   if (response.ok) {
+    const data = await response.json();
+    console.log(data, "data IN DELETE SDRVER THUNK");
+    console.log(
+      serverId,
+      "serverID in DELETRE SERVERU THINK $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"
+    );
     dispatch(deleteServer(serverId));
-    return "successfully deleted";
+    return data;
   } else {
-    const error = await response.json();
-    return error;
+    const errors = await response.json();
+    return errors;
   }
 };
 
@@ -83,21 +89,36 @@ export const createServerThunk = (serverObj) => async (dispatch) => {
 };
 
 export const loadAllServersThunk = () => async (dispatch) => {
-  const allServers = await fetch("api/servers/all");
-  const data = await allServers.json();
-  console.log("DATA:", data);
-  dispatch(loadAllServers(data));
+  const response = await fetch("api/servers/all");
+
+  if (response.ok) {
+    const data = await response.json();
+
+    console.log("DATA:", data);
+    dispatch(loadAllServers(data));
+
+    return data;
+  } else {
+    const errors = await response.json();
+    return { errors };
+  }
 };
 
 export const loadServersByUserThunk = (userId) => async (dispatch) => {
-  const usersServers = await fetch(`api/servers/:${userId}`);
-  const data = await usersServers.json();
-  dispatch(loadServersByUser(data));
+  const response = await fetch(`api/servers/:${userId}`);
+
+  if (response.ok) {
+    const data = await response.json();
+    dispatch(loadServersByUser(data));
+  } else {
+    const errors = await response.json();
+    return { errors };
+  }
 };
 
 const initialState = {
-  allServers: [],
-  myServers: [],
+  allServers: {},
+  myServers: {},
 };
 
 const serversReducer = (state = initialState, action) => {
@@ -114,17 +135,21 @@ const serversReducer = (state = initialState, action) => {
     case CREATE_SERVER: {
       newState = { ...state };
       newState.allServers = { ...newState.allServers, ...action.payload };
-      newState.myServers = { ...newState.allServers, ...action.payload };
+      newState.myServers = { ...newState.myServers, ...action.payload };
+      return newState;
     }
     case DELETE_SERVER: {
       newState = { ...state };
+
       delete newState.allServers[action.payload];
       delete newState.myServers[action.payload];
+      return newState;
     }
     case EDIT_SERVER: {
       newState = { ...state };
       newState.allServers[action.payload.id] = action.payload;
       newState.myServers[action.payload.id] = action.payload;
+      return newState;
     }
     default:
       return state;
