@@ -34,29 +34,18 @@ def _update(data):
 # handle channel creation
 @socketio.on("create_channel")
 def handle_create_channel(data):
-    print('sig rx in the backend!')
-    # channel = Channel(name=data["name"], server_id=data["server_id"])
-    # db.session.add(channel)
-    # db.session.commit()
     emit("create_channel", data, broadcast=True)
 
 
 # handle channel update
 @socketio.on("update_channel")
 def handle_update_channel(data):
-    # channel = Channel.query.get(data["id"])
-    # channel.name = data["name"]
-    # db.session.commit()
     emit("update_channel", data, broadcast=True)
 
 
 # handle channel deletion
 @socketio.on("delete_channel")
 def handle_delete_channel(data):
-    # channel = Channel.query.get(data["id"])
-    # db.session.delete(channel)
-    # db.session.commit()
-    print("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", data)
     emit("delete_channel", data, broadcast=True)
 
 

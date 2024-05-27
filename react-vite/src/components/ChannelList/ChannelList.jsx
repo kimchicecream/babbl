@@ -2,6 +2,7 @@ import {
     getChannelsByServerThunk,
     createChannelFromSocket,
     deleteChannelFromSocket,
+    editChannelFromSocket
 } from "../../redux/channels";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
@@ -47,15 +48,16 @@ export default function ChannelList({
 
         socket = io(socket_url);
 
-        console.log("new socket in channel list ", socket);
-
         socket.on("create_channel", (channel) => {
             dispatch(createChannelFromSocket(channel));
         });
 
         socket.on("delete_channel", (channelId) => {
-            console.log("CHANNELid FROM SOCKET", channelId);
             dispatch(deleteChannelFromSocket(channelId));
+        });
+
+        socket.on("update_channel", (channel) => {
+            dispatch(editChannelFromSocket(channel));
         })
     }, []);
 
