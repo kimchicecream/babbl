@@ -1,0 +1,23 @@
+.create-server-fs-modal {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+
+    border: 2px solid red;
+}
+
+.create-server-fs-modal .exit-button {
+    height: 50px;
+    width: 50px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border: 2px solid red;
+}
+
+.create-server-fs-modal .header {
+    border: 2px solid red;
+}
