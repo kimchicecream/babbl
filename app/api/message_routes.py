@@ -103,6 +103,7 @@ def create_message(channelId):
 def edit_message_by_id(messageId):
      # auth REQUIRED, CURRENT USER
     message_to_update = Message.query.get(messageId)
+    print(message_to_update, "MESSAGE TO UPDATE QYUETY RESPONSE")
     if current_user.id != message_to_update.userId:
         return {'errors': {'message': 'Unauthorized'}}, 401
 
@@ -110,11 +111,14 @@ def edit_message_by_id(messageId):
     form['csrf_token'].data = request.cookies['csrf_token']
 
     if form.validate_on_submit():
+        print("THIS IS NEVER GETTING HIT*(******************************************************************************************************************************************************************************)")
         # message_to_update = Message.query.get(messageId)
         message_to_update.message = form.data["message"]
         message_to_update.imageUrl = form.data["imageUrl"]
         message_to_update.isEdited = True
+        db.session.add(message_to_update)
         db.session.commit()
+        print(message_to_update.to_dict())
         return message_to_update.to_dict()
 
     if form.errors:

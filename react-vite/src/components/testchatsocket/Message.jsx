@@ -91,6 +91,10 @@ export const Message = ({ message, index, socket }) => {
     currentUser.id === message.userId;
 
   const handleEditSubmit = (e) => {
+    console.log(
+      message,
+      "MESSAGE IN THE HANDLE SUBMIT EDIT MESSAGE FORM THINGY !$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"
+    );
     if (e.key === "Enter") {
       dispatch(
         editMessageThunk(
