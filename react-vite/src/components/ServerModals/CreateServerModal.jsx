@@ -6,13 +6,14 @@ import { useFSModal } from "../../context/FullScreenModal";
 // import "./CreateServerModal.css";
 import { createServerThunk } from "../../redux/servers";
 
-function CreateServerModal({ setSelectedServerId, onSelectServer }) {
+function CreateServerModal({ onNewServer }) {
     const dispatch = useDispatch();
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
     const [imageUrl, setImageUrl] = useState("");
     const [errors, setErrors] = useState({});
     const user = useSelector((state) => state.session.user);
+    // const [serverData, setServerData] = useState({ name, description, imageUrl, creatorId: user.id })
 
     const { closeModal } = useFSModal();
 
@@ -22,24 +23,15 @@ function CreateServerModal({ setSelectedServerId, onSelectServer }) {
         //DESTRUCTURE USER DATA TO COMPLETE SERVER OBJECT
         //validates user and sign in and token and all good thins
 
-        const serverObj = { name, description, imageUrl, creatorId: user.id };
-        // console.log(
-        //     "-------------------------------------------------------------------",
-        //     serverObj
-        // );
+        const serverData = { name, description, imageUrl, creatorId: user.id };
 
-        const serverResponse = await dispatch(createServerThunk(serverObj));
-        // const data = await serverResponse.json();
-        // console.log("DATA:", serverResponse)
-
-        // console.log("res: ", serverResponse)
-        if (serverResponse.errors) {
-            // console.log("le ", serverResponse.errors)
-            setErrors(serverResponse.errors);
+        const newServer = await dispatch(createServerThunk(serverData));
+        if (newServer.errors) {
+            setErrors(newServer.errors);
         } else {
-            onSelectServer(serverResponse.id);
+            onNewServer(newServer);
+            // onSelectServer(serverResponse);
             closeModal();
-            setSelectedServerId(serverResponse.id);
         }
     };
 

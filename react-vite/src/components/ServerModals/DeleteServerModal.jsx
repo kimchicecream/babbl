@@ -4,14 +4,21 @@ import { deleteServerThunk } from "../../redux/servers";
 // import { deleteServerThunk } from "../../store/servers";
 // import "./DeleteServerModal.css";
 
-function DeleteServerModal({ serverId }) {
+function DeleteServerModal({
+  serverId,
+  onSelectServer,
+  onSelectChannel,
+  selectedChannel,
+}) {
   const dispatch = useDispatch();
   const { closeModal } = useModal();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await dispatch(deleteServerThunk(serverId));
+    const response = await dispatch(deleteServerThunk(serverId));
     closeModal();
+    onSelectChannel();
+    onSelectServer();
     return;
   };
 

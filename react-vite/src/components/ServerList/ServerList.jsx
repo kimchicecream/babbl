@@ -23,59 +23,59 @@ const PreloadImage = ({ src, alt }) => {
 
 export default function ServerList({ onSelectServer }) {
   const dispatch = useDispatch();
-  const servers = useSelector((state) => state.servers?.allServers || []);
+  const servers = useSelector((state) => state.servers?.allServers || {});
   const [selectedServerId, setSelectedServerId] = useState(null);
 
   useEffect(() => {
     dispatch(loadAllServersThunk());
   }, [dispatch]);
 
-//   // useEffect(() => {
-//   //   let socket_url = "http://127.0.0.1:8000";
-//   //   if (import.meta.env.MODE === "production") {
-//   //     socket_url = "https://babbl.onrender.com";
-//   //   }
-// <<<<<<< frontend-alex
-// =======
+  //   // useEffect(() => {
+  //   //   let socket_url = "http://127.0.0.1:8000";
+  //   //   if (import.meta.env.MODE === "production") {
+  //   //     socket_url = "https://babbl.onrender.com";
+  //   //   }
+  // <<<<<<< frontend-alex
+  // =======
 
-// // <<<<<<< login_logout
-// //     let serverSocket = io(socket_url);
-// //     serverSocket.on("server", (a) => {
-// //       console.log(
-// //         "THIS IS ME CALLING THE LOAD ALL SERVERS THUNK IN THE SERVER LIST FILE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-// //       );
-// //       dispatch(loadAllServersThunk());
-// //     });
-// >>>>>>> weekendDEV
+  // // <<<<<<< login_logout
+  // //     let serverSocket = io(socket_url);
+  // //     serverSocket.on("server", (a) => {
+  // //       console.log(
+  // //         "THIS IS ME CALLING THE LOAD ALL SERVERS THUNK IN THE SERVER LIST FILE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+  // //       );
+  // //       dispatch(loadAllServersThunk());
+  // //     });
+  // >>>>>>> weekendDEV
 
-//   //   serverSocket = io(socket_url);
-//   //   serverSocket.on("server", (a) => {
-//   //     console.log(
-//   //       "THIS IS ME CALLING THE LOAD ALL SERVERS THUNK IN THE SERVER LIST FILE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-//   //     );
-//   //     dispatch(loadAllServersThunk());
-//   //   });
-// <<<<<<< frontend-alex
-// =======
-// // >>>>>>> weekendDEV
-// >>>>>>> weekendDEV
+  //   //   serverSocket = io(socket_url);
+  //   //   serverSocket.on("server", (a) => {
+  //   //     console.log(
+  //   //       "THIS IS ME CALLING THE LOAD ALL SERVERS THUNK IN THE SERVER LIST FILE !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+  //   //     );
+  //   //     dispatch(loadAllServersThunk());
+  //   //   });
+  // <<<<<<< frontend-alex
+  // =======
+  // // >>>>>>> weekendDEV
+  // >>>>>>> weekendDEV
 
-//   //   // socket.emit("server");
+  //   //   // socket.emit("server");
 
-// <<<<<<< frontend-alex
-//     // return () => {
-//     //   socket.disconnect();
-//     // };
-// =======
-//   //   // return () => {
-//   //   //   socket.disconnect();
-//   //   // };
-// >>>>>>> weekendDEV
-//   // });
+  // <<<<<<< frontend-alex
+  //     // return () => {
+  //     //   socket.disconnect();
+  //     // };
+  // =======
+  //   //   // return () => {
+  //   //   //   socket.disconnect();
+  //   //   // };
+  // >>>>>>> weekendDEV
+  //   // });
 
   useEffect(() => {
-    if (servers.length > 0 && !selectedServerId) {
-      const firstServer = servers[0];
+    if (Object.values(servers).length > 0 && !selectedServerId) {
+      const firstServer = servers[Object.keys(servers)[0]];
       setSelectedServerId(firstServer.id);
       onSelectServer(firstServer);
     }
@@ -91,6 +91,11 @@ export default function ServerList({ onSelectServer }) {
     onSelectServer(server);
   };
 
+  const handleNewServer = (newServer) => {
+    setSelectedServerId(newServer.id);
+    onSelectServer(newServer);
+  };
+
   return (
     <div className="server-list-container">
       <button className="logo-button">
@@ -98,7 +103,7 @@ export default function ServerList({ onSelectServer }) {
       </button>
       <div className="divider"></div>
       <div className="servers">
-        {servers.map((server) => (
+        {Object.values(servers).map((server) => (
           <div
             key={server.id}
             className={`server-item ${
@@ -109,19 +114,14 @@ export default function ServerList({ onSelectServer }) {
             {selectedServerId === server.id && (
               <div className="indicator"></div>
             )}
-            <PreloadImage src={server.imageUrl} alt={`${server.name}`} />
+            <PreloadImage src={server.imageUrl} />
           </div>
         ))}
       </div>
       <div className="create-explore-container">
         <OpenFSModalButton
           buttonText={<i className="fa-solid fa-plus"></i>}
-          modalComponent={
-            <CreateServerModal
-              setSelectedServerId={setSelectedServerId}
-              onSelectServer={onSelectServer}
-            />
-          }
+          modalComponent={<CreateServerModal onNewServer={handleNewServer} />}
           className="create-button"
         />
         <OpenFSModalButton

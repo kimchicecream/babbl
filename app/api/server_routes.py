@@ -10,19 +10,21 @@ server_routes = Blueprint('servers', __name__)
 @server_routes.route('/all')
 def get_all_servers():
     servers = Server.query.options(joinedload(Server.users)).all()
-    answer_list = []
+    answer_dict= {}
     for server in servers:
-        answer_list.append(server.to_dict())
-    return answer_list
+        server= server.to_dict()
+        answer_dict[server["id"]]=server
+    return answer_dict
 
 @server_routes.route('/<int:userId>')
 @login_required
 def get_servers_by_userId(userId):
     servers = Server.query.options(joinedload(Server.users)).all()
-    answer_list = []
+    answer_dict = {}
     for server in servers:
-        answer_list.append(server.to_dict())
-    return answer_list
+        server= server.to_dict()
+        answer_dict[server["id"]]=server
+    return answer_dict
 
 @server_routes.route('/<int:serverId>/join', methods=["POST"])
 @login_required
@@ -81,13 +83,17 @@ def create_new_server():
 @login_required
 def delete_server(serverId):
      # auth REQUIRED, CURRENT USER HAS TO OWN SERVER
+    print("IM SEARCHING FOR THIS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
     server_to_delete=Server.query.get(serverId)
     if server_to_delete.creatorId != current_user.id:
         return {'errors': {'message': 'Unauthorized'}}, 401
 
     db.session.delete(server_to_delete)
     db.session.commit()
-    return "success!"
+
+    answer =server_to_delete.to_dict()
+    print(answer, "ANSWER IN DELETE SERVER ROUTEE&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
+    return answer
     # return "cannot delete the server, please come back "
     # if it has errors, we will need to debug it
 
@@ -95,6 +101,7 @@ def delete_server(serverId):
 @login_required
 def update_server(serverId):
      # auth REQUIRED, CURRENT USER OWN THE SERVER
+    print("THIS IS THE TOP OF THE UPDATE SERVER ROUTE $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
 
     server_to_update=Server.query.get(serverId)
     print(server_to_update, " !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")

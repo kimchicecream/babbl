@@ -26,11 +26,11 @@ class Server(db.Model):
     users = relationship(
         "User", secondary=server_membership, back_populates="server_memberships"
     )
-    
+
     channels = relationship(
         "Channel", back_populates="server", cascade="all, delete-orphan"
     )
-    
+
     def users_in_server(self):
         returnList = []
         for user in self.users:
