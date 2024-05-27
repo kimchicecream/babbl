@@ -77,6 +77,10 @@ export const createChannelThunk = (channelObj) => async (dispatch) => {
   }
 };
 
+export const createChannelFromSocket = (channelObj) => async (dispatch) => {
+    dispatch(createChannel(channelObj));
+}
+
 export const getChannelsByServerThunk = (serverId) => async (dispatch) => {
   const response = await fetch(`api/channels/${serverId}/all`);
   if (response.ok) {

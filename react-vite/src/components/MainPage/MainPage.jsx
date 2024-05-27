@@ -7,6 +7,8 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getChannelsByServerThunk } from "../../redux/channels";
 import { loadAllServersThunk } from "../../redux/servers";
+import { io } from "socket.io-client";
+let socket;
 
 function MainPage() {
   const dispatch = useDispatch();
@@ -17,6 +19,13 @@ function MainPage() {
 
   // useEffect to keep the page from scrolling
   useEffect(() => {
+    let socket_url = "http://127.0.0.1:8000";
+    if (import.meta.env.MODE === "production") {
+        socket_url = "https://babbl.onrender.com";
+    }
+
+    socket = io(socket_url);
+
     document.body.style.overflow = "hidden";
 
     return () => {
@@ -66,7 +75,7 @@ function MainPage() {
         </div>
       </div>
       <div className="message-feed-column">
-        {selectedChannel && <MessageFeed channel={selectedChannel} />}
+        {selectedChannel && <MessageFeed channel={selectedChannel} socket={socket} />}
       </div>
     </div>
   );

@@ -22,7 +22,6 @@ def handle_chat(data):
     db.session.add(message)
     db.session.commit()
     data["id"] = message.id
-    print("data !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", data)
     emit("chat", data, broadcast=True)
 
 
@@ -35,10 +34,10 @@ def _update(data):
 # handle channel creation
 @socketio.on("create_channel")
 def handle_create_channel(data):
-    channel = Channel(name=data["name"], server_id=data["server_id"])
-    db.session.add(channel)
-    db.session.commit()
-    emit("channel_created", channel.to_dict(), broadcast=True)
+    # channel = Channel(name=data["name"], server_id=data["server_id"])
+    # db.session.add(channel)
+    # db.session.commit()
+    emit("craete_channel", data, broadcast=True)
 
 
 # handle channel update
@@ -71,7 +70,6 @@ def handle_delete_message(data):
 
 @socketio.on("create_reaction")
 def handle_create_reaction(data):
-    print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! THIS IS AOSHD JKASGBDKJ ASD")
     emit("create_reaction", data, broadcast=True)
 
 

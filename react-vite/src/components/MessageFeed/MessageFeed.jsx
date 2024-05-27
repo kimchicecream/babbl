@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getMessagesByChannelThunk } from "../../redux/messages";
 
-export default function MessageFeed({ channel }) {
+export default function MessageFeed({ channel, socket }) {
     const dispatch = useDispatch();
     const messages = useSelector((state) => state.messages || {});
 
@@ -32,7 +32,7 @@ export default function MessageFeed({ channel }) {
                     </span>
                 </div>
                 <div className="message-feed">
-                    <Chat initMessages={messages} channelId={channel.id} />
+                    <Chat initMessages={messages} channelId={channel.id} socket={socket} />
                 </div>
                 {/* {isMember ? (
                     <div className="input-field">
