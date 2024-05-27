@@ -13,11 +13,10 @@ def validate_server_ownership(form, field):
 
 #unique channel name in a server
 def no_double_channels(form, field):
-    channels = Channel.query.filter(Channel.serverId == form.data["serverId"]).all()
-    for channel in channels:
-        if field.data == channel.name:
-            print('no double channels failed')
-            raise ValidationError('This channel name already exists')
+    channels = Channel.query.filter(Channel.serverId == form.data["serverId"], Channel.name == field.data).all()
+
+    if channels:
+        raise ValidationError('This channel name already exists')
 
 
 class ChannelForm(FlaskForm):
