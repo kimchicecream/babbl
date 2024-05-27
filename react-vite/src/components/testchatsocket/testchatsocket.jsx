@@ -23,6 +23,7 @@ const Chat = ({ initMessages, channelId }) => {
     const messagesEndRef = useRef(null);
     const messagesContainerRef = useRef(null);
     const dispatch = useDispatch();
+    const [newMessageAdded, setNewMessageAdded] = useState(false);
 
     const currentChannel = Object.keys(channels).find(
         (channel) => channel.id === channelId
@@ -52,6 +53,7 @@ const Chat = ({ initMessages, channelId }) => {
                 };
                 dispatch(createMessageFromSocket(newMessage));
                 setMessages((prevMessages) => [...prevMessages, newMessage]);
+                setNewMessageAdded(true);
             }
         });
 
@@ -92,11 +94,14 @@ const Chat = ({ initMessages, channelId }) => {
 
     useEffect(() => {
         // Scroll to the bottom when messages change
-        if (messagesContainerRef.current) {
-            messagesContainerRef.current.scrollTop =
-                messagesContainerRef.current.scrollHeight;
+        if (newMessageAdded) {
+            if (messagesContainerRef.current) {
+                messagesContainerRef.current.scrollTop =
+                    messagesContainerRef.current.scrollHeight;
+            }
+            setNewMessageAdded(false);
         }
-    }, [messages]);
+    }, [messages, newMessageAdded]);
 
     const updateChatInput = (e) => {
         setChatInput(e.target.value);
