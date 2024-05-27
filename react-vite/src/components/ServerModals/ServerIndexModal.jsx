@@ -37,7 +37,7 @@ function ServerIndexModal() {
         </div>
       </div>
       <div className="all-servers-container">
-        {servers.map((server) => (
+        {Object.values(servers).map((server) => (
           <div className="server-card" key={server.id}>
             <img src={server.imageUrl} />
             <div className="server-info">

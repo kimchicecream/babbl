@@ -42,7 +42,7 @@ def delete_server(serverId):
     db.session.delete(server_to_delete)
     db.session.commit()
 
-    return "success!"
+    return server_to_delete.to_dict()
     # return "cannot delete the server, please come back "
     # if it has errors, we will need to debug it
 

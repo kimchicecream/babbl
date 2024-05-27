@@ -36,7 +36,7 @@ def join_server(serverId):
     # db.session.execute(delete_statement)
     # db.session.commit()
 
-    return "success"
+    return {"message":"success"}
 
 @server_routes.route('/<int:serverId>/leave', methods=["POST"])
 @login_required
@@ -45,7 +45,7 @@ def leave_server(serverId):
     db.session.execute(leave_statement)
     db.session.commit()
 
-    return "success"
+    return  {"message":"success"}
 
 @server_routes.route('/create', methods=["POST"])
 @login_required
