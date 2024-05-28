@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { FaUserCircle } from 'react-icons/fa';
 import { thunkLogout } from "../../redux/session";
+import { Link, useNavigate } from 'react-router-dom';
 import OpenModalMenuItem from "./OpenModalMenuItem";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
@@ -39,36 +40,49 @@ function ProfileButton() {
     closeMenu();
   };
 
+  const noFeature = (e) => {
+    e.preventDefault();
+    alert('Feature coming soon!');
+  }
+
   return (
     <>
-      <button onClick={toggleMenu}>
-        <FaUserCircle />
-      </button>
+      <div className='icon-container'>
+        <button onClick={toggleMenu} className='profile-button-shape'>
+            <div className='lines'>
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+            <i className="fas fa-user-circle" />
+        </button>
+      </div>
       {showMenu && (
-        <ul className={"profile-dropdown"} ref={ulRef}>
-          {user ? (
-            <>
-              <li>{user.username}</li>
-              <li>{user.email}</li>
-              <li>
-                <button onClick={logout}>Log Out</button>
-              </li>
-            </>
-          ) : (
-            <>
-              <OpenModalMenuItem
-                itemText="Log In"
-                onItemClick={closeMenu}
-                modalComponent={<LoginFormModal />}
-              />
-              <OpenModalMenuItem
-                itemText="Sign Up"
-                onItemClick={closeMenu}
-                modalComponent={<SignupFormModal />}
-              />
-            </>
-          )}
-        </ul>
+        <div className={"profile-dropdown"} ref={ulRef}>
+            <div className='username-and-email'>
+              <h4>Hello, {user.username}</h4>
+              <p>{user.email}</p>
+            </div>
+
+            <div className='divider'></div>
+
+            <div className='account'>
+              <Link to='/account' onClick={(e) => noFeature(e)}>
+                <p>Account</p>
+              </Link>
+            </div>
+
+            <div className='divider'></div>
+
+            <div className='bottom'>
+              <Link to='/help' onClick={(e) => noFeature(e)}>
+                <p>Help</p>
+              </Link>
+              <button onClick={logout}>
+                <p>Log Out</p>
+              </button>
+            </div>
+        </div>
       )}
     </>
   );

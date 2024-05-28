@@ -4,6 +4,8 @@
     align-items: center;
     width: 460px;
     gap: 20px;
+
+    /* border: 2px solid red; */
 }
 
 .form label {
@@ -12,7 +14,7 @@
 }
 
 .form input {
-    width: 400px;
+    /* width: 400px; */
     height: 24px;
     border-radius: 6px;
 }
@@ -27,4 +29,94 @@
 .submit-button:hover {
     cursor: pointer;
     background-color: rgb(100, 100, 100);
+}
+
+.form .user-image {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    gap: 20px;
+}
+
+.form input {
+    all: unset;
+
+    padding: 5px;
+
+    border-radius: 5px;
+    background-color: rgb(31, 31, 31);
+
+    width: 400px;
+}
+
+.form .image-url-input input {
+    all: unset;
+
+    padding: 5px;
+
+    border-radius: 5px;
+    background-color: rgb(31, 31, 31);
+
+    width: 100%;
+}
+
+.form .current-pic {
+    height: 100px;
+    width: 100px;
+
+    border: 3px dashed rgba(128, 128, 128, 0.283);
+    border-radius: 50%;
+
+    overflow: hidden;
+
+    background-color: rgb(31, 31, 31);
+    box-shadow: 0px 4px 20px 8px rgba(0,0,0,0.31);
+}
+
+.form .current-pic img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.form .hidden {
+    display: none;
+}
+
+.form .submit-container {
+    width: 100%;
+    height: 70px;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 20px;
+
+    background-color: rgb(18, 18, 18);
+}
+
+.form .submit-container button {
+    all: unset;
+    padding: 10px 30px;
+
+    background-color: rgb(140, 79, 255);
+    border-radius: 5px;
+
+    font-weight: bold;
+}
+
+.form .submit-container button:disabled {
+    background-color: rgba(137, 91, 223, 0.409);
+    color: rgba(128, 128, 128, 0.544);
+}
+
+.form .submit-container button:hover:enabled {
+    background-color: rgb(199, 169, 255);
+    color: rgb(140, 79, 255);
+}
+
+.form p {
+    color: rgb(255, 94, 94);
+    font-weight: normal;
 }

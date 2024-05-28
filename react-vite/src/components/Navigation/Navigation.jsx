@@ -41,7 +41,7 @@ function Navigation() {
                             navigate("/babbl");
                         }}
                     >
-                        Demo Log In
+                        Log in with a demo user
                     </button>
                     <OpenModalButton
                         buttonText="Log In"

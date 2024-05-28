@@ -10,6 +10,8 @@
     padding: 6px 10px 6px 5px;
 
     background-color: rgb(42, 42, 42);
+
+    position: relative;
 }
 
 .profile-management-container .user-info {
@@ -20,10 +22,10 @@
     padding: 5px;
 }
 
-.profile-management-container .user-info:hover {
+/* .profile-management-container .user-info:hover {
     background-color: rgba(122, 122, 122, 0.206);
     border-radius: 7px;
-}
+} */
 
 .profile-management-container .user-info img {
     height: 40px;
@@ -83,7 +85,7 @@
     background-color: rgba(122, 122, 122, 0.206);
 }
 
-#user-mgmt-logout-button {
+/* #user-mgmt-logout-button {
     all: unset;
     position: relative;
     bottom: 50px;
@@ -94,4 +96,48 @@
 
 #user-mgmt-logout-button:hover {
     background-color: rgba(122, 122, 122);
+} */
+
+.user-dropdown {
+    position: absolute;
+    bottom: 100%;
+    left: 150px;
+
+    width: 170px;
+
+    z-index: 500;
+
+    border-radius: 5px;
+
+    /* filter: blur(1px) */
+    /* border: 2px solid red; */
+    box-shadow: 0px 4px 20px 8px rgba(0,0,0,0.31);
+}
+
+.profile-management-container .user-dropdown .options {
+    display: flex;
+    flex-direction: column;
+
+    background-color: rgb(35, 35, 35);
+}
+
+.user-dropdown button {
+    all: unset;
+
+    font-size: 15px;
+    padding: 15px 10px;
+
+    /* border: 1px solid red; */
+}
+
+.user-dropdown .button:hover {
+    background-color: rgba(128, 128, 128, 0.28);
+}
+
+.user-dropdown .delete-button {
+    color: rgb(255, 97, 97);
+}
+
+.user-dropdown .delete-button:hover {
+    background-color: rgba(255, 67, 67, 0.28);
 }

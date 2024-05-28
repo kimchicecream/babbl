@@ -63,6 +63,7 @@ function CreateServerModal({ onNewServer }) {
                 </div>
             </div>
             <form onSubmit={handleSubmit}>
+
                 <label className="server-image">
                     <div className="current-pic">
                         <img
@@ -83,6 +84,8 @@ function CreateServerModal({ onNewServer }) {
                         />
                     </div>
                 </label>
+
+
                 <label className="server-name">
                     <h5>SERVER NAME {errors.name && <p>{errors.name}</p>}</h5>
                     <span></span>

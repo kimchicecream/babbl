@@ -8,6 +8,7 @@ import {
   editMessageThunk,
   deleteReactionThunk,
   createReactionFromSocket,
+  createReactionThunk
 } from "../../redux/messages";
 
 const reduceReactions = (reactions, userId, socket, messageId) => {
@@ -26,31 +27,44 @@ const reduceReactions = (reactions, userId, socket, messageId) => {
     } else consolidatedReactions[reaction.emojiId] = [reaction];
   });
 
-  let reactId;
-  const removeReaction = (reactionsById) => {
-    if (
-      reactionsById.find((reaction) => {
-        if (reaction.userId === userId) {
-          reactId = reaction.id;
-          return true;
-        }
-      })
-    ) {
-      dispatch(deleteReactionThunk(reactId)).then(() => {
-        socket.emit("delete_reaction", { id: reactId, messageId });
+  // let reactId;
+  // const removeReaction = (reactionsById) => {
+  //   if (
+  //     reactionsById.find((reaction) => {
+  //       if (reaction.userId === userId) {
+  //         reactId = reaction.id;
+  //         return true;
+  //       }
+  //     })
+  //   ) {
+  //     dispatch(deleteReactionThunk(reactId)).then(() => {
+  //       socket.emit("delete_reaction", { id: reactId, messageId });
+  //     });
+  //   }
+  // };
+
+  // refactored ^^
+  const toggleReaction = (reactionsById, emojiId) => {
+    const existingReaction = reactionsById.find(reaction => reaction.userId === userId);
+    if (existingReaction) {
+      dispatch(deleteReactionThunk(existingReaction.id)).then(() => {
+        socket.emit("delete_reaction", { id: existingReaction.id, messageId });
+      });
+    } else {
+      dispatch(createReactionThunk({ emojiId, messageId, userId })).then((data) => {
+        socket.emit("create_reaction", data);
       });
     }
   };
 
   // map counts to actual reaction buttons
   const buttons = [];
-  for (const [emojiId, reactionsById] of Object.entries(
-    consolidatedReactions
-  )) {
+  for (const [emojiId, reactionsById] of Object.entries(consolidatedReactions)) {
+    const userReacted = reactionsById.some((reaction) => reaction.userId === userId);
     buttons.push(
       <button
-        className="reaction-button"
-        onClick={() => removeReaction(reactionsById)}
+        className={`reaction-button ${userReacted ? 'reacted' : ''}`}
+        onClick={() => toggleReaction(reactionsById, emojiId)}
       >
         <span key={emojiId}>{emojiList(parseInt(emojiId))}</span>{" "}
         {reactionsById.length || 0}
@@ -69,7 +83,6 @@ export const Message = ({ message, index, socket }) => {
   const reactionButtonRef = useRef(null);
   const currentUser = useSelector((state) => state.session.user);
   const dispatch = useDispatch();
-  const [menuPosition, setMenuPosition] = useState({ top: 0, left: 0 });
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -116,17 +129,17 @@ export const Message = ({ message, index, socket }) => {
 
   const toggleMenu = (e) => {
     e.stopPropagation(); // Prevent event bubbling
-    setMenuPosition({
-      top: reactionButtonRef.current.getBoundingClientRect().bottom + window.scrollY,
-      left: reactionButtonRef.current.getBoundingClientRect().left + window.scrollX - reactionButtonRef.current.offsetWidth,
-    });
     setShowMenu(!showReactionsMenu);
+  };
+
+  const handleImageError = (e) => {
+    e.target.src = '../../../blank-pic.png';
   };
 
   return (
     <div className="message-container" key={index}>
       <div className="profile-pic-container">
-        {message?.user?.imageUrl && <img src={message.user.imageUrl} />}
+        {message?.user?.imageUrl && <img src={message.user.imageUrl}  onError={handleImageError}/>}
       </div>
 
       <div className="username-message-container">
@@ -162,7 +175,6 @@ export const Message = ({ message, index, socket }) => {
           </div>
         )}
       </div>
-
       <div
         className={`message-management-container ${
           isOwner ? "owner" : "not-owner"
@@ -179,7 +191,13 @@ export const Message = ({ message, index, socket }) => {
             <OpenModalButton
               buttonText={<i className="fa-solid fa-trash-can"></i>}
               modalComponent={
-                <DeleteMessageModal messageId={message.id} socket={socket} />
+                <DeleteMessageModal
+                  messageId={message.id}
+                  socket={socket}
+                  message={message.message}
+                  username={message.user.username}
+                  userImage={message.user.imageUrl}
+                />
               }
               className="delete-message-button"
             />
@@ -192,7 +210,6 @@ export const Message = ({ message, index, socket }) => {
           message={message}
           socket={socket}
           onClose={() => setShowMenu(false)}
-          position={menuPosition}
         />
       )}
     </div>

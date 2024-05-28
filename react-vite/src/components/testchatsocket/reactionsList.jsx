@@ -52,7 +52,6 @@ export const ReactionsList = ({ message, onClose, socket, position }) => {
         <div
             id="reactions-list"
             ref={reactionsListRef}
-            style={{ top: position.top, left: position.left, position: 'absolute' }}
         >
             {emojis}
         </div>

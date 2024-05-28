@@ -13,7 +13,9 @@ function SignupFormModal() {
   const [lastName, setLastName] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
   const [errors, setErrors] = useState({});
+  const [imageError, setImageError] = useState(false);
   const navigate = useNavigate();
   const { closeModal } = useModal();
 
@@ -26,6 +28,7 @@ function SignupFormModal() {
       firstName,
       lastName,
       password,
+      imageUrl
     };
     console.log(newuser);
 
@@ -46,15 +49,45 @@ function SignupFormModal() {
     }
   };
 
+  const handleImageError = () => {
+      setImageError(true);
+  };
+
+  const handleImageLoad = () => {
+      setImageError(false);
+  };
+
+  const isSubmitDisabled = email.length === 0 || username.length === 0 || firstName.length === 0 || lastName.length === 0 || password.length === 0;
+
   return (
     <div
       style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
     >
-      <h1 style={{ margin: "10px 0 20px 0" }}>Sign Up for babbl!</h1>
+      <h1 style={{ padding: "10px 0 20px 0" }}>Join babbl</h1>
       {errors.server && <p>{errors.server}</p>}
       <form className="form" onSubmit={handleSubmit}>
-        <label>
-          Email
+          <label className="user-image">
+            <div className="current-pic">
+                <img
+                    src={imageUrl}
+                    onError={handleImageError}
+                    onLoad={handleImageLoad}
+                    className={imageError ? 'hidden' : ''}
+                />
+            </div>
+            <div className="image-url-input">
+              <h5>IMAGE URL</h5>
+                <input
+                  type="text"
+                  value={imageUrl}
+                  onChange={(e) => setImageUrl(e.target.value)}
+                  required
+                  placeholder="Feature coming soon!"
+                />
+            </div>
+            </label>
+        <label className="email">
+          <h5>EMAIL ADDRESS {errors.email && <p>{errors.email}</p>}</h5>
           <input
             type="text"
             value={email}
@@ -62,9 +95,8 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.email && <p>{errors.email}</p>}
-        <label>
-          Username
+        <label className="username">
+          <h5>USERNAME {errors.username && <p>{errors.username}</p>}</h5>
           <input
             type="text"
             value={username}
@@ -72,9 +104,8 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.username && <p>{errors.username}</p>}
-        <label>
-          First Name
+        <label className="first-name">
+          <h5>FIRST NAME {errors.firstName && <p>{errors.firstName}</p>}</h5>
           <input
             type="text"
             value={firstName}
@@ -82,9 +113,8 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.firstName && <p>{errors.firstName}</p>}
-        <label>
-          Last Name
+        <label className="last-name">
+          <h5>LAST NAME {errors.lastName && <p>{errors.lastName}</p>}</h5>
           <input
             type="text"
             value={lastName}
@@ -92,9 +122,8 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.lastName && <p>{errors.lastName}</p>}
-        <label>
-          Password
+        <label className="password">
+          <h5>PASSWORD {errors.password && <p>{errors.password}</p>}</h5>
           <input
             type="password"
             value={password}
@@ -102,9 +131,8 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.password && <p>{errors.password}</p>}
-        <label>
-          Confirm Password
+        <label className="confirm-password">
+          <h5>CONFIRM PASSWORD {errors.confirmPassword && <p>{errors.confirmPassword}</p>}</h5>
           <input
             type="password"
             value={confirmPassword}
@@ -112,10 +140,9 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
-        <button className="submit-button" type="submit">
-          Sign Up!
-        </button>
+        <div className="submit-container">
+          <button className="submit-button" type="submit" disabled={isSubmitDisabled}>Join</button>
+        </div>
       </form>
     </div>
   );

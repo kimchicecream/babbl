@@ -43,21 +43,21 @@ function ServerIndexModal() {
             <div className="server-info">
               <div className="server-title">{server.name}</div>
               <div className="server-desc">{server.description}</div>
-              {/* {console.log("server ", server, " userId: ", user.id, " creatorId: ", server.creatorId)} */}
-              {!server.users.includes(user.id) && (
-                <button
-                  className="join-server-button"
-                  onClick={() => {
-                    dispatch(joinServerThunk(server.id));
-                    dispatch(loadServersByUserThunk(user.id));
-                    closeModal();
-                    console.log("SERVER CREATE THUNK CALLED IN CLICK");
-                    setJoinClick(true); // SO FRICKEN JANK
-                  }}
-                >
-                  Join Server
-                </button>
-              )}
+              <div className="button-container">
+                {!server.users.includes(user.id) && (
+                    <button
+                      className="join-server-button"
+                      onClick={() => {
+                        dispatch(joinServerThunk(server.id));
+                        dispatch(loadServersByUserThunk(user.id));
+                        closeModal();
+                        setJoinClick(true); // SO FRICKEN JANK
+                      }}
+                    >
+                      Join Server
+                    </button>
+                  )}
+              </div>
             </div>
           </div>
         ))}

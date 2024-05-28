@@ -102,7 +102,7 @@
 
     flex-grow: 1;
     overflow-y: auto;
-    overflow: hidden;
+    /* overflow: hidden; */
 
     padding: 10px 70px 0 70px;
 
@@ -174,4 +174,28 @@
 
 .load-all-servers-container .server-desc {
     font-size: 14px;
+}
+
+.load-all-servers-container .button-container {
+    display: flex;
+    justify-content: center;
+    align-self: center;
+}
+
+.load-all-servers-container .all-servers-container .join-server-button {
+    all: unset;
+
+    background-color: rgb(140, 79, 255);
+
+    font-weight: bold;
+
+    padding: 10px 25px;
+    border-radius: 10px;
+
+    /* border: 1px solid red; */
+}
+
+.load-all-servers-container .all-servers-container .join-server-button:hover {
+    background-color: rgb(194, 161, 255);
+    color: rgb(140, 79, 255);
 }

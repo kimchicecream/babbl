@@ -3,11 +3,11 @@ import ServerList from "../ServerList";
 import ChannelList from "../ChannelList";
 import MessageFeed from "../MessageFeed";
 import ProfileManagement from "../ProfileManagement";
+import LoadingPage from "../LoadingPage";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getChannelsByServerThunk } from "../../redux/channels";
 import { loadAllServersThunk } from "../../redux/servers";
-// import { io } from "socket.io-client";
 let socket;
 
 function MainPage() {
@@ -16,16 +16,10 @@ function MainPage() {
   const channels = useSelector((state) => state.channels || []);
   const [selectedServer, setSelectedServer] = useState({});
   const [selectedChannel, setSelectedChannel] = useState({});
+  const [loading, setLoading] = useState(true);
 
   // useEffect to keep the page from scrolling
   useEffect(() => {
-    // let socket_url = "http://127.0.0.1:8000";
-    // if (import.meta.env.MODE === "production") {
-    //     socket_url = "https://babbl.onrender.com";
-    // }
-
-    // socket = io(socket_url);
-
     document.body.style.overflow = "hidden";
 
     return () => {
@@ -35,6 +29,7 @@ function MainPage() {
 
   useEffect(() => {
     dispatch(loadAllServersThunk());
+    setLoading(false);
   }, [dispatch]);
 
   // useEffect to select the first server on intial load of MainPage
@@ -56,6 +51,10 @@ function MainPage() {
     setSelectedServer(server);
     dispatch(getChannelsByServerThunk(server.id));
   };
+
+  if (loading) {
+    return <LoadingPage />;
+  }
 
   return (
     <div className="main-page-container">

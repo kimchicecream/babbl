@@ -3,7 +3,7 @@ import { deleteMessageThunk } from "../../redux/messages";
 import { useModal } from "../../context/Modal";
 import './DeleteMessageModal.css'
 
-function DeleteMessageModal({ messageId, socket }) {
+function DeleteMessageModal({ message, username, userImage, messageId, socket }) {
     const dispatch = useDispatch();
     const { closeModal } = useModal();
 
@@ -17,20 +17,21 @@ function DeleteMessageModal({ messageId, socket }) {
         return;
     }
 
-    const cancelDelete = (e) => {
-        e.preventDefault();
-        dispatch(closeModal());
-    }
-
     return (
         <div className="delete-message-modal">
-            <h2>Delete Message</h2>
-            <p> Are you sure you want to delete this message?</p>
-            <div className="message-getting-deleted">
-                <span></span>
+            <div className="top">
+                <h2>Delete Message</h2>
+                <p> Are you sure you want to delete this message?</p>
+                <div className="message-display">
+                    <img src={userImage}/>
+                    <div className="username-message">
+                        <p id='username'>{username}</p>
+                        <p id='message'>{message}</p>
+                    </div>
+                </div>
             </div>
-            <div className="delete-button">
-                <button className='cancel-button' onClick={cancelDelete}>Cancel</button>
+            <div className="button-container">
+                <button className='cancel-button' onClick={closeModal}>Cancel</button>
                 <button className='delete-button' onClick={handleDelete}>Delete</button>
             </div>
         </div>
