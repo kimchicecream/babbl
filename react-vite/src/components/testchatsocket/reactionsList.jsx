@@ -4,7 +4,7 @@ import { createReactionThunk } from "../../redux/messages";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useRef } from "react";
 
-export const ReactionsList = ({ message, onClose, socket }) => {
+export const ReactionsList = ({ message, onClose, socket, position }) => {
     const dispatch = useDispatch();
     const userId = useSelector((state) => state.session.user.id);
     const emojis = [];
@@ -23,8 +23,6 @@ export const ReactionsList = ({ message, onClose, socket }) => {
         };
     }, [onClose]);
 
-    console.log("!!!!!!!!!!!!!!!!!!!!!! SOCKET !!!!!!!!!!!!!!!!!!!!!!!!!!!", socket);
-
     for (let i = 0; i < 80; i++) {
         emojis.push(
             <button
@@ -40,7 +38,6 @@ export const ReactionsList = ({ message, onClose, socket }) => {
                                 userId
                             })
                         ).then((data) => {
-                            console.log("SENDING CREATE_REACTION EMIT FROM REACTIONS LIST", socket);
                             socket.emit('create_reaction', data);
                         })
                     }
@@ -51,5 +48,13 @@ export const ReactionsList = ({ message, onClose, socket }) => {
         );
     }
 
-    return <div id="reactions-list" ref={reactionsListRef}>{emojis}</div>;
+    return (
+        <div
+            id="reactions-list"
+            ref={reactionsListRef}
+            style={{ top: position.top, left: position.left, position: 'absolute' }}
+        >
+            {emojis}
+        </div>
+    )
 };

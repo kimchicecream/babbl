@@ -1,0 +1,197 @@
+.update-server-modal {
+    width: 500px;
+
+    padding: 20px;
+    /* border: 2px solid red; */
+}
+
+.update-server-modal .header {
+    display: flex;
+    justify-content: center;
+
+    /* border: 2px solid red; */
+}
+
+.update-server-modal .close-button {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    /* margin: 10px; */
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    height: 45px;
+    width: 45px;
+
+    border-radius: 50%;
+    /* background-color: gray; */
+}
+
+.update-server-modal .header .close-button {
+    font-size: 40px;
+    color: rgb(190, 190, 190);
+
+    transition: color 0.3s ease;
+
+    /* border: 2px solid red; */
+}
+
+.update-server-modal .header .close-button:hover {
+    font-size: 43px;
+    color: white;
+}
+
+.update-server-modal .header .title h1 {
+    color: rgb(212, 212, 212);
+}
+
+.update-server-modal .header .title {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding-bottom: 20px;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.149);
+}
+
+.update-server-modal form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+
+    margin-top: 20px;
+
+    /* border: 2px solid red; */
+}
+
+.update-server-modal .server-image, .server-name, .server-description {
+    font-size: 20px;
+    color: rgb(212, 212, 212);
+
+    display: flex;
+    flex-direction: column;
+}
+
+.update-server-modal .server-image {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 20px;
+}
+
+.update-server-modal .server-image .image-url-input {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.update-server-modal label {
+    display: flex;
+    gap: 1px;
+    width: 100%;
+}
+
+.update-server-modal form .server-name input {
+    all: unset;
+
+    padding: 5px;
+
+    border-radius: 5px;
+    background-color: rgb(31, 31, 31);
+
+    width: 445px;
+}
+
+.update-server-modal form .server-image input {
+    all: unset;
+
+    padding: 5px;
+
+    border-radius: 5px;
+    background-color: rgb(31, 31, 31);
+
+    width: 300px;
+}
+
+.update-server-modal form textarea {
+    all: unset;
+
+    padding: 5px;
+
+    border-radius: 5px;
+    background-color: rgb(31, 31, 31);
+
+    width: 445px;
+}
+
+/* CURRENT IMAGE */
+.update-server-modal .current-pic {
+    height: 100px;
+    width: 100px;
+
+    border: 3px dashed gray;
+    border-radius: 50%;
+
+    overflow: hidden;
+
+    background-color: rgb(31, 31, 31);
+    box-shadow: 0px 4px 20px 8px rgba(0,0,0,0.31);
+}
+
+.update-server-modal .current-pic img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+/* BUTTONS */
+.update-server-modal .submit-cancel-container {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+
+    width: 100%;
+}
+
+.update-server-modal .submit-cancel-container .submit-button {
+    all: unset;
+    padding: 10px 25px;
+
+    background-color: rgb(140, 79, 255);
+    border-radius: 5px;
+
+    font-weight: bold;
+}
+
+.update-server-modal .submit-cancel-container .submit-button:disabled {
+    background-color: rgba(137, 91, 223, 0.409);
+    color: rgba(128, 128, 128, 0.544);
+    cursor: not-allowed;
+}
+
+.update-server-modal .submit-cancel-container .submit-button:hover:enabled {
+    background-color: rgb(199, 169, 255);
+    color: rgb(140, 79, 255);
+}
+
+.update-server-modal .submit-cancel-container .cancel-button {
+    all: unset;
+
+    cursor: pointer;
+}
+
+.update-server-modal .submit-cancel-container .cancel-button:hover {
+    text-decoration: underline;
+}
+
+.update-server-modal h5 {
+    display: flex;
+    gap: 10px;
+}
+
+.update-server-modal p {
+    color: rgb(255, 94, 94);
+    font-weight: normal;
+}

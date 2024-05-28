@@ -1,0 +1,125 @@
+.create-channel-modal {
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    padding: 20px;
+}
+
+/* X BUTTON */
+.create-channel-modal .header {
+    display: flex;
+    justify-content: center;
+
+    border-bottom: 2px solid rgb(106, 106, 106);
+}
+
+.create-channel-modal .close-button {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    /* margin: 10px; */
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    height: 45px;
+    width: 45px;
+
+    border-radius: 50%;
+    /* background-color: gray; */
+}
+
+.create-channel-modal .header .close-button {
+    font-size: 40px;
+    color: rgb(190, 190, 190);
+
+    transition: color 0.3s ease;
+
+    /* border: 2px solid red; */
+}
+
+.create-channel-modal .header .close-button:hover {
+    font-size: 43px;
+    color: white;
+}
+
+.create-channel-modal .title {
+    display: flex;
+    flex-direction: row;
+
+    color: rgb(212, 212, 212);
+
+    /* border: 2px solid red; */
+}
+
+.create-channel-modal form {
+    padding-top: 10px;
+}
+
+.create-channel-modal .input-container {
+    display: flex;
+    align-items: center;
+}
+
+.create-channel-modal .fa-solid.fa-hashtag {
+    position: absolute;
+    left: 30px;
+
+    color: rgb(212, 212, 212);
+    /* top: 20px; */
+}
+
+.create-channel-modal input {
+    all: unset;
+
+    padding: 5px 5px 5px 35px;
+
+    border-radius: 5px;
+    background-color: rgb(31, 31, 31);
+
+    width: 100%;
+}
+
+.create-channel-modal label h5 {
+    color: rgb(212, 212, 212);
+}
+
+.create-channel-modal .submit-container {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+
+    margin-top: 20px;
+}
+
+.create-channel-modal .submit-container button {
+    all: unset;
+}
+
+.create-channel-modal .submit-container .submit-button {
+    padding: 10px 25px;
+    background-color: rgb(140, 79, 255);
+    border-radius: 5px;
+
+    font-weight: bold;
+}
+
+.create-channel-modal .submit-container .submit-button:disabled {
+    background-color: rgba(137, 91, 223, 0.409);
+    color: rgba(128, 128, 128, 0.544);
+    cursor: not-allowed;
+}
+
+.create-channel-modal .submit-container .submit-button:hover:enabled {
+    background-color: rgb(199, 169, 255);
+    color: rgb(140, 79, 255);
+}
+
+.create-channel-modal .submit-container .cancel-button {
+    color: rgb(212, 212, 212);
+}
+
+.create-channel-modal .submit-container .cancel-button:hover {
+    text-decoration: underline;
+}
