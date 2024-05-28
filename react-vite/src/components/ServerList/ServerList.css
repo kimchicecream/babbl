@@ -40,12 +40,26 @@
     overflow-y: auto;
 }
 
+/* .server-icon {
+    height: 55px;
+    width: 55px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.server-icon.error {
+    background-color: rgb(140, 79, 255);
+} */
+
+
 .servers img {
     height: 55px;
     width: 55px;
     object-fit: cover;
     border-radius: 50%;
     transition: border-radius 0.2s ease;
+
+    /* border: 2px solid red; */
 }
 
 .server-item:hover img,

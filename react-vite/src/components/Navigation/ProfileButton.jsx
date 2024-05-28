@@ -67,8 +67,11 @@ function ProfileButton() {
             <div className='divider'></div>
 
             <div className='account'>
-              <Link to='/account' onClick={(e) => noFeature(e)}>
+              <Link to='' onClick={(e) => noFeature(e)}>
                 <p>Account</p>
+              </Link>
+              <Link to='/babbl'>
+                <p>Open babbl</p>
               </Link>
             </div>
 
