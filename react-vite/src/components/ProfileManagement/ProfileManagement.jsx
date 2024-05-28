@@ -44,7 +44,7 @@ export default function ProfileManagement() {
     };
 
     const handleImageError = (e) => {
-        e.target.src = '../../../public/blank-pic.png';
+        e.target.src = '../../../blank-pic.png';
     };
 
     return (
