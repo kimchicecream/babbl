@@ -55,7 +55,10 @@ export default function ChannelList({
         socket = io(socket_url);
 
         socket.on("create_channel", (channel) => {
-            dispatch(createChannelFromSocket(channel));
+            console.log("THE CHANNEL IS", channel);
+            if (channel?.serverId === server?.id) {
+                dispatch(createChannelFromSocket(channel));
+            }
         });
 
         socket.on("delete_channel", (channelId) => {
@@ -63,7 +66,9 @@ export default function ChannelList({
         });
 
         socket.on("update_channel", (channel) => {
-            dispatch(editChannelFromSocket(channel));
+            if (channel?.serverId === server?.id) {
+                dispatch(editChannelFromSocket(channel));
+            }
         });
 
         return () => socket.disconnect();
@@ -86,13 +91,16 @@ export default function ChannelList({
     const toggleServerMenu = (e) => {
         e.stopPropagation();
         setShowServerMenu(!showServerMenu);
-      };
+    };
 
     useEffect(() => {
         if (!showServerMenu) return;
 
         const closeMenu = (e) => {
-            if (serverMenuRef.current && !serverMenuRef.current.contains(e.target)) {
+            if (
+                serverMenuRef.current &&
+                !serverMenuRef.current.contains(e.target)
+            ) {
                 setShowServerMenu(false);
             }
         };
@@ -106,13 +114,16 @@ export default function ChannelList({
     const toggleChannelMenu = (channelId, e) => {
         e.stopPropagation();
         setShowChannelMenu((prev) => (prev === channelId ? null : channelId));
-      };
+    };
 
     useEffect(() => {
         if (!showChannelMenu) return;
 
         const closeMenu = (e) => {
-            if (channelMenuRef.current && !channelMenuRef.current.contains(e.target)) {
+            if (
+                channelMenuRef.current &&
+                !channelMenuRef.current.contains(e.target)
+            ) {
                 setShowChannelMenu(false);
             }
         };
@@ -124,61 +135,68 @@ export default function ChannelList({
 
     return (
         <div className="channel-list-container">
-            <div className={`server-header-container ${showServerMenu ? 'active' : ''}`} onClick={toggleServerMenu}>
+            <div
+                className={`server-header-container ${
+                    showServerMenu ? "active" : ""
+                }`}
+                onClick={toggleServerMenu}
+            >
                 <span className="server-name">{server.name}</span>
-{/* <<<<<<< frontend-alex */}
-                    <i className="fa-solid fa-caret-down"></i>
-                    {showServerMenu && (
-                        <div className='server-dropdown' ref={serverMenuRef}>
-                            {server.creatorId === user.id ? (
-                                <div className="options">
-                                    <OpenModalButton
-                                        buttonText={"Create Channel"}
-                                        modalComponent={
-                                            <CreateChannelModal
-                                                server={server}
-                                                socket={socket}
-                                            />
-                                        }
-                                        className="create-channel-button"
-                                    />
-                                    <div className="divider"></div>
-                                    <OpenModalButton
-                                        buttonText={"Edit Server"}
-                                        modalComponent={
-                                            <UpdateServerModal
-                                                server={server}
-                                                onSelectServer={onSelectServer}
-                                                onSelectChannel={onSelectChannel}
-                                                selectedChannel={selectedChannel}
-                                            />
-                                        }
-                                        className="edit-server-button"
-                                    />
-                                    <div className="divider"></div>
-                                    <OpenModalButton
-                                        buttonText={"Delete Server"}
-                                        modalComponent={
-                                            <DeleteServerModal
-                                                serverId={server.id}
-                                                server={server}
-                                                // channelId={channelId}
-                                                onSelectServer={onSelectServer}
-                                                onSelectChannel={onSelectChannel}
-                                                selectedChannel={selectedChannel}
-                                            />
-                                        }
-                                        className="delete-server-button"
-                                    />
-                                </div>
-                            ) : (
-                                <div className="options">
-                                    <button className="leave-server-button">Leave Server</button>
-                                </div>
-                            )}
-                        </div>
-                    )}
-{/* // =======
+                {/* <<<<<<< frontend-alex */}
+                <i className="fa-solid fa-caret-down"></i>
+                {showServerMenu && (
+                    <div className="server-dropdown" ref={serverMenuRef}>
+                        {server.creatorId === user.id ? (
+                            <div className="options">
+                                <OpenModalButton
+                                    buttonText={"Create Channel"}
+                                    modalComponent={
+                                        <CreateChannelModal
+                                            server={server}
+                                            socket={socket}
+                                        />
+                                    }
+                                    className="create-channel-button"
+                                />
+                                <div className="divider"></div>
+                                <OpenModalButton
+                                    buttonText={"Edit Server"}
+                                    modalComponent={
+                                        <UpdateServerModal
+                                            server={server}
+                                            onSelectServer={onSelectServer}
+                                            onSelectChannel={onSelectChannel}
+                                            selectedChannel={selectedChannel}
+                                        />
+                                    }
+                                    className="edit-server-button"
+                                />
+                                <div className="divider"></div>
+                                <OpenModalButton
+                                    buttonText={"Delete Server"}
+                                    modalComponent={
+                                        <DeleteServerModal
+                                            serverId={server.id}
+                                            server={server}
+                                            // channelId={channelId}
+                                            onSelectServer={onSelectServer}
+                                            onSelectChannel={onSelectChannel}
+                                            selectedChannel={selectedChannel}
+                                        />
+                                    }
+                                    className="delete-server-button"
+                                />
+                            </div>
+                        ) : (
+                            <div className="options">
+                                <button className="leave-server-button">
+                                    Leave Server
+                                </button>
+                            </div>
+                        )}
+                    </div>
+                )}
+                {/* // =======
 //                 {server.creatorId === user.id && (
 //                     <>
 //                         <OpenModalButton
@@ -214,13 +232,15 @@ export default function ChannelList({
                 {Object.values(channels).map((channel) => (
                     <div
                         key={channel.id}
-// <<<<<<< frontend-alex
-                        className={`channel-item ${selectedChannel?.id === channel.id ? 'selected' : ''}`}
-// =======
-//                         className={`channel-item ${
-//                             selectedChannel?.id === channel.id ? "selected" : ""
-//                         }`}
-// >>>>>>> sunday-morning-official
+                        // <<<<<<< frontend-alex
+                        className={`channel-item ${
+                            selectedChannel?.id === channel.id ? "selected" : ""
+                        }`}
+                        // =======
+                        //                         className={`channel-item ${
+                        //                             selectedChannel?.id === channel.id ? "selected" : ""
+                        //                         }`}
+                        // >>>>>>> sunday-morning-official
                         onClick={() => handleChannelClick(channel)}
                     >
                         <div className="individual-channels">
@@ -233,13 +253,21 @@ export default function ChannelList({
                             {server.creatorId === user.id && (
                                 <>
                                     <i
-                                        className={`fa-solid fa-gear ${selectedChannel === channel.id ? 'visible' : ''}`}
-                                        onClick={(e) => toggleChannelMenu(channel.id, e)}
+                                        className={`fa-solid fa-gear ${
+                                            selectedChannel === channel.id
+                                                ? "visible"
+                                                : ""
+                                        }`}
+                                        onClick={(e) =>
+                                            toggleChannelMenu(channel.id, e)
+                                        }
                                     />
-{/* // <<<<<<< frontend-alex */}
+                                    {/* // <<<<<<< frontend-alex */}
 
-
-                                    <div className="channel-dropdown" ref={channelMenuRef}>
+                                    <div
+                                        className="channel-dropdown"
+                                        ref={channelMenuRef}
+                                    >
                                         {showChannelMenu === channel.id && (
                                             <div className="options">
                                                 <OpenModalButton
@@ -251,25 +279,33 @@ export default function ChannelList({
                                                         />
                                                     }
                                                     className="edit-channel-button"
-// =======
-//                                     {channel.id !==
-//                                         Object.values(channels)[0].id && (
-//                                         <OpenModalButton
-//                                             buttonText={"Delete channel"}
-//                                             modalComponent={
-//                                                 <DeleteChannelModal
-//                                                     channelId={channel.id}
-//                                                     socket={socket}
-// >>>>>>> sunday-morning-official
+                                                    // =======
+                                                    //                                     {channel.id !==
+                                                    //                                         Object.values(channels)[0].id && (
+                                                    //                                         <OpenModalButton
+                                                    //                                             buttonText={"Delete channel"}
+                                                    //                                             modalComponent={
+                                                    //                                                 <DeleteChannelModal
+                                                    //                                                     channelId={channel.id}
+                                                    //                                                     socket={socket}
+                                                    // >>>>>>> sunday-morning-official
                                                 />
                                                 <div className="divider"></div>
-                                                {channel.id !== Object.values(channels)[0].id && (
+                                                {channel.id !==
+                                                    Object.values(channels)[0]
+                                                        .id && (
                                                     <OpenModalButton
-                                                        buttonText={"Delete channel"}
+                                                        buttonText={
+                                                            "Delete channel"
+                                                        }
                                                         modalComponent={
                                                             <DeleteChannelModal
-                                                                channelId={channel.id}
-                                                                channel={channel}
+                                                                channelId={
+                                                                    channel.id
+                                                                }
+                                                                channel={
+                                                                    channel
+                                                                }
                                                                 socket={socket}
                                                             />
                                                         }
@@ -277,7 +313,6 @@ export default function ChannelList({
                                                     />
                                                 )}
                                             </div>
-
                                         )}
                                     </div>
                                 </>
