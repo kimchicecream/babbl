@@ -1,23 +1,215 @@
 .create-server-fs-modal {
     display: flex;
     flex-direction: column;
+    align-items: center;
     height: 100%;
     width: 100%;
-
-    border: 2px solid red;
 }
 
-.create-server-fs-modal .exit-button {
-    height: 50px;
-    width: 50px;
+.create-server-fs-modal .header {
+    display: flex;
+    justify-content: center;
+}
+
+.create-server-fs-modal .close-button {
+    position: absolute;
+    left: 30px;
 
     display: flex;
     justify-content: center;
     align-items: center;
 
-    border: 2px solid red;
+    height: 50px;
+    width: 50px;
+
+    border-radius: 50%;
 }
 
-.create-server-fs-modal .header {
-    border: 2px solid red;
+.create-server-fs-modal .header .close-button {
+    font-size: 40px;
+    color: rgb(85, 85, 85);
+
+    transition: color 0.3s ease;
+
+    /* border: 2px solid red; */
 }
+
+.create-server-fs-modal .header .close-button:hover {
+    color: white;
+    font-size: 43px;
+}
+
+
+.create-server-fs-modal .header .title {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    width: 650px;
+
+    color: rgb(212, 212, 212);
+
+    padding-bottom: 20px;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.149);
+
+    /* border: 2px solid red; */
+}
+
+.create-server-fs-modal .header h1 {
+    color: rgb(154, 99, 255);
+    padding-bottom: 10px;
+}
+
+.create-server-fs-modal .header span {
+    color: rgb(163, 163, 163);
+}
+
+.create-server-fs-modal form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    gap: 20px;
+
+    /* margin: 20px 450px 0 450px; */
+    width: 650px;
+    margin-top: 20px;
+
+    /* bordeR: 2px solid red; */
+}
+
+.create-server-fs-modal .server-image, .server-name, .server-description {
+    font-size: 20px;
+    color: rgb(212, 212, 212);
+
+    display: flex;
+    flex-direction: column;
+}
+
+.create-server-fs-modal .server-image {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+
+    padding-bottom: 20px;
+
+    /* border: 2px solid red; */
+}
+
+.create-server-fs-modal .server-image .image-url-input {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.create-server-fs-modal label {
+    display: flex;
+    gap: 1px;
+    width: 100%;
+}
+
+.create-server-fs-modal .server-image .image-url-input input {
+    all: unset;
+
+    padding: 5px;
+
+    border-radius: 5px;
+    background-color: rgb(31, 31, 31);
+
+    width: 500px;
+}
+
+.create-server-fs-modal form .server-name input {
+    all: unset;
+
+    padding: 5px;
+
+    border-radius: 5px;
+    background-color: rgb(31, 31, 31);
+
+    width: 100%;
+}
+
+.create-server-fs-modal form textarea {
+    all: unset;
+
+    padding: 5px;
+
+    border-radius: 5px;
+    background-color: rgb(31, 31, 31);
+
+    width: 100%;
+}
+
+/* .create-server-fs-modal form input {
+} */
+
+.create-server-fs-modal form textarea {
+    height: 100px;
+}
+
+/* CURRENT IMAGE */
+.create-server-fs-modal .current-pic {
+    height: 100px;
+    width: 100px;
+
+    border: 3px dashed gray;
+    border-radius: 50%;
+
+    overflow: hidden;
+
+    background-color: rgb(31, 31, 31);
+    box-shadow: 0px 4px 20px 8px rgba(0,0,0,0.31);
+}
+
+.create-server-fs-modal .current-pic img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.create-server-fs-modal .submit-container {
+    display: flex;
+    justify-content: flex-end;
+
+    width: 100%;
+
+    /* border: 2px solid red; */
+}
+
+.create-server-fs-modal .submit-container button {
+    all: unset;
+    padding: 10px 30px;
+
+    background-color: rgb(140, 79, 255);
+    border-radius: 5px;
+
+    font-weight: bold;
+}
+
+.create-server-fs-modal .submit-container button:disabled {
+    background-color: rgba(137, 91, 223, 0.409);
+    color: rgba(128, 128, 128, 0.544);
+}
+
+.create-server-fs-modal .submit-container button:hover:enabled {
+    background-color: rgb(199, 169, 255);
+    color: rgb(140, 79, 255);
+}
+
+.create-server-fs-modal h5 {
+    display: flex;
+    gap: 10px;
+}
+
+.create-server-fs-modal p {
+    color: rgb(255, 94, 94);
+    font-weight: normal;
+}
+
+.create-server-fs-modal .hidden {
+    display: none;
+  }

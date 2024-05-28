@@ -12,7 +12,7 @@ function CreateServerModal({ onNewServer }) {
     const [imageUrl, setImageUrl] = useState("");
     const [errors, setErrors] = useState({});
     const user = useSelector((state) => state.session.user);
-    // const [serverData, setServerData] = useState({ name, description, imageUrl, creatorId: user.id })
+    const [imageError, setImageError] = useState(false);
 
     const { closeModal } = useFSModal();
 
@@ -35,17 +35,57 @@ function CreateServerModal({ onNewServer }) {
         }
     };
 
+    const isSubmitDisabled = name.length === 0 || description.length === 0 || imageUrl.length === 0;
+
+    // Handle image error by setting the imageError state
+    const handleImageError = () => {
+        setImageError(true);
+    };
+
+    // Handle image load by resetting the imageError state
+    const handleImageLoad = () => {
+        setImageError(false);
+    };
+
     return (
         <div className="create-server-fs-modal">
-            <div className="exit-button">
+            {/* <div className="exit-button">
                 <i className="fa-solid fa-xmark" onClick={closeModal}></i>
-            </div>
+            </div> */}
             <div className="header">
-                <h1>Create Server</h1>
+                <div className="close-button">
+                    <i className="fa-solid fa-xmark" onClick={closeModal}></i>
+                </div>
+                <div className="title">
+                    <h1>Create your server</h1>
+                    <span>Your server is where you and your friends hang out.</span>
+                    <span>Make yours and start talking.</span>
+                </div>
             </div>
             <form onSubmit={handleSubmit}>
-                <label>
-                    Name
+                <label className="server-image">
+                    <div className="current-pic">
+                        <img
+                            src={imageUrl}
+                            onError={handleImageError}
+                            onLoad={handleImageLoad}
+                            className={imageError ? 'hidden' : ''}
+                        />
+                    </div>
+                    <div className="image-url-input">
+                        <h5>IMAGE URL {errors.imageUrl && <p>{errors.imageUrl}</p>}</h5>
+                        <span></span>
+                        <input
+                            type="text"
+                            value={imageUrl}
+                            onChange={(e) => setImageUrl(e.target.value)}
+                            required
+                        />
+                    </div>
+                </label>
+                <label className="server-name">
+                    <h5>SERVER NAME {errors.name && <p>{errors.name}</p>}</h5>
+                    <span></span>
                     <input
                         type="text"
                         value={name}
@@ -53,30 +93,18 @@ function CreateServerModal({ onNewServer }) {
                         required
                     />
                 </label>
-                {errors.name && <p>{errors.name}</p>}
-
-                <label>
-                    Description
+                <label className="server-description">
+                    <h5>DESCRIPTION {errors.description && <p>{errors.description}</p>}</h5>
+                    <span></span>
                     <textarea
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
                         required
                     />
                 </label>
-                {errors.description && <p>{errors.description}</p>}
-
-                <label>
-                    Image URL
-                    <input
-                        type="text"
-                        value={imageUrl}
-                        onChange={(e) => setImageUrl(e.target.value)}
-                        required
-                    />
-                </label>
-                {errors.imageUrl && <p>{errors.imageUrl}</p>}
-
-                <button type="submit">Create</button>
+                <div className="submit-container">
+                    <button type="submit" disabled={isSubmitDisabled}>Create</button>
+                </div>
             </form>
         </div>
     );

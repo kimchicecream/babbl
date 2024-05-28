@@ -1,10 +1,8 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
-// Import thunk/action creator
-// import { thunkUpdateServer } from "../../redux/server";
-// import "./UpdateServerModal.css";
 import { editServerThunk } from "../../redux/servers";
+import './UpdateServerModal.css'
 
 function UpdateServerModal({
   server,
@@ -17,11 +15,23 @@ function UpdateServerModal({
   const [description, setDescription] = useState(server.description);
   const [imageUrl, setImageUrl] = useState(server.imageUrl);
   const [errors, setErrors] = useState({});
+  const [imageError, setImageError] = useState(false);
   const sessionUser = useSelector((state) => state.session.user);
   const { closeModal } = useModal();
 
+  const isFormUnchanged = () => (
+    name === server.name &&
+    description === server.description &&
+    imageUrl === server.imageUrl
+  );
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (isFormUnchanged()) {
+      closeModal();
+      return;
+    }
 
     //DESTRUCTURE USER DATA TO COMPLETE SERVER OBJECT
     //validates user and sign in and token and all good thins
@@ -55,42 +65,65 @@ function UpdateServerModal({
     }
   };
 
+  const handleImageError = () => {
+    setImageError(true);
+  };
+
+  const handleImageLoad = () => {
+    setImageError(false);
+  };
+
   return (
-    <>
-      <h1>Edit Your Server</h1>
+    <div className="update-server-modal">
+      <div className="header">
+        <div className="close-button">
+          <i className="fa-solid fa-xmark" onClick={closeModal}></i>
+        </div>
+        <div className="title">
+            <h1>Server Overview</h1>
+        </div>
+      </div>
       <form onSubmit={handleSubmit}>
-        <label>
-          Name
+        <label className="server-image">
+          <div className="current-pic">
+            <img src={imageUrl || '/blank-pic.png'} />
+          </div>
+          <div className="image-url-input">
+            <h5>IMAGE URL {errors.imageUrl && <p>{errors.imageUrl}</p>}</h5>
+            <span></span>
+            <input
+                type="text"
+                value={imageUrl}
+                onChange={(e) => setImageUrl(e.target.value)}
+                required
+            />
+          </div>
+        </label>
+        <label className="server-name">
+          <h5>SERVER NAME {errors.name && <p>{errors.name}</p>}</h5>
+          <span></span>
           <input
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
           />
         </label>
-        {errors.name && <p>{errors.name}</p>}
-
-        <label>
-          Description
+        <label className="server-description">
+          <h5>DESCRIPTION {errors.description && <p>{errors.description}</p>}</h5>
+          <span></span>
           <textarea
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              required
           />
         </label>
-        {errors.description && <p>{errors.description}</p>}
-
-        <label>
-          Image URL
-          <input
-            type="text"
-            value={imageUrl}
-            onChange={(e) => setImageUrl(e.target.value)}
-          />
-        </label>
-        {errors.imageUrl && <p>{errors.imageUrl}</p>}
-
-        <button type="submit">Update</button>
+        <div className="submit-cancel-container">
+          <button className="cancel-button" onClick={closeModal}>Cancel</button>
+          <button className="submit-button" type="submit" disabled={isFormUnchanged()}>Confirm changes</button>
+        </div>
       </form>
-    </>
+    </div>
   );
 }
 

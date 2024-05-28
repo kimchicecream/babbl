@@ -1,35 +1,36 @@
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { deleteChannelThunk } from "../../redux/channels";
-// import "./DeleteChannelModal.css";
+import "./DeleteChannelModal.css";
 
-function DeleteChannelModal({ channelId, socket }) {
+function DeleteChannelModal({ channel, channelId, socket }) {
     const dispatch = useDispatch();
     const { closeModal } = useModal();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        await dispatch(deleteChannelThunk(channelId)).then(() => {
-            socket.emit("delete_channel", channelId);
+        await dispatch(deleteChannelThunk(channel.id)).then(() => {
+            socket.emit("delete_channel", channel.id);
         });
         closeModal();
         return;
     };
 
-    const cancelDelete = (e) => {
-        e.preventDefault();
-        dispatch(closeModal());
-    };
-
     return (
-        <div className="delete-modal-container">
-            <h1 id="modaltitles">Are You Sure?</h1>
-            <button type="submit" onClick={handleSubmit} className="delete">
-                yes, delete
-            </button>
-            <button type="submit" onClick={cancelDelete} className="cancel">
-                Go Back
-            </button>
+        <div className="delete-channel-modal">
+            <div className="top">
+                <h2>Delete channel</h2>
+                <p>Are you sure you want to delete this channel?</p>
+                <div className="channel-display">
+                    <i className="fa-solid fa-hashtag"></i>
+                    {channel.name}
+                </div>
+                <p>This cannot be undone.</p>
+            </div>
+            <div className="button-container">
+                <button onClick={closeModal} className="cancel-button">Cancel</button>
+                <button type="submit" onClick={handleSubmit} className="delete-button">Delete</button>
+            </div>
         </div>
     );
 }

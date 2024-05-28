@@ -1,10 +1,18 @@
 .channel-list-container .server-header-container {
     display: flex;
+    justify-content: space-between;
     align-items: center;
     height: 46px;
     padding: 10px 0px;
 
+    position: relative;
+
     border-bottom: 2px solid rgb(53, 53, 53);
+}
+
+.channel-list-container .server-header-container:hover,
+.channel-list-container .server-header-container.active {
+   background-color: rgba(128, 128, 128, 0.171);
 }
 
 .channel-list-container .server-name {
@@ -13,12 +21,72 @@
     padding-left: 10px;
 }
 
+.server-header-container .fa-solid.fa-caret-down {
+    font-size: 25px;
+    padding-right: 20px;
+}
+
+.server-dropdown {
+    position: absolute;
+    top: 48px;
+
+    width: 100%;
+
+    overflow: hidden;
+    z-index: 500;
+
+    padding: 0 7px 7px 7px;
+}
+
+.options {
+    display: flex;
+    flex-direction: column;
+
+    overflow: hidden;
+    /* padding: 10px; */
+    background-color: rgb(15, 15, 15);
+    border-radius: 5px;
+}
+
+.options .edit-server-button,
+.delete-server-button, .leave-server-button, .create-channel-button,
+.edit-channel-button, .delete-channel-button {
+    all: unset;
+
+    color: gray;
+
+    padding: 10px;
+}
+
+.options .delete-server-button, .delete-channel-button {
+    color: rgb(255, 89, 89);
+}
+
+.options .edit-server-button:hover,
+.leave-server-button:hover, .create-channel-button:hover,
+.edit-channel-button:hover {
+    background-color: rgba(128, 128, 128, 0.228);
+    color: white;
+}
+
+.options .delete-server-button:hover, .delete-channel-button:hover {
+    background-color: rgb(255, 89, 89);
+    color: white;
+}
+
+.options .divider {
+    border: 0.5px solid rgba(128, 128, 128, 0.351);
+}
+
+
 .channels {
     display: flex;
     flex-direction: column;
     gap: 2px;
     margin-top: 5px;
     padding: 0px 10px;
+
+    position: relative;
 }
 
 .channel-list-container .channel-item {
@@ -41,13 +109,55 @@
     color: white;
 }
 
-.channel-list-container .channel-item span {
+.channel-list-container .channel-item .individual-channels {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    position: relative;
+
+    /* border: 2px solid blue; */
+}
+.channel-list-container .channel-item .individual-channels .hash-name {
     display: flex;
     align-items: center;
-    gap: 5px;
+    flex-direction: row;
+    gap: 7px;
+
+    /* border: 2px solid red; */
 }
 
 .channel-list-container .channel-item #hash {
     font-size: 22px;
     font-weight: bold;
+}
+
+.channel-list-container .fa-solid.fa-gear {
+    visibility: hidden;
+
+    padding-right: 5px;
+
+    /* border: 2px solid red; */
+}
+
+.channel-list-container .channel-item:hover .fa-solid.fa-gear,
+.channel-list-container .channel-item.selected .fa-solid.fa-gear {
+    visibility: visible;
+}
+
+.channel-dropdown {
+    position: absolute;
+    /* top: -6px; */
+    right: -247px;
+    transform: translateX(-20%);
+
+    min-width: 150px;
+    max-width: 200px;
+    width: 100%;
+
+    overflow: hidden;
+    z-index: 500;
+
+    padding: 0 7px 7px 7px;
 }

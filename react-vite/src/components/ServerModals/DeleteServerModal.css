@@ -1,0 +1,78 @@
+.delete-server-modal {
+    display: flex;
+    flex-direction: column;
+
+    color: rgb(212, 212, 212);
+}
+
+.delete-server-modal .top {
+    padding: 15px;
+}
+
+
+.delete-server-modal .server-display {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    height: 100px;
+    padding: 30px;
+
+    margin: 10px 0;
+
+    background-color: rgb(33, 33, 33);
+}
+
+.delete-server-modal .server-display .image-server {
+    display: flex;
+    align-items: center;
+
+    gap: 20px;
+}
+
+.delete-server-modal .server-display img {
+    width: 70px;
+    height: 70px;
+
+    border-radius: 50%;
+
+    box-shadow: 0px 4px 20px 8px rgba(0,0,0,0.31);
+}
+
+.delete-server-modal .button-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+    height: 60px;
+    background-color: rgb(30, 30, 30);
+
+    padding: 10px;
+}
+
+.delete-server-modal .button-container button {
+    height: 50px;
+    all: unset;
+}
+
+.delete-server-modal .button-container .cancel-button {
+    color: rgb(212, 212, 212);
+}
+
+.delete-server-modal .button-container .cancel-button:hover {
+    text-decoration: underline;
+}
+
+.delete-server-modal .button-container .delete-button {
+    height: 30px;
+    padding: 3px 25px;
+    background-color: rgba(255, 103, 103, 0.635);
+    border-radius: 5px;
+
+    font-weight: bold;
+}
+
+.delete-server-modal .button-container .delete-button:hover {
+    background-color: red;
+}

@@ -66,8 +66,10 @@ export const Message = ({ message, index, socket }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedMessage, setEditedMessage] = useState(message.message);
   const messageRef = useRef(null);
+  const reactionButtonRef = useRef(null);
   const currentUser = useSelector((state) => state.session.user);
   const dispatch = useDispatch();
+  const [menuPosition, setMenuPosition] = useState({ top: 0, left: 0 });
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -94,7 +96,7 @@ export const Message = ({ message, index, socket }) => {
     if (e.key === "Enter") {
       dispatch(
         editMessageThunk(
-          { ...message, message: editedMessage, userId: message.userId },
+          { ...message, message: editedMessage, userId: message.user.id },
           currentUser.username,
           message.reactions,
           currentUser.imageUrl
@@ -112,6 +114,15 @@ export const Message = ({ message, index, socket }) => {
     }
   };
 
+  const toggleMenu = (e) => {
+    e.stopPropagation(); // Prevent event bubbling
+    setMenuPosition({
+      top: reactionButtonRef.current.getBoundingClientRect().bottom + window.scrollY,
+      left: reactionButtonRef.current.getBoundingClientRect().left + window.scrollX - reactionButtonRef.current.offsetWidth,
+    });
+    setShowMenu(!showReactionsMenu);
+  };
+
   return (
     <div className="message-container" key={index}>
       <div className="profile-pic-container">
@@ -125,14 +136,17 @@ export const Message = ({ message, index, socket }) => {
         </div>
         <div className="message-text">
           {isEditing ? (
-            <input
-              type="text"
-              value={editedMessage}
-              onChange={(e) => setEditedMessage(e.target.value)}
-              onKeyDown={handleEditSubmit}
-              onBlur={() => setIsEditing(false)}
-              autoFocus
-            />
+            <>
+              <input
+                type="text"
+                value={editedMessage}
+                onChange={(e) => setEditedMessage(e.target.value)}
+                onKeyDown={handleEditSubmit}
+                onBlur={() => setIsEditing(false)}
+                autoFocus
+              />
+              <p className="instructions">escape to <span>cancel</span> • enter to <span>save</span></p>
+            </>
           ) : (
             <p>{message.message}</p>
           )}
@@ -156,7 +170,8 @@ export const Message = ({ message, index, socket }) => {
       >
         <i
           class="fa-solid fa-face-kiss-beam"
-          onClick={() => setShowMenu(!showReactionsMenu)}
+          onClick={toggleMenu}
+          ref={reactionButtonRef}
         ></i>
         {isOwner && (
           <>
@@ -177,6 +192,7 @@ export const Message = ({ message, index, socket }) => {
           message={message}
           socket={socket}
           onClose={() => setShowMenu(false)}
+          position={menuPosition}
         />
       )}
     </div>

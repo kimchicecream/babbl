@@ -13,7 +13,7 @@ export default function ProfileManagement() {
     return (
         <div className="profile-management-container">
             <div className="user-info">
-                <img src={user.imageUrl} />
+                <img src={user.imageUrl} alt='../../../public/blank-pic.png' />
                 <div className="username-status-container">
                     <span id="username">{user.username}</span>
                     <span id="status">
