@@ -105,6 +105,7 @@ def edit_message_by_id(messageId):
     message_to_update = Message.query.get(messageId)
     print(message_to_update, "MESSAGE TO UPDATE QYUETY RESPONSE")
     if current_user.id != message_to_update.userId:
+        print("currId", current_user.id, message_to_update.userId)
         return {'errors': {'message': 'Unauthorized'}}, 401
 
     form = CreateMessageForm()

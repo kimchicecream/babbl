@@ -126,7 +126,7 @@ export default function ChannelList({
         <div className="channel-list-container">
             <div className={`server-header-container ${showServerMenu ? 'active' : ''}`} onClick={toggleServerMenu}>
                 <span className="server-name">{server.name}</span>
-// <<<<<<< frontend-alex
+{/* <<<<<<< frontend-alex */}
                     <i className="fa-solid fa-caret-down"></i>
                     {showServerMenu && (
                         <div className='server-dropdown' ref={serverMenuRef}>
@@ -178,7 +178,7 @@ export default function ChannelList({
                             )}
                         </div>
                     )}
-// =======
+{/* // =======
 //                 {server.creatorId === user.id && (
 //                     <>
 //                         <OpenModalButton
@@ -208,7 +208,7 @@ export default function ChannelList({
 //                         />
 //                     </>
 //                 )}
-// >>>>>>> sunday-morning-official
+// >>>>>>> sunday-morning-official */}
             </div>
             <div className="channels">
                 {Object.values(channels).map((channel) => (
@@ -236,7 +236,7 @@ export default function ChannelList({
                                         className={`fa-solid fa-gear ${selectedChannel === channel.id ? 'visible' : ''}`}
                                         onClick={(e) => toggleChannelMenu(channel.id, e)}
                                     />
-// <<<<<<< frontend-alex
+{/* // <<<<<<< frontend-alex */}
 
 
                                     <div className="channel-dropdown" ref={channelMenuRef}>

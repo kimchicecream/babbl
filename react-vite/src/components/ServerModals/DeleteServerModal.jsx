@@ -62,17 +62,17 @@ function DeleteServerModal({
 //         onSelectServer();
 //         return;
 //     };
-// 
+
 //     const cancelDelete = (e) => {
 //         e.preventDefault();
 //         dispatch(closeModal());
 //     };
-// 
+
 //     return (
 //         <div className="delete-modal-container">
 //             <div className="form-container">
 //                 <h1 id="modaltitles">Are You Sure?</h1>
-// 
+
 //                 <button type="submit" onClick={handleSubmit} className="delete">
 //                     yes, delete
 //                 </button>
