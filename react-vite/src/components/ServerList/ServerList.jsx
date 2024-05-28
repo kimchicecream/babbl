@@ -10,6 +10,7 @@ import {
 } from "../../redux/servers";
 import { useEffect, useState } from "react";
 import { io } from "socket.io-client";
+import { useNavigate } from "react-router-dom";
 let socket;
 
 const PreloadImage = ({ src, alt }) => {
@@ -29,6 +30,7 @@ export default function ServerList({ onSelectServer }) {
     const dispatch = useDispatch();
     const servers = useSelector((state) => state.servers?.myServers || {});
     const user = useSelector((state) => state.session.user);
+    const navigate = useNavigate();
     const [selectedServerId, setSelectedServerId] = useState(null);
 
     useEffect(() => {
@@ -122,10 +124,14 @@ export default function ServerList({ onSelectServer }) {
         onSelectServer(newServer);
     };
 
+    const redirectHome = () => {
+        navigate("/");
+    };
+
     return (
         <div className="server-list-container">
             <button className="logo-button">
-                <img src="../../../babbl-logo.png" />
+                <img src="../../../babbl-logo.png" onClick={redirectHome}/>
             </button>
             <div className="divider">{console.log("SERVERS: ", servers)}</div>
             <div className="servers">

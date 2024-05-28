@@ -226,3 +226,46 @@
 .message-container .message-text .instructions span {
   color: rgb(185, 148, 255);
 }
+
+.message-container .reactions {
+  display: flex;
+  flex-direction: row;
+
+  gap: 2px;
+}
+
+.message-container .reactions .reaction-button {
+  all: unset;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+
+  margin-top: 3px;
+  width: 35px;
+  padding: 1px 3px;
+
+  border-radius: 10px;
+
+  background-color: rgba(42, 42, 42, 0.359);
+}
+
+.message-container .reactions .reaction-button:hover {
+  border: 1px solid rgb(188, 188, 188);
+}
+
+.message-container .reactions button.reacted {
+  border: 1px solid rgb(150, 121, 255);
+  background-color: rgba(120, 83, 255, 0.255);;
+}
+
+.message-container .reactions button.reacted:hover {
+  border: 1px solid rgb(187, 168, 255);
+  background-color: rgba(180, 160, 255, 0.255);;
+}
+
+.message-container .reactions span {
+  font-weight: bold;
+}

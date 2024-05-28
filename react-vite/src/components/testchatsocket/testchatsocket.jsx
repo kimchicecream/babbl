@@ -125,6 +125,10 @@ const Chat = ({ initMessages, channelId }) => {
         setShowReactionsMenu(false);
     };
 
+    const featureComingSoon = () => {
+        alert("Feature coming soon!");
+    };
+
     return (
         user && (
             <div className="chat-socket-container">
@@ -145,7 +149,7 @@ const Chat = ({ initMessages, channelId }) => {
                 </div>
 
                 <form className="input-field" onSubmit={sendChat}>
-                    <i className="fa-solid fa-plus"></i>
+                    <i className="fa-solid fa-plus" onClick={featureComingSoon}></i>
                     <input
                         value={chatInput}
                         onChange={updateChatInput}
@@ -153,14 +157,6 @@ const Chat = ({ initMessages, channelId }) => {
                             currentChannel ? currentChannel.name : ""
                         }`}
                     />
-                    {/* <button type="submit" className="submit-button"></button> */}
-                    {/* <button className="reactions-button">
-            <i class="fa-solid fa-face-kiss-beam"></i>
-          </button> */}
-                    <i
-                        class="fa-solid fa-face-kiss-beam"
-                        onClick={() => setShowReactionsMenu(!showReactionsMenu)}
-                    ></i>
                     {showReactionsMenu && (
                         <ReactionsList onClose={handleCloseReactionsMenu} socket={socket} />
                     )}

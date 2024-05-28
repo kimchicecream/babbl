@@ -1,0 +1,87 @@
+.delete-message-modal {
+    display: flex;
+    flex-direction: column;
+
+    color: rgb(212, 212, 212);
+    /* border: 1px solid red; */
+}
+
+.delete-message-modal .top {
+    padding: 15px;
+}
+
+.delete-message-modal .message-display {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    max-width: 700px;
+    gap: 10px;
+
+    margin-top: 20px;
+
+    padding: 10px;
+    box-shadow: 0px 4px 20px 8px rgba(0,0,0,0.31);
+
+    /* border: 1px solid red; */
+}
+
+.delete-message-modal .message-display img {
+    height: 60px;
+    width: 60px;
+
+    border-radius: 50%;
+}
+
+.delete-message-modal .username-message {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    max-width: calc(100% - 80px);
+}
+
+.delete-message-modal .username-message #username {
+    font-weight: bold;
+}
+
+.delete-message-modal .username-message #message {
+    word-wrap: break-word;
+}
+
+.delete-message-modal .button-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+    height: 60px;
+    background-color: rgb(30, 30, 30);
+
+    padding: 10px;
+}
+
+.delete-message-modal .button-container button {
+    height: 50px;
+    all: unset;
+}
+
+.delete-message-modal .button-container .cancel-button {
+    color: rgb(212, 212, 212);
+}
+
+.delete-message-modal .button-container .cancel-button:hover {
+    text-decoration: underline;
+}
+
+.delete-message-modal .button-container .delete-button {
+    height: 30px;
+    padding: 3px 25px;
+    background-color: rgba(255, 103, 103, 0.635);
+    border-radius: 5px;
+
+    font-weight: bold;
+}
+
+.delete-message-modal .button-container .delete-button:hover {
+    background-color: red;
+}
