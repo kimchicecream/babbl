@@ -15,7 +15,7 @@ function Footer() {
                     <div className="card">
                         <div class="card-info">
                             <div className="card-avatar">
-                                <img src='../../../public/Tina.png'/>
+                                <img src='../../../Tina.png'/>
                             </div>
                             <div className="card-title">Tina Gao</div>
                             <div className="card-subtitle">Web Developer</div>
@@ -32,7 +32,7 @@ function Footer() {
                     <div className="card">
                         <div className="card-info">
                             <div className="card-avatar">
-                                <img src='../../../public/Chris.png'/>
+                                <img src='../../../Chris.png'/>
                             </div>
                             <div className="card-title">Chris Peters</div>
                             <div className="card-subtitle">Web Developer</div>
@@ -49,7 +49,7 @@ function Footer() {
                     <div className="card">
                         <div className="card-info">
                             <div className="card-avatar">
-                                <img src='../../../public/Alex.png'/>
+                                <img src='../../../Alex.png'/>
                             </div>
                             <div className="card-title">Alex Go</div>
                             <div className="card-subtitle">Web Developer</div>
@@ -66,7 +66,7 @@ function Footer() {
                     <div className="card">
                         <div className="card-info">
                             <div className="card-avatar">
-                                <img src='../../../public/Bobby.png'/>
+                                <img src='../../../Bobby.png'/>
                             </div>
                             <div className="card-title">Bobby Stomski</div>
                             <div className="card-subtitle">Web Developer</div>
