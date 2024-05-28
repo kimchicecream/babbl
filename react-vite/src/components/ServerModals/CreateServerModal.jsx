@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useFSModal } from "../../context/FullScreenModal";
 import { createServerThunk } from "../../redux/servers";
+import { joinServerThunk } from "../../redux/memberships";
 import './CreateServerModal.css'
 
 function CreateServerModal({ onNewServer }) {
@@ -28,7 +29,8 @@ function CreateServerModal({ onNewServer }) {
             setErrors(newServer.errors);
         } else {
             onNewServer(newServer);
-            // onSelectServer(serverResponse);
+            // auto join server that a user creates
+            dispatch(joinServerThunk(newServer.id))
             closeModal();
         }
     };

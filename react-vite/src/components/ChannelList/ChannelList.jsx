@@ -1,4 +1,9 @@
-import { getChannelsByServerThunk, createChannelFromSocket } from "../../redux/channels";
+import {
+    getChannelsByServerThunk,
+    createChannelFromSocket,
+    deleteChannelFromSocket,
+    editChannelFromSocket,
+} from "../../redux/channels";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
@@ -8,9 +13,8 @@ import UpdateChannelModal from "../ChannelModals/UpdateChannelModal";
 import DeleteChannelModal from "../ChannelModals/DeleteChannelModal";
 import OpenFSModalButton from "../OpenFSModalButton";
 import CreateChannelModal from "../ChannelModals/CreateChannelModal";
-// import io from "socket.io-client";
+import io from "socket.io-client";
 import "./ChannelList.css";
-
 let socket;
 
 export default function ChannelList({
@@ -24,31 +28,42 @@ export default function ChannelList({
     const [selectedChannel, setSelectedChannel] = useState(null);
 
     useEffect(() => {
-        dispatch(getChannelsByServerThunk(server.id));
+        if (server?.id) dispatch(getChannelsByServerThunk(server.id));
     }, [dispatch, server.id]);
 
     useEffect(() => {
-        if (Object.keys(channels).length > 0) {
-            // onSelectServer(server);
+        if (
+            selectedChannel?.serverId !== server?.id &&
+            Object.keys(channels).length > 0
+        ) {
             const firstChannel = channels[Object.keys(channels)[0]];
-            setSelectedChannel(firstChannel.id);
+            setSelectedChannel(firstChannel);
             onSelectChannel(firstChannel);
         }
-    }, [channels, onSelectChannel]);
+    }, [channels, onSelectChannel, selectedChannel, server]);
 
-    // useEffect(() => {
-    //     let socket_url = "http://127.0.0.1:8000/channel";
-    //     if (import.meta.env.MODE === "production") {
-    //         socket_url = "https://babbl.onrender.com/channel";
-    //     }
+    useEffect(() => {
+        let socket_url = "http://127.0.0.1:8000";
+        if (import.meta.env.MODE === "production") {
+            socket_url = "https://babbl.onrender.com";
+        }
 
-    //     socket = io(socket_url);
+        socket = io(socket_url);
 
-    //     socket.on("create_channel", (channel) => {
-    //         console.log("CHANNEL FROM SOCKET", channel)
-    //         dispatch(createChannelFromSocket(channel));
-    //     })
-    // });
+        socket.on("create_channel", (channel) => {
+            dispatch(createChannelFromSocket(channel));
+        });
+
+        socket.on("delete_channel", (channelId) => {
+            dispatch(deleteChannelFromSocket(channelId));
+        });
+
+        socket.on("update_channel", (channel) => {
+            dispatch(editChannelFromSocket(channel));
+        });
+
+        return () => socket.disconnect();
+    }, [dispatch]);
 
     const formatChannelName = (name) => {
         const formattedName = name.toLowerCase().replace(/\s+/g, "-");
@@ -58,7 +73,7 @@ export default function ChannelList({
     };
 
     const handleChannelClick = (channel) => {
-        setSelectedChannel(channel.id);
+        setSelectedChannel(channel);
         onSelectChannel(channel);
     };
 
@@ -66,66 +81,87 @@ export default function ChannelList({
         <div className="channel-list-container">
             <div className="server-header-container">
                 <span className="server-name">{server.name}</span>
-                <OpenModalButton
-                    buttonText={"Edit a server"}
-                    modalComponent={
-                        <UpdateServerModal
-                            server={server}
-                            onSelectServer={onSelectServer}
-                            onSelectChannel={onSelectChannel}
-                            selectedChannel={selectedChannel}
+                {server.creatorId === user.id && (
+                    <>
+                        <OpenModalButton
+                            buttonText={"Edit a server"}
+                            modalComponent={
+                                <UpdateServerModal
+                                    server={server}
+                                    onSelectServer={onSelectServer}
+                                    onSelectChannel={onSelectChannel}
+                                    selectedChannel={selectedChannel}
+                                />
+                            }
+                            className="edit-server-button"
                         />
-                    }
-                    className="edit-server-button"
-                />
-                <OpenModalButton
-                    buttonText={"Delete a server"}
-                    modalComponent={
-                        <DeleteServerModal
-                            serverId={server.id}
-                            onSelectServer={onSelectServer}
-                            onSelectChannel={onSelectChannel}
-                            selectedChannel={selectedChannel}
+                        <OpenModalButton
+                            buttonText={"Delete a server"}
+                            modalComponent={
+                                <DeleteServerModal
+                                    serverId={server.id}
+                                    onSelectServer={onSelectServer}
+                                    onSelectChannel={onSelectChannel}
+                                    selectedChannel={selectedChannel}
+                                    socket={socket}
+                                />
+                            }
+                            className="delete-server-button"
                         />
-                    }
-                    className="delete-server-button"
-                />
+                    </>
+                )}
             </div>
             <div className="channels">
                 {Object.values(channels).map((channel) => (
                     <div
                         key={channel.id}
                         className={`channel-item ${
-                            selectedChannel === channel.id ? "selected" : ""
+                            selectedChannel?.id === channel.id ? "selected" : ""
                         }`}
                         onClick={() => handleChannelClick(channel)}
                     >
                         <span>
                             <span id="hash">#</span>{" "}
                             {formatChannelName(channel.name)}
-                            <OpenModalButton
-                                buttonText={"Edit channel"}
-                                modalComponent={
-                                    <UpdateChannelModal channel={channel} />
-                                }
-                                className="create-channel-button"
-                            />
-                            <OpenModalButton
-                                buttonText={"Delete channel"}
-                                modalComponent={
-                                    <DeleteChannelModal
-                                        channelId={channel.id}
+                            {server.creatorId === user.id && (
+                                <>
+                                    <OpenModalButton
+                                        buttonText={"Edit channel"}
+                                        modalComponent={
+                                            <UpdateChannelModal
+                                                channel={channel}
+                                                socket={socket}
+                                            />
+                                        }
+                                        className="create-channel-button"
                                     />
-                                }
-                                className="create-channel-button"
-                            />
+                                    {channel.id !==
+                                        Object.values(channels)[0].id && (
+                                        <OpenModalButton
+                                            buttonText={"Delete channel"}
+                                            modalComponent={
+                                                <DeleteChannelModal
+                                                    channelId={channel.id}
+                                                    socket={socket}
+                                                />
+                                            }
+                                            className="create-channel-button"
+                                        />
+                                    )}
+                                </>
+                            )}
                         </span>
                     </div>
                 ))}
                 {user.id === server.creatorId && (
                     <OpenFSModalButton
                         buttonText={"Create a Channel"}
-                        modalComponent={<CreateChannelModal server={server} socket={socket} />}
+                        modalComponent={
+                            <CreateChannelModal
+                                server={server}
+                                socket={socket}
+                            />
+                        }
                         className="create-channel-button"
                     />
                 )}

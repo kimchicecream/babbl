@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useFSModal } from "../../context/FullScreenModal";
-import { loadAllServersThunk } from "../../redux/servers";
+import { loadAllServersThunk, loadServersByUserThunk } from "../../redux/servers";
 import { joinServerThunk } from "../../redux/memberships";
 import "./ServerIndexModal.css";
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -18,9 +18,9 @@ function ServerIndexModal() {
   const user = useSelector((state) => state.session.user);
 
   useEffect(() => {
-    dispatch(loadAllServersThunk());
+    dispatch(loadServersByUserThunk(user.id));
     if (joinClick) setJoinClick(false); // JANK JANK JANK JANK JANK
-  }, [dispatch, joinClick]);
+  }, [dispatch, joinClick, user]);
 
   //       Hover FOR ALL SERVER, JOIN OR observe, redirecr when clicked, AND closeModal();
   //       closeModal();
@@ -49,6 +49,7 @@ function ServerIndexModal() {
                   className="join-server-button"
                   onClick={() => {
                     dispatch(joinServerThunk(server.id));
+                    dispatch(loadServersByUserThunk(user.id));
                     closeModal();
                     console.log("SERVER CREATE THUNK CALLED IN CLICK");
                     setJoinClick(true); // SO FRICKEN JANK

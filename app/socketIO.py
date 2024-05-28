@@ -31,31 +31,27 @@ def _update(data):
     emit("server", data, broadcast=True)
 
 
+@socketio.on("delete_server")
+def handle_delete_server(data):
+    emit("delete_server", data, broadcast=True)
+
+
 # handle channel creation
 @socketio.on("create_channel")
 def handle_create_channel(data):
-    # channel = Channel(name=data["name"], server_id=data["server_id"])
-    # db.session.add(channel)
-    # db.session.commit()
-    emit("craete_channel", data, broadcast=True)
+    emit("create_channel", data, broadcast=True)
 
 
 # handle channel update
 @socketio.on("update_channel")
 def handle_update_channel(data):
-    channel = Channel.query.get(data["id"])
-    channel.name = data["name"]
-    db.session.commit()
-    emit("channel_updated", channel.to_dict(), broadcast=True)
+    emit("update_channel", data, broadcast=True)
 
 
 # handle channel deletion
 @socketio.on("delete_channel")
 def handle_delete_channel(data):
-    channel = Channel.query.get(data["id"])
-    db.session.delete(channel)
-    db.session.commit()
-    emit("channel_deleted", {"id": data["id"]}, broadcast=True)
+    emit("delete_channel", data, broadcast=True)
 
 
 @socketio.on("edit_message")

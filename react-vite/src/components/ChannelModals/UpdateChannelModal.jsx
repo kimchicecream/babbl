@@ -7,7 +7,7 @@ import { useModal } from "../../context/Modal";
 // import "./UpdateChannelModal.css";
 import { editChannelThunk } from "../../redux/channels";
 
-function UpdateChannelModal({ channel }) {
+function UpdateChannelModal({ channel, socket }) {
   const dispatch = useDispatch();
   const [name, setName] = useState(channel.name);
   const [errors, setErrors] = useState({});
@@ -54,6 +54,7 @@ function UpdateChannelModal({ channel }) {
         "color:blue; font-size: 26px",
         serverResponse
       );
+      socket.emit("update_channel", serverResponse);
       closeModal();
     }
   };
