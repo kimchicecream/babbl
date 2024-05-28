@@ -17,12 +17,24 @@
     z-index: 3;
 }
 
+.landing-page-container .hero-container .hero-title h5 {
+    position: relative;
+    top: 0px;
+}
+
+.landing-page-container .hero-container .hero-title h2 {
+    position: relative;
+    top: 10px;
+}
+
 .landing-page-container .hero-container #introducing {
     color: white;
     font-size: 80px;
 }
 
 .landing-page-container .hero-container img {
+    position: relative;
+    bottom: 10px;
     height: 100px;
 }
 

@@ -6,8 +6,10 @@ function LandingPage() {
     <div className="landing-page-container">
       <div className="hero-container">
         <div className="hero-title">
+          <h5>Now in Beta</h5>
           <h1 id="introducing">Introducing</h1>
           <img src="../../../babbl-name.png"></img>
+          <h2>Your new digital hangout.</h2>
         </div>
         <div className="video-container">
           <video

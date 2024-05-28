@@ -11,17 +11,20 @@ function FourOFour() {
         return () => {
           document.body.style.overflow = "auto";
         };
-      }, []);
+    }, []);
+
+    const handleGoBack = () => {
+        navigate('/babbl');
+    };
 
     return (
         <>
             <div className='page-container'>
-                <div className='title'>
-                    <h1>Oh no! You’ve hit a 404. Don’t worry, even the best explorers get lost sometimes.</h1>
-                    {/* <h1>404</h1> */}
+                <div className='text'>
+                    <h1 id='text'>Oh no! You’ve hit a <h1 id='four'>404.</h1> Don’t worry, even the best explorers get lost sometimes.</h1>
                 </div>
                 <div className='button'>
-                    <button className='home-button'>Go back</button>
+                    <button className='home-button' onClick={handleGoBack}>Go back home</button>
                 </div>
             </div>
         </>
