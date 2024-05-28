@@ -109,7 +109,8 @@ export const loadAllServersThunk = () => async (dispatch) => {
 };
 
 export const loadServersByUserThunk = (userId) => async (dispatch) => {
-  const response = await fetch(`api/servers/:${userId}`);
+    console.log("loading servers by user with id ", userId)
+  const response = await fetch(`api/servers/${userId}`);
 
   if (response.ok) {
     const data = await response.json();
@@ -138,11 +139,11 @@ const serversReducer = (state = initialState, action) => {
     }
     case CREATE_SERVER: {
       newState = { ...state };
-      console.log("%C newState LOG>", "COLOR:BLUE; FONT-SIZE: 26PX", newState);
-      console.log(
-        action.payload,
-        "ACTION PAYLOAD IN THE SERVERS REDUCER CREATE SERVER ########################################################################"
-      );
+    //   console.log("%C newState LOG>", "COLOR:BLUE; FONT-SIZE: 26PX", newState);
+    //   console.log(
+    //     action.payload,
+    //     "ACTION PAYLOAD IN THE SERVERS REDUCER CREATE SERVER ########################################################################"
+    //   );
       newState.allServers = {
         ...newState.allServers,
         [action.payload.id]: { ...action.payload },

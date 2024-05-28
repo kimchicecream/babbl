@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import {
     loadAllServersThunk,
     deleteServerFromSocket,
+    loadServersByUserThunk,
 } from "../../redux/servers";
 import { useEffect, useState } from "react";
 import { io } from "socket.io-client";
@@ -26,7 +27,8 @@ const PreloadImage = ({ src, alt }) => {
 
 export default function ServerList({ onSelectServer }) {
     const dispatch = useDispatch();
-    const servers = useSelector((state) => state.servers?.allServers || {});
+    const servers = useSelector((state) => state.servers?.myServers || {});
+    const user = useSelector((state) => state.session.user);
     const [selectedServerId, setSelectedServerId] = useState(null);
 
     useEffect(() => {
@@ -40,15 +42,19 @@ export default function ServerList({ onSelectServer }) {
         socket.on("delete_server", (serverId) => {
             dispatch(deleteServerFromSocket(serverId)).then(() => {
                 dispatch(loadAllServersThunk());
+                dispatch(loadServersByUserThunk(user.id));
             });
         });
 
-        dispatch(loadAllServersThunk());
+        if (user) {
+            dispatch(loadAllServersThunk());
+            dispatch(loadServersByUserThunk(user.id));
+        }
 
         return () => {
             socket.disconnect();
         };
-    }, [dispatch]);
+    }, [dispatch, user]);
 
     //   // useEffect(() => {
     //   //   let socket_url = "http://127.0.0.1:8000";
