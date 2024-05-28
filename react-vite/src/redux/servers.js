@@ -71,6 +71,10 @@ export const deleteServerThunk = (serverId) => async (dispatch) => {
   }
 };
 
+export const deleteServerFromSocket = (serverId) => async (dispatch) => {
+    dispatch(deleteServer(serverId));
+}
+
 export const createServerThunk = (serverObj) => async (dispatch) => {
   const response = await fetch("api/servers/create", {
     method: "POST",
@@ -151,11 +155,11 @@ const serversReducer = (state = initialState, action) => {
     }
     case DELETE_SERVER: {
       newState = { ...state };
-
       delete newState.allServers[action.payload];
       delete newState.myServers[action.payload];
-      const ultranewstate = { ...newState };
-      return ultranewstate;
+    //   const ultranewstate = { ...newState };
+    console.log("new state is: ", newState);
+      return newState;
     }
     case EDIT_SERVER: {
       newState = { ...state };

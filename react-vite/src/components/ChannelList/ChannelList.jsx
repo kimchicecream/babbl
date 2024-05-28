@@ -32,13 +32,15 @@ export default function ChannelList({
     }, [dispatch, server.id]);
 
     useEffect(() => {
-        if (selectedChannel === null && Object.keys(channels).length > 0) {
-            // onSelectServer(server);
+        if (
+            selectedChannel?.serverId !== server?.id &&
+            Object.keys(channels).length > 0
+        ) {
             const firstChannel = channels[Object.keys(channels)[0]];
-            setSelectedChannel(firstChannel.id);
+            setSelectedChannel(firstChannel);
             onSelectChannel(firstChannel);
         }
-    }, [channels, onSelectChannel, selectedChannel]);
+    }, [channels, onSelectChannel, selectedChannel, server]);
 
     useEffect(() => {
         let socket_url = "http://127.0.0.1:8000";
@@ -71,7 +73,7 @@ export default function ChannelList({
     };
 
     const handleChannelClick = (channel) => {
-        setSelectedChannel(channel.id);
+        setSelectedChannel(channel);
         onSelectChannel(channel);
     };
 
@@ -101,6 +103,7 @@ export default function ChannelList({
                                     onSelectServer={onSelectServer}
                                     onSelectChannel={onSelectChannel}
                                     selectedChannel={selectedChannel}
+                                    socket={socket}
                                 />
                             }
                             className="delete-server-button"
@@ -113,7 +116,7 @@ export default function ChannelList({
                     <div
                         key={channel.id}
                         className={`channel-item ${
-                            selectedChannel === channel.id ? "selected" : ""
+                            selectedChannel?.id === channel.id ? "selected" : ""
                         }`}
                         onClick={() => handleChannelClick(channel)}
                     >
@@ -132,7 +135,8 @@ export default function ChannelList({
                                         }
                                         className="create-channel-button"
                                     />
-                                    {channel.id !== Object.values(channels)[0].id && (
+                                    {channel.id !==
+                                        Object.values(channels)[0].id && (
                                         <OpenModalButton
                                             buttonText={"Delete channel"}
                                             modalComponent={

@@ -31,6 +31,11 @@ def _update(data):
     emit("server", data, broadcast=True)
 
 
+@socketio.on("delete_server")
+def handle_delete_server(data):
+    emit("delete_server", data, broadcast=True)
+
+
 # handle channel creation
 @socketio.on("create_channel")
 def handle_create_channel(data):
