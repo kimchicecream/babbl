@@ -31,14 +31,16 @@ function LoginFormModal() {
     }
   };
 
+  const isSubmitDisabled = email.length === 0 || password.length === 0;
+
   return (
     <div
       style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
     >
-      <h1 style={{ margin: "10px 0 20px 0" }}>Welcome!</h1>
+      <h1 style={{ margin: "10px 0 20px 0" }}>Log in</h1>
       <form className="form" onSubmit={handleSubmit}>
         <label>
-          Email
+          <h5>EMAIL {errors.email && <p>{errors.email}</p>}</h5>
           <input
             type="text"
             value={email}
@@ -46,9 +48,8 @@ function LoginFormModal() {
             required
           />
         </label>
-        {errors.email && <p>{errors.email}</p>}
         <label>
-          Password
+          <h5>PASSWORD {errors.password && <p>{errors.password}</p>}</h5>
           <input
             type="password"
             value={password}
@@ -56,10 +57,9 @@ function LoginFormModal() {
             required
           />
         </label>
-        {errors.password && <p>{errors.password}</p>}
-        <button className="submit-button" type="submit">
-          Log In
-        </button>
+        <div className="submit-container">
+          <button className="submit-button" type="submit" disabled={isSubmitDisabled}>Login</button>
+        </div>
       </form>
     </div>
   );

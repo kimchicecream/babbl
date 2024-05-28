@@ -3,6 +3,7 @@ import Layout from "./Layout";
 import LandingPage from "../components/LandingPage/LandingPage";
 import MainPage from "../components/MainPage/MainPage";
 import ProtectedRoute from "./ProtectedRoute";
+import FourOFour from '../components/FourOFour/FourOFour';
 
 export const router = createBrowserRouter([
   {
@@ -20,6 +21,10 @@ export const router = createBrowserRouter([
           </ProtectedRoute>
         ),
       },
+      {
+        path: "*",
+        element: <FourOFour />,
+      }
     ],
   },
 ]);
