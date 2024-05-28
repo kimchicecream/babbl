@@ -104,9 +104,9 @@ def edit_message_by_id(messageId):
      # auth REQUIRED, CURRENT USER
     message_to_update = Message.query.get(messageId)
     print(message_to_update, "MESSAGE TO UPDATE QYUETY RESPONSE")
-    if current_user.id != message_to_update.userId:
-        print("currId", current_user.id, message_to_update.userId)
-        return {'errors': {'message': 'Unauthorized'}}, 401
+    # if current_user.id != message_to_update.userId:
+    #     print("currId", current_user.id, message_to_update.userId)
+    #     return {'errors': {'message': 'Unauthorized'}}, 401
 
     form = CreateMessageForm()
     form['csrf_token'].data = request.cookies['csrf_token']
