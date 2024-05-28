@@ -36,13 +36,15 @@ export default function ChannelList({
     }, [dispatch, server.id]);
 
     useEffect(() => {
-        if (selectedChannel === null && Object.keys(channels).length > 0) {
-            // onSelectServer(server);
+        if (
+            selectedChannel?.serverId !== server?.id &&
+            Object.keys(channels).length > 0
+        ) {
             const firstChannel = channels[Object.keys(channels)[0]];
-            setSelectedChannel(firstChannel.id);
+            setSelectedChannel(firstChannel);
             onSelectChannel(firstChannel);
         }
-    }, [channels, onSelectChannel, selectedChannel]);
+    }, [channels, onSelectChannel, selectedChannel, server]);
 
     useEffect(() => {
         let socket_url = "http://127.0.0.1:8000";
@@ -75,7 +77,7 @@ export default function ChannelList({
     };
 
     const handleChannelClick = (channel) => {
-        setSelectedChannel(channel.id);
+        setSelectedChannel(channel);
         onSelectChannel(channel);
         setShowChannelMenu(false);
     };
@@ -124,6 +126,7 @@ export default function ChannelList({
         <div className="channel-list-container">
             <div className={`server-header-container ${showServerMenu ? 'active' : ''}`} onClick={toggleServerMenu}>
                 <span className="server-name">{server.name}</span>
+// <<<<<<< frontend-alex
                     <i className="fa-solid fa-caret-down"></i>
                     {showServerMenu && (
                         <div className='server-dropdown' ref={serverMenuRef}>
@@ -175,12 +178,49 @@ export default function ChannelList({
                             )}
                         </div>
                     )}
+// =======
+//                 {server.creatorId === user.id && (
+//                     <>
+//                         <OpenModalButton
+//                             buttonText={"Edit a server"}
+//                             modalComponent={
+//                                 <UpdateServerModal
+//                                     server={server}
+//                                     onSelectServer={onSelectServer}
+//                                     onSelectChannel={onSelectChannel}
+//                                     selectedChannel={selectedChannel}
+//                                 />
+//                             }
+//                             className="edit-server-button"
+//                         />
+//                         <OpenModalButton
+//                             buttonText={"Delete a server"}
+//                             modalComponent={
+//                                 <DeleteServerModal
+//                                     serverId={server.id}
+//                                     onSelectServer={onSelectServer}
+//                                     onSelectChannel={onSelectChannel}
+//                                     selectedChannel={selectedChannel}
+//                                     socket={socket}
+//                                 />
+//                             }
+//                             className="delete-server-button"
+//                         />
+//                     </>
+//                 )}
+// >>>>>>> sunday-morning-official
             </div>
             <div className="channels">
                 {Object.values(channels).map((channel) => (
                     <div
                         key={channel.id}
-                        className={`channel-item ${selectedChannel === channel.id ? 'selected' : ''}`}
+// <<<<<<< frontend-alex
+                        className={`channel-item ${selectedChannel?.id === channel.id ? 'selected' : ''}`}
+// =======
+//                         className={`channel-item ${
+//                             selectedChannel?.id === channel.id ? "selected" : ""
+//                         }`}
+// >>>>>>> sunday-morning-official
                         onClick={() => handleChannelClick(channel)}
                     >
                         <div className="individual-channels">
@@ -196,6 +236,7 @@ export default function ChannelList({
                                         className={`fa-solid fa-gear ${selectedChannel === channel.id ? 'visible' : ''}`}
                                         onClick={(e) => toggleChannelMenu(channel.id, e)}
                                     />
+// <<<<<<< frontend-alex
 
 
                                     <div className="channel-dropdown" ref={channelMenuRef}>
@@ -210,6 +251,16 @@ export default function ChannelList({
                                                         />
                                                     }
                                                     className="edit-channel-button"
+// =======
+//                                     {channel.id !==
+//                                         Object.values(channels)[0].id && (
+//                                         <OpenModalButton
+//                                             buttonText={"Delete channel"}
+//                                             modalComponent={
+//                                                 <DeleteChannelModal
+//                                                     channelId={channel.id}
+//                                                     socket={socket}
+// >>>>>>> sunday-morning-official
                                                 />
                                                 <div className="divider"></div>
                                                 {channel.id !== Object.values(channels)[0].id && (

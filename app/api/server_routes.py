@@ -1,5 +1,5 @@
 from flask import Blueprint, request
-from app.models import db, Server, server_membership, Channel
+from app.models import db, Server, server_membership, Channel, User
 from app.forms.server_create import CreateServerForm
 from flask_login import current_user, login_required
 from sqlalchemy.orm import joinedload
@@ -19,11 +19,12 @@ def get_all_servers():
 @server_routes.route('/<int:userId>')
 @login_required
 def get_servers_by_userId(userId):
-    servers = Server.query.options(joinedload(Server.users)).all()
+    servers = Server.query.join(Server.users).filter(User.id == userId).all()
     answer_dict = {}
     for server in servers:
         server= server.to_dict()
         answer_dict[server["id"]]=server
+    print(" YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY ANSWERS", answer_dict)
     return answer_dict
 
 @server_routes.route('/<int:serverId>/join', methods=["POST"])
