@@ -9,7 +9,7 @@ https://babbl.onrender.com/
 
 ### Frameworks and Libraries
 
-![Static Badge](https://img.shields.io/badge/Python-%20?style=for-the-badge&logo=Python&label=python&color=gray)
+![Static Badge](https://img.shields.io/badge/Python-%20?style=for-the-badge&logo=Python&color=gray)
 ![Static Badge](https://img.shields.io/badge/JavaScript-%20?style=for-the-badge&logo=JavaScript)
 ![Static Badge](https://img.shields.io/badge/Flask-%20?style=for-the-badge&logo=Flask)
 ![Static Badge](https://img.shields.io/badge/react-%20?style=for-the-badge&logo=react)
