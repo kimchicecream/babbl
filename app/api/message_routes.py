@@ -95,7 +95,7 @@ def create_message(channelId):
         made_message = Message(**new_message)
         db.session.add(made_message)
         db.session.commit()
-        return made_message
+        return made_message.to_dict()
     return form.errors, 401
 
 @message_routes.route('/<int:messageId>/edit', methods=['POST'])
