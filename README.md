@@ -25,6 +25,9 @@ https://babbl.onrender.com/
 
 ## Index
 [Feature List](https://github.com/kimchicecream/babbl/wiki/Feature-List)
+[Database Schema](https://github.com/kimchicecream/babbl/wiki/Database-Schema)
+[User Stories](https://github.com/kimchicecream/babbl/wiki/User-Stories)
+[Wireframes](https://github.com/kimchicecream/babbl/wiki/WireFraming)
 
 ## Pages
 
