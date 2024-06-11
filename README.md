@@ -123,6 +123,9 @@ When deployment is complete, open your deployed site and check to see that you
 have successfully deployed your Flask application to Render! You can find the
 URL for your site just below the name of the Web Service at the top of the page.
 
+
+[![rsz-1screenshot-2024-06-11-at-10809-pm.png](https://i.postimg.cc/gjZR62LK/rsz-1screenshot-2024-06-11-at-10809-pm.png)](https://postimg.cc/GTb9WrQB)
+
 **Note:** By default, Render will set Auto-Deploy for your project to true. This
 setting will cause Render to re-deploy your application every time you push to
 main, always keeping it up to date.
