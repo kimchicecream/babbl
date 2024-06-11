@@ -18,7 +18,7 @@ https://babbl.onrender.com/
 ![Static Badge](https://img.shields.io/badge/html5-%20-white?style=for-the-badge&logo=html5)
 
 ### Database
-![Static Badge](https://img.shields.io/badge/PostgreSQL-%20-white?style=for-the-badge&logo=PostgreSQL)
+![Static Badge](https://img.shields.io/badge/PostgreSQL-%20?style=for-the-badge&logo=PostgreSQL&color=gray)
 
 ### Hosting
 ![Static Badge](https://img.shields.io/badge/Render-%20?style=for-the-badge&logo=Render&color=gray)
