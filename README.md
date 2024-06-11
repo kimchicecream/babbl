@@ -24,7 +24,7 @@ https://babbl.onrender.com/
 ![Static Badge](https://img.shields.io/badge/Render-%20-white?style=for-the-badge&logo=Render)
 
 ## Index
-![Feature List](https://github.com/kimchicecream/babbl/wiki/Feature-List)
+[Feature List](https://github.com/kimchicecream/babbl/wiki/Feature-List)
 
 ## Pages
 
