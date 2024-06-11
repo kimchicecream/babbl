@@ -24,10 +24,10 @@ https://babbl.onrender.com/
 ![Static Badge](https://img.shields.io/badge/Render-%20?style=for-the-badge&logo=Render&color=gray)
 
 ## Index
-[Feature List](https://github.com/kimchicecream/babbl/wiki/Feature-List)|
-[Database Schema](https://github.com/kimchicecream/babbl/wiki/Database-Schema)|
-[User Stories](https://github.com/kimchicecream/babbl/wiki/User-Stories)|
-[Wireframes](https://github.com/kimchicecream/babbl/wiki/WireFraming)|
+[Feature List](https://github.com/kimchicecream/babbl/wiki/Feature-List) | 
+[Database Schema](https://github.com/kimchicecream/babbl/wiki/Database-Schema) | 
+[User Stories](https://github.com/kimchicecream/babbl/wiki/User-Stories) | 
+[Wireframes](https://github.com/kimchicecream/babbl/wiki/WireFraming)
 
 ## Pages
 
