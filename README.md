@@ -21,7 +21,7 @@ https://babbl.onrender.com/
 ![Static Badge](https://img.shields.io/badge/PostgreSQL-%20-white?style=for-the-badge&logo=PostgreSQL)
 
 ### Hosting
-![Static Badge](https://img.shields.io/badge/Render-%20-white?style=for-the-badge&logo=Render)
+![Static Badge](https://img.shields.io/badge/Render-%20-transparent?style=for-the-badge&logo=Render)
 
 ## Index
 [Feature List](https://github.com/kimchicecream/babbl/wiki/Feature-List)
