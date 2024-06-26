@@ -17,6 +17,10 @@
     z-index: 3;
 }
 
+.hero-title:hover {
+    cursor: pointer;
+}
+
 .landing-page-container .hero-container .hero-title h5 {
     position: relative;
     top: 0px;

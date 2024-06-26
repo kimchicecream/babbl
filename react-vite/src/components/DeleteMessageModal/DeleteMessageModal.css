@@ -71,6 +71,7 @@
 
 .delete-message-modal .button-container .cancel-button:hover {
     text-decoration: underline;
+    cursor: pointer;
 }
 
 .delete-message-modal .button-container .delete-button {
@@ -84,4 +85,5 @@
 
 .delete-message-modal .button-container .delete-button:hover {
     background-color: red;
+    cursor: pointer;
 }

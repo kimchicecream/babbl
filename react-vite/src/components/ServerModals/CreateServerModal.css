@@ -37,8 +37,8 @@
 .create-server-fs-modal .header .close-button:hover {
     color: white;
     font-size: 43px;
+    cursor: pointer;
 }
-
 
 .create-server-fs-modal .header .title {
     display: flex;
@@ -79,7 +79,9 @@
     /* bordeR: 2px solid red; */
 }
 
-.create-server-fs-modal .server-image, .server-name, .server-description {
+.create-server-fs-modal .server-image,
+.server-name,
+.server-description {
     font-size: 20px;
     color: rgb(212, 212, 212);
 
@@ -162,7 +164,7 @@
     overflow: hidden;
 
     background-color: rgb(31, 31, 31);
-    box-shadow: 0px 4px 20px 8px rgba(0,0,0,0.31);
+    box-shadow: 0px 4px 20px 8px rgba(0, 0, 0, 0.31);
 }
 
 .create-server-fs-modal .current-pic img {
@@ -198,6 +200,7 @@
 .create-server-fs-modal .submit-container button:hover:enabled {
     background-color: rgb(199, 169, 255);
     color: rgb(140, 79, 255);
+    cursor: pointer;
 }
 
 .create-server-fs-modal h5 {
@@ -212,4 +215,4 @@
 
 .create-server-fs-modal .hidden {
     display: none;
-  }
+}

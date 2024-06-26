@@ -22,11 +22,6 @@
     padding: 5px;
 }
 
-/* .profile-management-container .user-info:hover {
-    background-color: rgba(122, 122, 122, 0.206);
-    border-radius: 7px;
-} */
-
 .profile-management-container .user-info img {
     height: 40px;
     width: 40px;
@@ -84,20 +79,8 @@
 
 .settings-button:hover {
     background-color: rgba(122, 122, 122, 0.206);
+    cursor: pointer;
 }
-
-/* #user-mgmt-logout-button {
-    all: unset;
-    position: relative;
-    bottom: 50px;
-    left: 44px;
-    padding: 4px;
-    border-radius: 4px;
-}
-
-#user-mgmt-logout-button:hover {
-    background-color: rgba(122, 122, 122);
-} */
 
 .user-dropdown {
     position: absolute;
@@ -112,7 +95,7 @@
 
     /* filter: blur(1px) */
     /* border: 2px solid red; */
-    box-shadow: 0px 4px 20px 8px rgba(0,0,0,0.31);
+    box-shadow: 0px 4px 20px 8px rgba(0, 0, 0, 0.31);
 }
 
 .profile-management-container .user-dropdown .options {
@@ -133,6 +116,7 @@
 
 .user-dropdown .button:hover {
     background-color: rgba(128, 128, 128, 0.28);
+    cursor: pointer;
 }
 
 .user-dropdown .delete-button {
@@ -141,4 +125,5 @@
 
 .user-dropdown .delete-button:hover {
     background-color: rgba(255, 67, 67, 0.28);
+    cursor: pointer;
 }

@@ -193,7 +193,10 @@ export default function ChannelList({
                             </div>
                         ) : (
                             <div className="options">
-                                <button className="leave-server-button" onClick={featureComingSoon}>
+                                <button
+                                    className="leave-server-button"
+                                    onClick={featureComingSoon}
+                                >
                                     Leave Server
                                 </button>
                             </div>
@@ -246,23 +249,31 @@ export default function ChannelList({
                                                     }
                                                     className="edit-channel-button"
                                                 />
-                                                <div className="divider"></div>
                                                 {channel.id !==
                                                     Object.values(channels)[0]
                                                         .id && (
-                                                    <OpenModalButton
-                                                        buttonText={
-                                                            "Delete channel"
-                                                        }
-                                                        modalComponent={
-                                                            <DeleteChannelModal
-                                                                channelId={channel.id}
-                                                                channel={channel}
-                                                                socket={socket}
-                                                            />
-                                                        }
-                                                        className="delete-channel-button"
-                                                    />
+                                                    <>
+                                                        <div className="divider"></div>
+                                                        <OpenModalButton
+                                                            buttonText={
+                                                                "Delete channel"
+                                                            }
+                                                            modalComponent={
+                                                                <DeleteChannelModal
+                                                                    channelId={
+                                                                        channel.id
+                                                                    }
+                                                                    channel={
+                                                                        channel
+                                                                    }
+                                                                    socket={
+                                                                        socket
+                                                                    }
+                                                                />
+                                                            }
+                                                            className="delete-channel-button"
+                                                        />
+                                                    </>
                                                 )}
                                             </div>
                                         )}

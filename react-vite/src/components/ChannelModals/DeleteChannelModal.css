@@ -44,6 +44,7 @@
 
 .delete-channel-modal .button-container .cancel-button:hover {
     text-decoration: underline;
+    cursor: pointer;
 }
 
 .delete-channel-modal .button-container .delete-button {
@@ -57,4 +58,5 @@
 
 .delete-channel-modal .button-container .delete-button:hover {
     background-color: red;
+    cursor: pointer;
 }

@@ -42,6 +42,7 @@
 .create-channel-modal .header .close-button:hover {
     font-size: 43px;
     color: white;
+    cursor: pointer;
 }
 
 .create-channel-modal .title {
@@ -122,4 +123,5 @@
 
 .create-channel-modal .submit-container .cancel-button:hover {
     text-decoration: underline;
+    cursor: pointer;
 }

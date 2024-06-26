@@ -9,7 +9,6 @@
     padding: 15px;
 }
 
-
 .delete-server-modal .server-display {
     display: flex;
     flex-direction: column;
@@ -37,7 +36,7 @@
 
     border-radius: 50%;
 
-    box-shadow: 0px 4px 20px 8px rgba(0,0,0,0.31);
+    box-shadow: 0px 4px 20px 8px rgba(0, 0, 0, 0.31);
 }
 
 .delete-server-modal .button-container {
@@ -62,6 +61,7 @@
 
 .delete-server-modal .button-container .cancel-button:hover {
     text-decoration: underline;
+    cursor: pointer;
 }
 
 .delete-server-modal .button-container .delete-button {
@@ -75,4 +75,5 @@
 
 .delete-server-modal .button-container .delete-button:hover {
     background-color: red;
+    cursor: pointer;
 }
