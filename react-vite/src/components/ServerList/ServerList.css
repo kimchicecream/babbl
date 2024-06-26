@@ -134,6 +134,7 @@
 .server-list-container .create-button:hover {
     border-radius: 35%;
     background-color: rgb(140, 79, 255);
+    cursor: pointer;
 }
 
 .server-list-container .explore-button:hover i,

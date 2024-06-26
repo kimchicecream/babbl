@@ -41,6 +41,7 @@
 .update-server-modal .header .close-button:hover {
     font-size: 43px;
     color: white;
+    cursor: pointer;
 }
 
 .update-server-modal .header .title h1 {
@@ -183,6 +184,7 @@
 }
 
 .update-server-modal .submit-cancel-container .cancel-button:hover {
+    cursor: pointer;
     text-decoration: underline;
 }
 

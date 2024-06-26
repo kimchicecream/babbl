@@ -34,4 +34,5 @@
 .page-container .home-button:hover {
     background-color: rgb(119, 255, 119);
     color: green;
+    cursor: pointer;
 }

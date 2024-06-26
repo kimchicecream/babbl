@@ -82,4 +82,5 @@
 
 .update-channel-modal .submit-container .cancel-button:hover {
     text-decoration: underline;
+    cursor: pointer;
 }

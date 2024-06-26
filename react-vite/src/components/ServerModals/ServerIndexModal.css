@@ -84,6 +84,7 @@
 .load-all-servers-container .header .close-button:hover {
     border-radius: 50%;
     color: white;
+    cursor: pointer;
 }
 
 .load-all-servers-container .header .close-button:hover i {
@@ -198,4 +199,5 @@
 .load-all-servers-container .all-servers-container .join-server-button:hover {
     background-color: rgb(194, 161, 255);
     color: rgb(140, 79, 255);
+    cursor: pointer;
 }
