@@ -25,6 +25,13 @@
     background-color: rgb(140, 79, 255);
     border-radius: 35%;
     transition: border-radius 0.2s ease;
+    transition: background-color 0.15s ease;
+}
+
+.server-list-container .logo-button:hover {
+    cursor: pointer;
+    border-radius: 45%;
+    background-color: rgb(129, 73, 234);
 }
 
 .server-list-container .logo-button img {
@@ -65,6 +72,9 @@
 .server-item:hover img,
 .server-item.selected img {
     border-radius: 35%;
+}
+
+.server-item:hover {
     cursor: pointer;
 }
 

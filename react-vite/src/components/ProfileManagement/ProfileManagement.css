@@ -79,6 +79,7 @@
 
 .settings-button i:hover {
     animation: rotate 1s ease;
+    cursor: pointer;
 }
 
 .settings-button:hover {

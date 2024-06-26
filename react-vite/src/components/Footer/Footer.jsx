@@ -13,7 +13,7 @@ function Footer() {
                 </div>
                 <div className="cards-container">
                     <div className="card">
-                        <div class="card-info">
+                        <div className="card-info">
                             <div className="card-avatar">
                                 <img src='../../../Tina.png'/>
                             </div>
@@ -83,7 +83,7 @@ function Footer() {
                 </div>
             </div>
             <div className="actual-footer">
-                <i class="fa-brands fa-github"></i><button onClick={redirect}>See it on Github</button>
+                <i className="fa-brands fa-github"></i><button onClick={redirect}>See it on Github</button>
             </div>
         </>
     )
