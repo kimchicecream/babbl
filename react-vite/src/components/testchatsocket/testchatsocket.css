@@ -1,100 +1,100 @@
 .chat-socket-container {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
 .socket-messages-scroll {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  overflow-y: auto;
-  scroll-behavior: auto;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow-y: auto;
+    scroll-behavior: auto;
 }
 
 .messages-wrapper {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-  justify-content: flex-end;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: flex-end;
 }
 
 /* MESSAGE INPUT FIELD */
 .chat-socket-container .input-field {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0 20px 20px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 20px 20px 20px;
 }
 
 .chat-socket-container .input-field input {
-  all: unset;
+    all: unset;
 
-  width: 100%;
-  height: 40px;
-  padding: 0 50px;
+    width: 100%;
+    height: 40px;
+    padding: 0 50px;
 
-  font-size: 17px;
+    font-size: 17px;
 
-  background-color: rgb(40, 40, 40);
-  border-radius: 7px;
+    background-color: rgb(40, 40, 40);
+    border-radius: 7px;
 }
 
 .chat-socket-container .input-field .fa-solid.fa-plus {
-  position: relative;
-  left: 40px;
-  padding: 5px 6px;
+    position: relative;
+    left: 40px;
+    padding: 5px 6px;
 
-  color: rgb(91, 91, 91);
+    color: rgb(91, 91, 91);
 
-  font-size: 20px;
+    font-size: 20px;
 
-  /* transition: border-radius 0.2s ease, background-color 0.2s ease; */
+    /* transition: border-radius 0.2s ease, background-color 0.2s ease; */
 }
 
 .chat-socket-container .input-field .fa-solid.fa-plus:hover {
-  border-radius: 50%;
-  color: rgb(138, 138, 138);
-  background-color: rgb(46, 46, 46);
+    border-radius: 50%;
+    color: rgb(138, 138, 138);
+    background-color: rgb(46, 46, 46);
 }
 
 .chat-socket-container input::placeholder {
-  color: rgb(75, 75, 75);
-  font-size: 18px;
+    color: rgb(75, 75, 75);
+    font-size: 18px;
 }
 
 .chat-socket-container .input-field .fa-solid.fa-face-kiss-beam {
-  position: relative;
-  right: 35px;
+    position: relative;
+    right: 35px;
 
-  color: rgb(91, 91, 91);
-  border-radius: 50%;
+    color: rgb(91, 91, 91);
+    border-radius: 50%;
 
-  font-size: 25px;
+    font-size: 25px;
 }
 
 .chat-socket-container .input-field .fa-solid.fa-face-kiss-beam:hover {
-  color: rgb(138, 138, 138);
+    color: rgb(138, 138, 138);
 }
 
 /* INDIVIDUAL MESSAGES */
 .message-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
-  margin-bottom: 20px;
-  padding: 5px 10px;
-  margin-left: 10px;
+    margin-bottom: 20px;
+    padding: 5px 10px;
+    margin-left: 10px;
 
-  /* border: 2px solid blue; */
+    /* border: 2px solid blue; */
 }
 
 .profile-pic-container {
-  /* border: 2px solid red; */
-  height: 40px;
-  width: 40px;
-  border-radius: 50%;
+    /* border: 2px solid red; */
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
 }
 
 .profile-pic-container img {
@@ -104,169 +104,174 @@
 }
 
 .message-text {
-  position: relative;
+    position: relative;
 
-  word-wrap: break-word;
-  word-break: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
 
-
-  /* border: 2px solid rgb(255, 242, 0); */
+    /* border: 2px solid rgb(255, 242, 0); */
 }
 
 .username-message-container {
-  padding-left: 10px;
-  flex-grow: 1;
+    padding-left: 10px;
+    flex-grow: 1;
 }
 
 .chat-socket-container .username {
-  font-weight: bold;
+    font-weight: bold;
 }
 
 .message-management-container {
-  visibility: hidden; /* set back to 'hidden' */
+    visibility: hidden; /* set back to 'hidden' */
 
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
 
-  justify-self: flex-end;
+    justify-self: flex-end;
 
-  position: relative;
-  bottom: 30px;
+    position: relative;
+    bottom: 30px;
 
-  height: 30px;
-  /* width: 90px; */
+    height: 30px;
+    /* width: 90px; */
 
-  background-color: rgb(54, 54, 54);
-  border-radius: 5px;
+    background-color: rgb(54, 54, 54);
+    border-radius: 5px;
 
-  /* border: 1px solid red; */
+    /* border: 1px solid red; */
 }
 
 .message-management-container.owner {
-  width: 90px; /* Width for non-owner */
+    width: 90px; /* Width for non-owner */
 }
 
 .message-management-container.not-owner {
-  width: 35px; /* Width for non-owner */
+    width: 35px; /* Width for non-owner */
+}
+
+.message-management-container:hover {
+    cursor: pointer;
 }
 
 .message-management-container .delete-message-button {
-  all: unset;
+    all: unset;
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-  height: 100%;
-  width: 100%;
+    height: 100%;
+    width: 100%;
 }
 
 .message-management-container .fa-solid.fa-face-kiss-beam,
 .message-management-container .fa-solid.fa-pen,
-.message-management-container .fa-solid.fa-trash-can  {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.message-management-container .fa-solid.fa-trash-can {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-  color: gray;
+    color: gray;
 
-  overflow: hidden;
+    overflow: hidden;
 
-  height: 100%;
-  width: 100%;
+    height: 100%;
+    width: 100%;
 }
 
 .message-management-container .fa-solid.fa-face-kiss-beam {
-  border-top-left-radius: 5px;
-  border-bottom-left-radius: 5px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
 }
 
 .message-management-container .fa-solid.fa-trash-can {
-  border-top-right-radius: 5px;
-  border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
 }
 
 .message-management-container .fa-solid.fa-face-kiss-beam:hover,
-.message-management-container .fa-solid.fa-pen:hover  {
-  background-color: rgba(128, 128, 128, 0.228);
+.message-management-container .fa-solid.fa-pen:hover {
+    background-color: rgba(128, 128, 128, 0.228);
 }
 
 .message-management-container .fa-solid.fa-trash-can:hover {
-  background-color: rgba(128, 128, 128, 0.228);
-  color: rgb(255, 74, 74);
+    background-color: rgba(128, 128, 128, 0.228);
+    color: rgb(255, 74, 74);
 }
 
 .message-container:hover {
-  background-color: rgba(148, 148, 148, 0.245);
+    background-color: rgba(148, 148, 148, 0.245);
 }
 
 .message-container:hover .message-management-container {
-  visibility: visible;
+    visibility: visible;
 
-  box-shadow: 0px 3px 14px 8px rgba(0,0,0,0.25);
+    box-shadow: 0px 3px 14px 8px rgba(0, 0, 0, 0.25);
 }
 
 /* isEditing Message */
 .message-container .message-text input {
-  all: unset;
+    all: unset;
 
-  padding: 5px 10px;
-  background-color: rgb(39, 39, 39);
-  border-radius: 5px;
-  margin-bottom: 2px;
+    padding: 5px 10px;
+    background-color: rgb(39, 39, 39);
+    border-radius: 5px;
+    margin-bottom: 2px;
 
-  width: 100%;
+    width: 100%;
 }
 
 .message-container .message-text .instructions {
-  padding-left: 3px;
-  font-size: 12px;
+    padding-left: 3px;
+    font-size: 12px;
 }
 
 .message-container .message-text .instructions span {
-  color: rgb(185, 148, 255);
+    color: rgb(185, 148, 255);
 }
 
 .message-container .reactions {
-  display: flex;
-  flex-direction: row;
+    display: flex;
+    flex-direction: row;
 
-  gap: 2px;
+    gap: 2px;
 }
 
 .message-container .reactions .reaction-button {
-  all: unset;
+    all: unset;
 
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  gap: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
 
-  margin-top: 3px;
-  width: 35px;
-  padding: 1px 3px;
+    margin-top: 3px;
+    width: 35px;
+    padding: 1px 3px;
 
-  border-radius: 10px;
+    border-radius: 10px;
+    border: 1px solid transparent;
 
-  background-color: rgba(42, 42, 42, 0.359);
+    background-color: rgba(42, 42, 42, 0.359);
 }
 
 .message-container .reactions .reaction-button:hover {
-  border: 1px solid rgb(188, 188, 188);
+    border: 1px solid rgb(188, 188, 188);
+    cursor: pointer;
 }
 
 .message-container .reactions button.reacted {
-  border: 1px solid rgb(150, 121, 255);
-  background-color: rgba(120, 83, 255, 0.255);;
+    border: 1px solid rgb(150, 121, 255);
+    background-color: rgba(120, 83, 255, 0.255);
 }
 
 .message-container .reactions button.reacted:hover {
-  border: 1px solid rgb(187, 168, 255);
-  background-color: rgba(180, 160, 255, 0.255);;
+    border: 1px solid rgb(187, 168, 255);
+    background-color: rgba(180, 160, 255, 0.255);
 }
 
 .message-container .reactions span {
-  font-weight: bold;
+    font-weight: bold;
 }

@@ -7,7 +7,7 @@ import {
     editMessageFromSocketThunk,
     deleteMessageFromSocketThunk,
     deleteReactionFromSocketThunk,
-    createReactionFromSocket
+    createReactionFromSocket,
 } from "../../redux/messages";
 import "./testchatsocket.css";
 import { ReactionsList } from "./reactionsList";
@@ -72,9 +72,9 @@ const Chat = ({ initMessages, channelId }) => {
 
         // handles creating reactions
         socket.on("create_reaction", (reaction) => {
-            console.log("RECEIVED CREATE_REACTION EMIT FROM THE SERVER")
+            console.log("RECEIVED CREATE_REACTION EMIT FROM THE SERVER");
             dispatch(createReactionFromSocket(reaction));
-        })
+        });
 
         return () => {
             console.log(
@@ -139,6 +139,7 @@ const Chat = ({ initMessages, channelId }) => {
                     <div className="messages-wrapper">
                         {messages.map((message, ind) => (
                             <Message
+                                key={message.id}
                                 message={message}
                                 index={ind}
                                 socket={socket}
@@ -149,7 +150,10 @@ const Chat = ({ initMessages, channelId }) => {
                 </div>
 
                 <form className="input-field" onSubmit={sendChat}>
-                    <i className="fa-solid fa-plus" onClick={featureComingSoon}></i>
+                    <i
+                        className="fa-solid fa-plus"
+                        onClick={featureComingSoon}
+                    ></i>
                     <input
                         value={chatInput}
                         onChange={updateChatInput}
@@ -158,7 +162,10 @@ const Chat = ({ initMessages, channelId }) => {
                         }`}
                     />
                     {showReactionsMenu && (
-                        <ReactionsList onClose={handleCloseReactionsMenu} socket={socket} />
+                        <ReactionsList
+                            onClose={handleCloseReactionsMenu}
+                            socket={socket}
+                        />
                     )}
                 </form>
             </div>
