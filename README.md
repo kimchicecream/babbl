@@ -1,6 +1,9 @@
 # Babbl
 
-some introduction
+Welcome to Babbl, a full stack web application utilizing a PostgresQL database that is queried and managed by a Python/Flask backend server, which interacts with a sleek and intuitive React/Redux front end. 
+
+Babbl is a virtual chat and socializing space, developed by Tina Gao, Chris Peters, Alex Go and Bobby Stomski.  Thank you for visiting!
+
 
 ## Live Link
 https://babbl.onrender.com/
