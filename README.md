@@ -19,7 +19,7 @@ https://babbl.onrender.com/
 ![Static Badge](https://img.shields.io/badge/redux-%20?style=for-the-badge&logo=redux&color=gray)
 ![Socket.io](https://img.shields.io/badge/Socket.io-black?style=for-the-badge&logo=socket.io&badgeColor=010101) 
 ![Static Badge](https://img.shields.io/badge/css3-%20?style=for-the-badge&logo=css3&color=gray)
-![Static Badge](https://img.shields.io/badge/html5-%20?style=for-the-badge&logo=html5&color=gray)
+![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
 
 ### Database
 ![Static Badge](https://img.shields.io/badge/PostgreSQL-%20?style=for-the-badge&logo=PostgreSQL&logoColor=white&color=336791)
