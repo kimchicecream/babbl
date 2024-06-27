@@ -17,6 +17,7 @@ https://babbl.onrender.com/
 ![Static Badge](https://img.shields.io/badge/Flask-%20?style=for-the-badge&logo=Flask&color=gray)
 ![Static Badge](https://img.shields.io/badge/react-%20?style=for-the-badge&logo=react&color=gray)
 ![Static Badge](https://img.shields.io/badge/redux-%20?style=for-the-badge&logo=redux&color=gray)
+![Socket.io](https://img.shields.io/badge/Socket.io-black?style=for-the-badge&logo=socket.io&badgeColor=010101) 
 ![Static Badge](https://img.shields.io/badge/css3-%20?style=for-the-badge&logo=css3&color=gray)
 ![Static Badge](https://img.shields.io/badge/html5-%20?style=for-the-badge&logo=html5&color=gray)
 
