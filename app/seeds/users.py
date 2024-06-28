@@ -11,7 +11,7 @@ def seed_users():
     bobbie = User(
         username='Bobby', email='bobby@aa.io', password='password', firstName='Bobby', lastName='S', imageUrl='https://i.postimg.cc/j5Z5wp4c/Bobby.jpg')
     chris = User(
-        username='Chris', email='chris@aa.io', password='password', firstName='Chris', lastName='P', imageUrl='https://scontent-lax3-1.xx.fbcdn.net/v/t1.18169-9/29133197_1569947729793609_6420848725298898388_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=5f2048&_nc_ohc=8I6j9FKTzOgQ7kNvgEyThH-&_nc_ht=scontent-lax3-1.xx&oh=00_AYBwDhjAXxESJOtcB70ONkMtc47nm4fUYnbbK4Pz5dCkSg&oe=66765878')
+        username='Chris', email='chris@aa.io', password='password', firstName='Chris', lastName='P', imageUrl='https://i.postimg.cc/NMLKkMm7/pfp.jpg')
     alex = User(
         username='Alex', email='alex@aa.io', password='password', firstName='Alex', lastName='G', imageUrl='https://i.postimg.cc/PJJqmS6j/Alex.png')
 

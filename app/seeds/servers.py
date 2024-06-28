@@ -7,7 +7,7 @@ def seed_servers():
             name='MineCraft 4EVERRRRR',
             creatorId=1,
             description='Lovers of Minecraft rejoice!!!',
-            imageUrl='https://static.wikia.nocookie.net/minecraft/images/f/fe/GrassNew.png/revision/latest/scale-to-width/360?cb=20190903234415'
+            imageUrl='https://flightbook1may2024.s3.us-east-2.amazonaws.com/minecraft.png'
         ),
         Server(
             name='League of Legends Forever',
