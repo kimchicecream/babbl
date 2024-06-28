@@ -221,3 +221,59 @@
     background-color: rgba(225, 135, 255, 0.217);
     backdrop-filter: blur(10px);
 }
+
+/* Media Queries */
+
+@media (max-width: 1024px) {
+    .navigation-container {
+        padding: 0 50px;
+    }
+    .profile-dropdown {
+        right: 50px;
+    }
+}
+
+
+@media (max-width: 768px) {
+    .navigation-container {
+        padding: 0 30px;
+    }
+    .profile-dropdown {
+        right: 30px;
+        width: 200px;
+    }
+    .profile-dropdown a p, .profile-dropdown button p {
+        font-size: 18px;
+    }
+}
+
+
+@media (max-width: 480px) {
+    .navigation-container {
+        flex-direction: column;
+        height: auto;
+        padding: 10px 15px;
+    }
+    .logo-container img {
+        height: 60px;
+    }
+    .signup-login-container {
+        flex-direction: column;
+        gap: 5px;
+    }
+    .signup-login-container .login-button, .signup-button, #demo-login-button {
+        padding: 8px 15px;
+    }
+    .profile-dropdown {
+        top: 120px;
+        right: 15px;
+        width: 100%;
+    }
+    .profile-dropdown a p, .profile-dropdown button p {
+        font-size: 16px;
+        padding: 10px 15px;
+    }
+    .username-and-email h4 {
+        font-size: 20px;
+    }
+}
