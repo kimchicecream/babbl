@@ -27,12 +27,9 @@ https://babbl.onrender.com/
 ### Hosting
 ![Render](https://img.shields.io/badge/Render-%46E3B7.svg?style=for-the-badge&logo=render&logoColor=white)
 
-## Index
+## Wiki Index
 [Feature List](https://github.com/kimchicecream/babbl/wiki/Feature-List) | 
 [Database Schema](https://github.com/kimchicecream/babbl/wiki/Database-Schema) | 
 [User Stories](https://github.com/kimchicecream/babbl/wiki/User-Stories) | 
-[Wireframes](https://github.com/kimchicecream/babbl/wiki/WireFraming)
-
-## Pages
-
-## Endpoints
+[Webpage Wireframes](https://github.com/kimchicecream/babbl/wiki/WireFraming) | 
+[API Endpoints](https://github.com/kimchicecream/babbl/wiki/API-Documentation)
