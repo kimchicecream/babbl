@@ -58,7 +58,7 @@ export const createReactionThunk = (reactionObj) => async (dispatch) => {
   );
   if (response.ok) {
     const data = await response.json();
-    console.log(data);
+
     dispatch(createReaction(data));
     return data;
   } else {
@@ -74,21 +74,12 @@ export const createReactionFromSocket = (reaction) => async (dispatch) => {
 
 export const editMessageThunk =
   (messageObj, username, reactions, imageUrl) => async (dispatch) => {
-    console.log(
-      "THIS IS THE GE THUNK BEING VALLED !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",
-      messageObj,
-      JSON.stringify(messageObj)
-    );
-    console.log("USERNAME ETClL:", username);
     const response = await fetch(`api/messages/${messageObj.id}/edit`, {
       method: "POST",
       body: JSON.stringify(messageObj),
       headers: { "Content-Type": "application/json" },
     });
     if (response.ok) {
-      console.log(
-        "THIS IS THE RESPONSE OK FROM THE THUNK< ABOUT TO DISPATCH MY ACTION"
-      );
       const data = await response.json();
       data.user = { username, imageUrl };
       data.reactions = reactions;

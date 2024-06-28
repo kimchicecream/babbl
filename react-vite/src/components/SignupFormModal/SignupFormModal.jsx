@@ -28,9 +28,8 @@ function SignupFormModal() {
       firstName,
       lastName,
       password,
-      imageUrl
+      imageUrl,
     };
-    console.log(newuser);
 
     if (password !== confirmPassword) {
       return setErrors({
@@ -50,14 +49,19 @@ function SignupFormModal() {
   };
 
   const handleImageError = () => {
-      setImageError(true);
+    setImageError(true);
   };
 
   const handleImageLoad = () => {
-      setImageError(false);
+    setImageError(false);
   };
 
-  const isSubmitDisabled = email.length === 0 || username.length === 0 || firstName.length === 0 || lastName.length === 0 || password.length === 0;
+  const isSubmitDisabled =
+    email.length === 0 ||
+    username.length === 0 ||
+    firstName.length === 0 ||
+    lastName.length === 0 ||
+    password.length === 0;
 
   return (
     <div
@@ -66,26 +70,26 @@ function SignupFormModal() {
       <h1 style={{ padding: "10px 0 20px 0" }}>Join babbl</h1>
       {errors.server && <p>{errors.server}</p>}
       <form className="form" onSubmit={handleSubmit}>
-          <label className="user-image">
-            <div className="current-pic">
-                <img
-                    src={imageUrl}
-                    onError={handleImageError}
-                    onLoad={handleImageLoad}
-                    className={imageError ? 'hidden' : ''}
-                />
-            </div>
-            <div className="image-url-input">
-              <h5>IMAGE URL</h5>
-                <input
-                  type="text"
-                  value={imageUrl}
-                  onChange={(e) => setImageUrl(e.target.value)}
-                  required
-                  placeholder="Feature coming soon!"
-                />
-            </div>
-            </label>
+        <label className="user-image">
+          <div className="current-pic">
+            <img
+              src={imageUrl}
+              onError={handleImageError}
+              onLoad={handleImageLoad}
+              className={imageError ? "hidden" : ""}
+            />
+          </div>
+          <div className="image-url-input">
+            <h5>IMAGE URL</h5>
+            <input
+              type="text"
+              value={imageUrl}
+              onChange={(e) => setImageUrl(e.target.value)}
+              required
+              placeholder="Feature coming soon!"
+            />
+          </div>
+        </label>
         <label className="email">
           <h5>EMAIL ADDRESS {errors.email && <p>{errors.email}</p>}</h5>
           <input
@@ -132,7 +136,10 @@ function SignupFormModal() {
           />
         </label>
         <label className="confirm-password">
-          <h5>CONFIRM PASSWORD {errors.confirmPassword && <p>{errors.confirmPassword}</p>}</h5>
+          <h5>
+            CONFIRM PASSWORD{" "}
+            {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
+          </h5>
           <input
             type="password"
             value={confirmPassword}
@@ -141,7 +148,13 @@ function SignupFormModal() {
           />
         </label>
         <div className="submit-container">
-          <button className="submit-button" type="submit" disabled={isSubmitDisabled}>Join</button>
+          <button
+            className="submit-button"
+            type="submit"
+            disabled={isSubmitDisabled}
+          >
+            Join
+          </button>
         </div>
       </form>
     </div>

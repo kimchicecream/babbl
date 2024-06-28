@@ -58,11 +58,7 @@ export const deleteServerThunk = (serverId) => async (dispatch) => {
   const response = await fetch(`api/servers/${serverId}/delete`);
   if (response.ok) {
     const data = await response.json();
-    console.log(data, "data IN DELETE SDRVER THUNK");
-    console.log(
-      serverId,
-      "serverID in DELETRE SERVERU THINK $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"
-    );
+
     dispatch(deleteServer(serverId));
     return data;
   } else {
@@ -72,8 +68,8 @@ export const deleteServerThunk = (serverId) => async (dispatch) => {
 };
 
 export const deleteServerFromSocket = (serverId) => async (dispatch) => {
-    dispatch(deleteServer(serverId));
-}
+  dispatch(deleteServer(serverId));
+};
 
 export const createServerThunk = (serverObj) => async (dispatch) => {
   const response = await fetch("api/servers/create", {
@@ -98,7 +94,6 @@ export const loadAllServersThunk = () => async (dispatch) => {
   if (response.ok) {
     const data = await response.json();
 
-    console.log("DATA:", data);
     dispatch(loadAllServers(data));
 
     return data;
@@ -109,7 +104,6 @@ export const loadAllServersThunk = () => async (dispatch) => {
 };
 
 export const loadServersByUserThunk = (userId) => async (dispatch) => {
-    console.log("loading servers by user with id ", userId)
   const response = await fetch(`api/servers/${userId}`);
 
   if (response.ok) {
@@ -139,11 +133,7 @@ const serversReducer = (state = initialState, action) => {
     }
     case CREATE_SERVER: {
       newState = { ...state };
-    //   console.log("%C newState LOG>", "COLOR:BLUE; FONT-SIZE: 26PX", newState);
-    //   console.log(
-    //     action.payload,
-    //     "ACTION PAYLOAD IN THE SERVERS REDUCER CREATE SERVER ########################################################################"
-    //   );
+
       newState.allServers = {
         ...newState.allServers,
         [action.payload.id]: { ...action.payload },
@@ -158,8 +148,8 @@ const serversReducer = (state = initialState, action) => {
       newState = { ...state };
       delete newState.allServers[action.payload];
       delete newState.myServers[action.payload];
-    //   const ultranewstate = { ...newState };
-    console.log("new state is: ", newState);
+      //   const ultranewstate = { ...newState };
+
       return newState;
     }
     case EDIT_SERVER: {
