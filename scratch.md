@@ -1,3 +1,3 @@
-## sat night notes
+## MONDAY DEPLOY TEST
 
-when i click away from the
+so im just doing this to deploy, im smart :)
