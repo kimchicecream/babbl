@@ -4,13 +4,9 @@ Welcome to Babbl, a virtual chat and socializing space, developed by Tina Gao, C
 
 Babbl is a full stack web application utilizing a PostgreSQL database that is queried and managed by a Python/Flask backend server, which interacts with a sleek and intuitive React/Redux front end.
 
----
-![babblWelcomePage](https://github.com/kimchicecream/babbl/assets/52815066/2f54cdd7-6254-42c6-a727-1fac74459925)
----
-![babbl-chat-example](https://github.com/kimchicecream/babbl/assets/52815066/e9165091-36d8-4878-9da4-c1b7e8860b6d)
----
-![babbl-channl-crate](https://github.com/kimchicecream/babbl/assets/52815066/1ecc8cde-339e-45d6-b5d1-3256bc03ac2d)
-
+![babbl-welcome](https://github.com/kimchicecream/babbl/assets/52815066/ad655f89-b27b-453b-a9d3-e033a2b02c72)
+![babbl-channl-create](https://github.com/kimchicecream/babbl/assets/52815066/0d1506d3-710f-4df7-af70-885dd2b7503c)
+![babbl-chat](https://github.com/kimchicecream/babbl/assets/52815066/2271bae4-76a1-49d6-b919-958bce811261)
 
 
 ## Live Link
